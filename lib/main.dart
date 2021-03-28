@@ -36,17 +36,20 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('ホーム'),
         actions: <Widget>[
-          TextButton(
-            onPressed: () => print('hello'),
-            child: Container(
-              width: 36,
-              height: 36,
-              child: const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+          GestureDetector(
+            onTap: () => print('hello'),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 24),
+              child: Container(
+                width: 36,
+                height: 36,
+                child: const CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                ),
               ),
             ),
-          )
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -61,8 +64,8 @@ class HomePage extends StatelessWidget {
       body: Container(
         child: Column(
           children: <Widget>[
-            TextButton(
-              onPressed: () => <Future<SearchPage>>{
+            GestureDetector(
+              onTap: () => <Future<SearchPage>>{
                 Navigator.of(context).push<SearchPage>(
                   PageRouteBuilder<SearchPage>(
                     pageBuilder: (_, __, ___) => SearchPage(),
@@ -88,28 +91,27 @@ class HomePage extends StatelessWidget {
                 ),
               },
               child: Container(
-                child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 13, horizontal: 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 10.5),
-                            child: Icon(
-                              Icons.search,
-                              color: Color(0xFF3B82F6),
-                            )),
-                        Text(
-                          'メモを検索する',
-                          style: TextStyle(color: Color(0xFFC2C6D2)),
-                        ),
-                      ],
-                    )),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(right: 10.5),
+                        child: Icon(
+                          Icons.search,
+                          color: Color(0xFF3B82F6),
+                        )),
+                    Text(
+                      'メモを検索する',
+                      style: TextStyle(color: Color(0xFFC2C6D2)),
+                    ),
+                  ],
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(999),
                   color: const Color(0xFFF1F5F9),
                 ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 13, horizontal: 0),
               ),
             ),
             const SizedBox(
