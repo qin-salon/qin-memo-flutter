@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
             elevation: 0,
             backgroundColor: Colors.white,
+            iconTheme: const IconThemeData(color: Colors.black),
             textTheme: appBarTextTheme.copyWith(
                 headline6: appBarTextTheme.headline6
                     .copyWith(fontSize: 18, fontWeight: FontWeight.bold))),
@@ -64,8 +65,7 @@ class HomePage extends StatelessWidget {
               onPressed: () => <Future<SearchPage>>{
                 Navigator.of(context).push<SearchPage>(
                   PageRouteBuilder<SearchPage>(
-                    pageBuilder: (_, __, ___) =>
-                        SearchPage(),
+                    pageBuilder: (_, __, ___) => SearchPage(),
                     transitionsBuilder: (
                       BuildContext context,
                       Animation<double> animation,
@@ -194,17 +194,75 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('検索'),
+        automaticallyImplyLeading: false,
+        titleSpacing: 0,
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: const Icon(Icons.arrow_back_ios, color: Colors.black),
+              ),
+              const Flexible(
+                child: TextField(
+                  autofocus: true,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.fromLTRB(44, 13, 0, 13),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Color(0xFFC2C6D2),
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(999)),
+                          borderSide: BorderSide.none),
+                      hintText: '検索',
+                      hintStyle: TextStyle(color: Color(0xFFC2C6D2)),
+                      filled: true,
+                      fillColor: Color(0xFFF1F5F9)),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => print('hello'),
+                child: const Icon(Icons.close, color: Colors.black),
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+        ),
       ),
       body: Container(
-        child: Column(
-          children: const <Widget>[
-            Text('検索履歴1'),
-            Text('検索履歴2'),
-            Text('検索履歴3'),
-          ],
+        child: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      'Next.js',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    GestureDetector(
+                      onTap: () => print('hello'),
+                      child: const Icon(
+                        Icons.close,
+                        color: Color(0xFFC2C6D2),
+                      ),
+                    ),
+                  ],
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 0),
+              ),
+            );
+          },
         ),
-        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+        padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
       ),
     );
   }
