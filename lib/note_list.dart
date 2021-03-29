@@ -12,14 +12,11 @@ class NoteList extends StatelessWidget {
       itemCount: 10,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
-          onTap: () => {
+          onTap: () => <void>{
             Navigator.of(context).push<NotePage>(
-              MaterialPageRoute<NotePage>(
-                builder: (BuildContext context) {
-                  return NotePage();
-                },
-              ),
-            ),
+                MaterialPageRoute<NotePage>(builder: (BuildContext context) {
+              return NotePage();
+            }))
           },
           child: Container(
             child: Container(

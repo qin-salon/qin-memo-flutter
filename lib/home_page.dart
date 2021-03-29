@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qin_memo/new_note_page.dart';
 import 'package:qin_memo/note_list.dart';
 import 'package:qin_memo/profile_dialog.dart';
 import 'package:qin_memo/search_page.dart';
@@ -48,7 +49,12 @@ class HomePage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => print('hello'),
+        onPressed: () => <void>{
+          Navigator.of(context).push<NewNotePage>(
+              MaterialPageRoute<NewNotePage>(builder: (BuildContext context) {
+            return NewNotePage();
+          }))
+        },
         label: const Text(
           'メモを書く',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
