@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qin_memo/custom_alert_dialog.dart';
+import 'package:qin_memo/setting_page.dart';
 
 class ProfileDialog extends StatelessWidget {
   @override
@@ -53,7 +54,13 @@ class ProfileDialog extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
             ),
             DialogOption(
-              onTap: () => print('hello'),
+              onTap: () {
+                Navigator.of(context).push<SettingPage>(
+                    MaterialPageRoute<SettingPage>(
+                        builder: (BuildContext context) {
+                  return SettingPage();
+                }));
+              },
               icon: const Icon(Icons.settings_outlined),
               text: const Text(
                 '設定',
