@@ -1,7 +1,7 @@
 name: qin_memo
 description: A new Flutter project.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.1
+  hooks_riverpod:
+  flutter_hooks:
 
 dev_dependencies:
   flutter_test:
