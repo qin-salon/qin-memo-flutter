@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:qin_memo/custom_alert_dialog.dart';
 
 class ProfileDialog extends StatelessWidget {
   @override
@@ -50,9 +52,10 @@ class ProfileDialog extends StatelessWidget {
               ),
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
             ),
-            const DialogOption(
-              icon: Icon(Icons.settings_outlined),
-              text: Text(
+            DialogOption(
+              onTap: () => print('hello'),
+              icon: const Icon(Icons.settings_outlined),
+              text: const Text(
                 '設定',
                 style: TextStyle(
                   color: Color(0xFF070417),
@@ -61,9 +64,10 @@ class ProfileDialog extends StatelessWidget {
                 ),
               ),
             ),
-            const DialogOption(
-              icon: Icon(Icons.help_outline_outlined),
-              text: Text(
+            DialogOption(
+              onTap: () => print('help'),
+              icon: const Icon(Icons.help_outline_outlined),
+              text: const Text(
                 'ヘルプ',
                 style: TextStyle(
                   color: Color(0xFF070417),
@@ -72,12 +76,26 @@ class ProfileDialog extends StatelessWidget {
                 ),
               ),
             ),
-            const DialogOption(
-              icon: Icon(
+            DialogOption(
+              onTap: () async => <void>{
+                Navigator.of(context).pop(),
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CustomAlertDialog(
+                      title: 'ログアウト',
+                      subText: 'ログアウトしますか？',
+                      actionText: 'ログアウト',
+                      action: () => print('logout'),
+                    );
+                  },
+                )
+              },
+              icon: const Icon(
                 Icons.logout,
                 color: Color(0xFFEF4444),
               ),
-              text: Text(
+              text: const Text(
                 'ログアウト',
                 style: TextStyle(
                   color: Color(0xFFEF4444),
@@ -101,23 +119,28 @@ class ProfileDialog extends StatelessWidget {
 }
 
 class DialogOption extends StatelessWidget {
-  const DialogOption({Key key, @required this.icon, @required this.text})
+  const DialogOption(
+      {Key key, @required this.icon, @required this.text, @required this.onTap})
       : super(key: key);
 
   final Icon icon;
   final Text text;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 44,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          icon,
-          const SizedBox(width: 16),
-          text,
-        ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 44,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            icon,
+            const SizedBox(width: 16),
+            text,
+          ],
+        ),
       ),
     );
   }
