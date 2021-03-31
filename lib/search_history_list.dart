@@ -31,7 +31,6 @@ class SearchHistoryList extends StatelessWidget {
           );
         },
       ),
-      padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
     );
   }
 }
