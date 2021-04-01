@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qin_memo/qin_account_profile_page.dart';
 import 'package:qin_memo/setting_option.dart';
 
-class ProfilePage extends StatelessWidget {
+class QinAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,16 +48,26 @@ class ProfilePage extends StatelessWidget {
           Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text(
+              children: <Widget>[
+                const Text(
                   '全般',
                   style: TextStyle(fontSize: 14, color: Color(0xFFC2C6D2)),
                 ),
-                SizedBox(height: 8),
-                SettingOption(text: 'プロフィール'),
-                SettingOption(text: 'アカウントの連携'),
-                SettingOption(text: 'データの削除'),
-                SettingOption(text: 'サポート'),
+                const SizedBox(height: 8),
+                SettingOption(
+                  text: 'プロフィール',
+                  action: () {
+                    Navigator.of(context).push<QinAccountProfilePage>(
+                      MaterialPageRoute<QinAccountProfilePage>(
+                          builder: (BuildContext context) {
+                        return QinAccountProfilePage();
+                      }),
+                    );
+                  },
+                ),
+                const SettingOption(text: 'アカウントの連携'),
+                const SettingOption(text: 'データの削除'),
+                const SettingOption(text: 'サポート'),
               ],
             ),
             padding: const EdgeInsets.all(24),
