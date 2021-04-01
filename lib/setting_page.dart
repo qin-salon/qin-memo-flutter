@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qin_memo/theme_page.dart';
 
 class SettingPage extends StatelessWidget {
   @override
@@ -24,7 +25,46 @@ class SettingPage extends StatelessWidget {
               style: TextStyle(fontSize: 14, color: Color(0xFFC2C6D2)),
             ),
             const SettingOption(text: '通知'),
-            const SettingOption(text: 'テーマ'),
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                Navigator.of(context).push<ThemePage>(
+                  MaterialPageRoute<ThemePage>(builder: (BuildContext context) {
+                    return ThemePage();
+                  }),
+                );
+              },
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const Text(
+                      'テーマ',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      children: const <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(right: 24),
+                          child: Text(
+                            'OSの設定に合わせる',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color(0xFFC2C6D2),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 0),
+              ),
+            ),
             const SizedBox(height: 48),
             const Text(
               'サポート',

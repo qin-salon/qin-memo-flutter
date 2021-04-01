@@ -55,11 +55,12 @@ class ProfileDialog extends StatelessWidget {
             ),
             DialogOption(
               onTap: () {
-                Navigator.of(context).push<SettingPage>(
-                    MaterialPageRoute<SettingPage>(
-                        builder: (BuildContext context) {
-                  return SettingPage();
-                }));
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute<SettingPage>(
+                      builder: (BuildContext context) {
+                    return SettingPage();
+                  }),
+                );
               },
               icon: const Icon(Icons.settings_outlined),
               text: const Text(
