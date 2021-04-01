@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qin_memo/custom_alert_dialog.dart';
-import 'package:qin_memo/profile_page.dart';
+import 'package:qin_memo/qin_account_page.dart';
 import 'package:qin_memo/setting_page.dart';
 
 class ProfileDialog extends StatelessWidget {
@@ -31,9 +31,9 @@ class ProfileDialog extends StatelessWidget {
                     behavior: HitTestBehavior.opaque,
                     onTap: () {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute<ProfilePage>(
+                        MaterialPageRoute<QinAccountPage>(
                             builder: (BuildContext context) {
-                          return ProfilePage();
+                          return QinAccountPage();
                         }),
                       );
                     },
