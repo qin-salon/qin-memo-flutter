@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qin_memo/custom_alert_dialog.dart';
+import 'package:qin_memo/profile_page.dart';
 import 'package:qin_memo/setting_page.dart';
 
 class ProfileDialog extends StatelessWidget {
@@ -26,28 +27,39 @@ class ProfileDialog extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const <Widget>[
-                      Text(
-                        'しまぶー',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF070417),
-                          decoration: TextDecoration.none,
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute<ProfilePage>(
+                            builder: (BuildContext context) {
+                          return ProfilePage();
+                        }),
+                      );
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const <Widget>[
+                        Text(
+                          'しまぶー',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF070417),
+                            decoration: TextDecoration.none,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '@shimabuit',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFFC2C6D2),
-                          decoration: TextDecoration.none,
+                        Text(
+                          '@shimabuit',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFFC2C6D2),
+                            decoration: TextDecoration.none,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
