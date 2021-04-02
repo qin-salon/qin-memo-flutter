@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qin_memo/qin_account_connection_page.dart';
 import 'package:qin_memo/qin_account_delete_page.dart';
 import 'package:qin_memo/qin_account_profile_page.dart';
+import 'package:qin_memo/qin_account_support_page.dart';
 import 'package:qin_memo/setting_option.dart';
 
 class QinAccountPage extends StatelessWidget {
@@ -89,7 +90,17 @@ class QinAccountPage extends StatelessWidget {
                     );
                   },
                 ),
-                const SettingOption(text: 'サポート'),
+                SettingOption(
+                  text: 'サポート',
+                  action: () {
+                    Navigator.of(context).push<QinAccountSupportPage>(
+                      MaterialPageRoute<QinAccountSupportPage>(
+                          builder: (BuildContext context) {
+                        return QinAccountSupportPage();
+                      }),
+                    );
+                  },
+                ),
               ],
             ),
             padding: const EdgeInsets.all(24),
