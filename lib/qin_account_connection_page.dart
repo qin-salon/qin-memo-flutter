@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class QinAccountConnectPage extends StatelessWidget {
+class QinAccountConnectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
