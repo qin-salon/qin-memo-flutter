@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qin_memo/qin_account_connect.dart';
+import 'package:qin_memo/qin_account_connection_page.dart';
+import 'package:qin_memo/qin_account_delete_page.dart';
 import 'package:qin_memo/qin_account_profile_page.dart';
 import 'package:qin_memo/setting_option.dart';
 
@@ -69,15 +70,25 @@ class QinAccountPage extends StatelessWidget {
                 SettingOption(
                   text: 'アカウントの連携',
                   action: () {
-                    Navigator.of(context).push<QinAccountConnectPage>(
-                      MaterialPageRoute<QinAccountConnectPage>(
+                    Navigator.of(context).push<QinAccountConnectionPage>(
+                      MaterialPageRoute<QinAccountConnectionPage>(
                           builder: (BuildContext context) {
-                        return QinAccountConnectPage();
+                        return QinAccountConnectionPage();
                       }),
                     );
                   },
                 ),
-                const SettingOption(text: 'データの削除'),
+                SettingOption(
+                  text: 'データの削除',
+                  action: () {
+                    Navigator.of(context).push<QinAccountDeletePage>(
+                      MaterialPageRoute<QinAccountDeletePage>(
+                          builder: (BuildContext context) {
+                        return QinAccountDeletePage();
+                      }),
+                    );
+                  },
+                ),
                 const SettingOption(text: 'サポート'),
               ],
             ),
