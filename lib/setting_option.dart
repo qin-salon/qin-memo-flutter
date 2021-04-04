@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SettingOption extends StatelessWidget {
-  const SettingOption({Key key, @required this.text, this.action})
-      : super(key: key);
+  const SettingOption({required this.text, this.action});
 
   final String text;
-  final void Function() action;
+  final void Function()? action;
 
   @override
   Widget build(BuildContext context) {

@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAlertDialog extends StatelessWidget {
-  const CustomAlertDialog(
-      {Key key,
-      @required this.title,
-      @required this.subText,
-      @required this.actionText,
-      @required this.action})
-      : super(key: key);
+  const CustomAlertDialog({
+    required this.title,
+    required this.subText,
+    required this.actionText,
+    required this.action,
+  });
 
   final String title;
   final String subText;

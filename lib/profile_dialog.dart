@@ -144,9 +144,11 @@ class ProfileDialog extends StatelessWidget {
 }
 
 class DialogOption extends StatelessWidget {
-  const DialogOption(
-      {Key key, @required this.icon, @required this.text, @required this.onTap})
-      : super(key: key);
+  const DialogOption({
+    required this.icon,
+    required this.text,
+    required this.onTap,
+  });
 
   final Icon icon;
   final Text text;

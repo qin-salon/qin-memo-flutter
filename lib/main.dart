@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.white,
             iconTheme: const IconThemeData(color: Colors.black),
             textTheme: appBarTextTheme.copyWith(
-                headline6: appBarTextTheme.headline6
+                headline6: appBarTextTheme.headline6!
                     .copyWith(fontSize: 18, fontWeight: FontWeight.bold))),
       ),
       home: HomePage(),

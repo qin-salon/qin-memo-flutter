@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             GestureDetector(
-              onTap: () => <Future<SearchPage>>{
+              onTap: () {
                 Navigator.of(context).push<SearchPage>(
                   PageRouteBuilder<SearchPage>(
                     pageBuilder: (_, __, ___) => SearchPage(),
@@ -89,7 +89,7 @@ class HomePage extends StatelessWidget {
                       child: child,
                     ),
                   ),
-                ),
+                );
               },
               child: Container(
                 child: Row(

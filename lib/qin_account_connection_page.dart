@@ -41,7 +41,7 @@ class QinAccountConnectionPage extends StatelessWidget {
 }
 
 class ConnectionRow extends StatelessWidget {
-  const ConnectionRow({Key key, @required this.text}) : super(key: key);
+  const ConnectionRow({required this.text});
 
   final String text;
 

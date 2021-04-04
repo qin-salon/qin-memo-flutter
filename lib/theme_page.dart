@@ -37,10 +37,7 @@ class ThemePage extends StatelessWidget {
 }
 
 class ThemeOption extends StatelessWidget {
-  const ThemeOption({
-    Key key,
-    @required this.text,
-  }) : super(key: key);
+  const ThemeOption({required this.text});
 
   final String text;
 
