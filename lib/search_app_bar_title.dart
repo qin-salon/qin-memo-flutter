@@ -6,7 +6,7 @@ import 'package:qin_memo/providers/search_state_provider.dart';
 class SearchAppBarTitle extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final StateController<bool> search = useProvider(searchStateProvider);
+    final StateController<String> search = useProvider(searchStateProvider);
     final TextEditingController _controller = useTextEditingController();
 
     return Container(
@@ -23,7 +23,7 @@ class SearchAppBarTitle extends HookWidget {
               controller: _controller,
               autofocus: true,
               onSubmitted: (String str) {
-                search.state = true;
+                search.state = str;
               },
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(44, 13, 0, 13),
@@ -42,7 +42,7 @@ class SearchAppBarTitle extends HookWidget {
           ),
           GestureDetector(
             onTap: () {
-              search.state = false;
+              search.state = '';
               _controller.clear();
             },
             child: const Icon(Icons.close, color: Colors.black),

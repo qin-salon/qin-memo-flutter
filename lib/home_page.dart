@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:qin_memo/all_note_list.dart';
 import 'package:qin_memo/new_note_page.dart';
-import 'package:qin_memo/note_list.dart';
 import 'package:qin_memo/profile_dialog.dart';
 import 'package:qin_memo/search_page.dart';
 
@@ -119,7 +119,7 @@ class HomePage extends StatelessWidget {
               height: 24,
             ),
             Flexible(
-              child: NoteList(),
+              child: AllNoteList(),
             ),
           ],
         ),
