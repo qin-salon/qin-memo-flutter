@@ -10,6 +10,10 @@ final AutoDisposeFutureProviderFamily<List<Note>, String> searchNotesProvider =
     FutureProvider.autoDispose.family<List<Note>, String>(
         (AutoDisposeProviderReference ref, String userId) async {
   final String search = ref.watch(searchStateProvider).state;
+  if (search == '') {
+    return <Note>[];
+  }
+
   final Uri uri =
       Uri.parse('http://127.0.0.1:4010/users/$userId/notes/search?q=$search');
   final http.Response response = await http.get(uri);
