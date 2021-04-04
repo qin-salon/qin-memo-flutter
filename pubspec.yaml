@@ -6,7 +6,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -14,8 +14,13 @@ dependencies:
   cupertino_icons: ^1.0.1
   hooks_riverpod:
   flutter_hooks:
+  json_annotation:
+  freezed_annotation:
 
 dev_dependencies:
+  build_runner:
+  freezed:
+  json_serializable:
   flutter_test:
     sdk: flutter
   integration_test:
