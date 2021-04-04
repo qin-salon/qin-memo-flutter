@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/providers/get_search_histories_provider.dart';
+import 'package:qin_memo/providers/search_state_provider.dart';
+import 'package:qin_memo/providers/search_text_field_provider.dart';
 
 import 'models/search_history_model.dart';
 
-class SearchHistoryList extends StatelessWidget {
+class SearchHistoryList extends HookWidget {
   final AsyncValue<List<SearchHistory>> config =
       useProvider(getSearchHistoriesProvider('userId'));
+  final StateController<String> searchStateController =
+      useProvider(searchStateProvider);
+  final StateController<String> searchTextFieldController =
+      useProvider(searchTextFieldProvider);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +25,13 @@ class SearchHistoryList extends StatelessWidget {
           child: ListView.builder(
             itemCount: searchHistories.length,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  searchTextFieldController.state =
+                      searchHistories[index].keyword;
+                  searchStateController.state = searchHistories[index].keyword;
+                },
                 child: Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,8 +51,7 @@ class SearchHistoryList extends StatelessWidget {
                       ),
                     ],
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 14, horizontal: 0),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
               );
             },

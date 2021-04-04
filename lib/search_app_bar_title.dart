@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/providers/search_state_provider.dart';
+import 'package:qin_memo/providers/search_text_field_provider.dart';
 
 class SearchAppBarTitle extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final StateController<String> search = useProvider(searchStateProvider);
+    final StateController<String> searchStateController =
+        useProvider(searchStateProvider);
+    final StateController<String> searchTextFieldController =
+        useProvider(searchTextFieldProvider);
     final TextEditingController _controller = useTextEditingController();
+    _controller.text = searchTextFieldController.state;
+    _controller.selection = TextSelection.fromPosition(
+      TextPosition(offset: _controller.text.length),
+    );
 
     return Container(
       child: Row(
@@ -20,10 +28,13 @@ class SearchAppBarTitle extends HookWidget {
           ),
           Flexible(
             child: TextField(
+              onChanged: (String value) {
+                searchTextFieldController.state = value;
+              },
               controller: _controller,
               autofocus: true,
               onSubmitted: (String str) {
-                search.state = str;
+                searchStateController.state = str;
               },
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(44, 13, 0, 13),
@@ -42,8 +53,8 @@ class SearchAppBarTitle extends HookWidget {
           ),
           GestureDetector(
             onTap: () {
-              search.state = '';
-              _controller.clear();
+              searchStateController.state = '';
+              searchTextFieldController.state = '';
             },
             child: const Icon(Icons.close, color: Colors.black),
           ),
