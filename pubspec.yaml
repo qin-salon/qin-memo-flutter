@@ -16,6 +16,7 @@ dependencies:
   flutter_hooks:
   json_annotation:
   freezed_annotation:
+  http:
 
 dev_dependencies:
   build_runner:
