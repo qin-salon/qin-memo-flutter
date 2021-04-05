@@ -21,11 +21,15 @@ class _$NoteTearOff {
   const _$NoteTearOff();
 
   _Note call(
-      {required String id, required String excerpt, required bool public}) {
+      {required String id,
+      required bool public,
+      String? excerpt,
+      String? content}) {
     return _Note(
       id: id,
-      excerpt: excerpt,
       public: public,
+      excerpt: excerpt,
+      content: content,
     );
   }
 
@@ -40,8 +44,9 @@ const $Note = _$NoteTearOff();
 /// @nodoc
 mixin _$Note {
   String get id => throw _privateConstructorUsedError;
-  String get excerpt => throw _privateConstructorUsedError;
   bool get public => throw _privateConstructorUsedError;
+  String? get excerpt => throw _privateConstructorUsedError;
+  String? get content => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +57,7 @@ mixin _$Note {
 abstract class $NoteCopyWith<$Res> {
   factory $NoteCopyWith(Note value, $Res Function(Note) then) =
       _$NoteCopyWithImpl<$Res>;
-  $Res call({String id, String excerpt, bool public});
+  $Res call({String id, bool public, String? excerpt, String? content});
 }
 
 /// @nodoc
@@ -66,22 +71,27 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? excerpt = freezed,
     Object? public = freezed,
+    Object? excerpt = freezed,
+    Object? content = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      excerpt: excerpt == freezed
-          ? _value.excerpt
-          : excerpt // ignore: cast_nullable_to_non_nullable
-              as String,
       public: public == freezed
           ? _value.public
           : public // ignore: cast_nullable_to_non_nullable
               as bool,
+      excerpt: excerpt == freezed
+          ? _value.excerpt
+          : excerpt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      content: content == freezed
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -91,7 +101,7 @@ abstract class _$NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
   factory _$NoteCopyWith(_Note value, $Res Function(_Note) then) =
       __$NoteCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String excerpt, bool public});
+  $Res call({String id, bool public, String? excerpt, String? content});
 }
 
 /// @nodoc
@@ -106,22 +116,27 @@ class __$NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? excerpt = freezed,
     Object? public = freezed,
+    Object? excerpt = freezed,
+    Object? content = freezed,
   }) {
     return _then(_Note(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      excerpt: excerpt == freezed
-          ? _value.excerpt
-          : excerpt // ignore: cast_nullable_to_non_nullable
-              as String,
       public: public == freezed
           ? _value.public
           : public // ignore: cast_nullable_to_non_nullable
               as bool,
+      excerpt: excerpt == freezed
+          ? _value.excerpt
+          : excerpt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      content: content == freezed
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -131,7 +146,7 @@ class __$NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
 /// @nodoc
 class _$_Note implements _Note {
   const _$_Note(
-      {required this.id, required this.excerpt, required this.public});
+      {required this.id, required this.public, this.excerpt, this.content});
 
   factory _$_Note.fromJson(Map<String, dynamic> json) =>
       _$_$_NoteFromJson(json);
@@ -139,13 +154,15 @@ class _$_Note implements _Note {
   @override
   final String id;
   @override
-  final String excerpt;
-  @override
   final bool public;
+  @override
+  final String? excerpt;
+  @override
+  final String? content;
 
   @override
   String toString() {
-    return 'Note(id: $id, excerpt: $excerpt, public: $public)';
+    return 'Note(id: $id, public: $public, excerpt: $excerpt, content: $content)';
   }
 
   @override
@@ -154,19 +171,22 @@ class _$_Note implements _Note {
         (other is _Note &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.public, public) ||
+                const DeepCollectionEquality().equals(other.public, public)) &&
             (identical(other.excerpt, excerpt) ||
                 const DeepCollectionEquality()
                     .equals(other.excerpt, excerpt)) &&
-            (identical(other.public, public) ||
-                const DeepCollectionEquality().equals(other.public, public)));
+            (identical(other.content, content) ||
+                const DeepCollectionEquality().equals(other.content, content)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(public) ^
       const DeepCollectionEquality().hash(excerpt) ^
-      const DeepCollectionEquality().hash(public);
+      const DeepCollectionEquality().hash(content);
 
   @JsonKey(ignore: true)
   @override
@@ -182,17 +202,20 @@ class _$_Note implements _Note {
 abstract class _Note implements Note {
   const factory _Note(
       {required String id,
-      required String excerpt,
-      required bool public}) = _$_Note;
+      required bool public,
+      String? excerpt,
+      String? content}) = _$_Note;
 
   factory _Note.fromJson(Map<String, dynamic> json) = _$_Note.fromJson;
 
   @override
   String get id => throw _privateConstructorUsedError;
   @override
-  String get excerpt => throw _privateConstructorUsedError;
-  @override
   bool get public => throw _privateConstructorUsedError;
+  @override
+  String? get excerpt => throw _privateConstructorUsedError;
+  @override
+  String? get content => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$NoteCopyWith<_Note> get copyWith => throw _privateConstructorUsedError;

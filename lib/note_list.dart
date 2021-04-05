@@ -20,7 +20,9 @@ class NoteList extends StatelessWidget {
           onTap: () => <void>{
             Navigator.of(context).push<NotePage>(
                 MaterialPageRoute<NotePage>(builder: (BuildContext context) {
-              return NotePage();
+              return NotePage(
+                noteId: notes[index].id,
+              );
             }))
           },
           child: Container(
@@ -29,7 +31,7 @@ class NoteList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    notes[index].excerpt,
+                    notes[index].excerpt ?? '',
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),

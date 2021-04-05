@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/providers/get_note_provider.dart';
 
 import 'custom_alert_dialog.dart';
+import 'models/note_model.dart';
 
-class NotePage extends StatelessWidget {
+class NotePage extends HookWidget {
+  const NotePage({required this.noteId});
+
+  final String noteId;
+
   @override
   Widget build(BuildContext context) {
+    final AsyncValue<Note> config = useProvider(getNoteProvider(noteId));
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -349,7 +358,11 @@ class NotePage extends StatelessWidget {
         ),
       ),
       body: Container(
-        child: const Text('note'),
+        child: config.when(
+          loading: () => const Text('loading'),
+          error: (_, __) => const Text('エラー'),
+          data: (Note note) => Text(note.content ?? ''),
+        ),
         padding: const EdgeInsets.all(24),
       ),
     );
