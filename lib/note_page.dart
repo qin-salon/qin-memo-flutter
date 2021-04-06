@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/providers/get_note_provider.dart';
@@ -88,37 +89,47 @@ class NotePage extends HookWidget {
                                           Container(
                                             child: Column(
                                               children: <Widget>[
-                                                Container(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: const <Widget>[
-                                                      Text(
-                                                        '公開する',
-                                                        style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                GestureDetector(
+                                                  behavior:
+                                                      HitTestBehavior.opaque,
+                                                  onTap: () async {
+                                                    final Uri uri = Uri.parse(
+                                                        'http://127.0.0.1:8080/v1/notes/$noteId/public');
+                                                    await http.patch(uri);
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Container(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: const <Widget>[
+                                                        Text(
+                                                          '公開する',
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Color(
+                                                                0xFF3B82F6),
+                                                          ),
+                                                        ),
+                                                        Icon(
+                                                          Icons
+                                                              .remove_red_eye_outlined,
                                                           color:
                                                               Color(0xFF3B82F6),
                                                         ),
-                                                      ),
-                                                      Icon(
-                                                        Icons
-                                                            .remove_red_eye_outlined,
-                                                        color:
-                                                            Color(0xFF3B82F6),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 16,
+                                                        horizontal: 24),
                                                   ),
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      vertical: 16,
-                                                      horizontal: 24),
                                                 ),
                                                 const Divider(
                                                   height: 0,

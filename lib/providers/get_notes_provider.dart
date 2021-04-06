@@ -8,7 +8,7 @@ import 'package:qin_memo/models/note_model.dart';
 final FutureProviderFamily<List<Note>, String> getNotesProvider =
     FutureProvider.family<List<Note>, String>(
         (ProviderReference ref, String userId) async {
-  final Uri uri = Uri.parse('http://127.0.0.1:4010/users/$userId/notes');
+  final Uri uri = Uri.parse('http://127.0.0.1:8080/v1/users/$userId/notes');
   final http.Response response = await http.get(uri);
   if (response.statusCode != 200) {
     throw Exception('Failed to fetch user notes.');

@@ -10,11 +10,11 @@ class SearchNoteList extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final AsyncValue<List<Note>> config =
-        useProvider(searchNotesProvider('userId'));
+        useProvider(searchNotesProvider('testuser'));
 
     return config.when(
         loading: () => const Text('loading'),
-        error: (_, __) => const Text('えらー'),
+        error: (_, __) => const Text('見つかりませんでした'),
         data: (List<Note> notes) {
           return NoteList(notes: notes);
         });

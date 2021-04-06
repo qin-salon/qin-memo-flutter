@@ -10,7 +10,7 @@ final FutureProviderFamily<List<SearchHistory>, String>
     FutureProvider.family<List<SearchHistory>, String>(
         (ProviderReference ref, String userId) async {
   final Uri uri =
-      Uri.parse('http://127.0.0.1:4010/users/$userId/searchHistories');
+      Uri.parse('http://127.0.0.1:8080/v1/users/$userId/searchHistories');
   final http.Response response = await http.get(uri);
   if (response.statusCode != 200) {
     throw Exception('Failed to fetch user search histories.');

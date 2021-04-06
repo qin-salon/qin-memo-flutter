@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'models/note_model.dart';
 import 'note_page.dart';
@@ -45,9 +46,12 @@ class NoteList extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      const Text(
-                        '2021/03/25',
-                        style: TextStyle(color: Color(0xFFC2C6D2)),
+                      Text(
+                        notes[index].updatedOn != null
+                            ? DateFormat('yyyy/MM/dd')
+                                .format(DateTime.parse(notes[index].updatedOn!))
+                            : '不明',
+                        style: const TextStyle(color: Color(0xFFC2C6D2)),
                       ),
                       if (notes[index].public)
                         Container(

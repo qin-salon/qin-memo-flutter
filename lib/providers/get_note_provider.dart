@@ -7,7 +7,7 @@ import 'package:qin_memo/models/note_model.dart';
 final AutoDisposeFutureProviderFamily<Note, String> getNoteProvider =
     FutureProvider.autoDispose
         .family<Note, String>((ProviderReference ref, String noteId) async {
-  final Uri uri = Uri.parse('http://127.0.0.1:4010/notes/$noteId');
+  final Uri uri = Uri.parse('http://127.0.0.1:8080/v1/notes/$noteId');
   final http.Response response = await http.get(uri);
   if (response.statusCode != 200) {
     throw Exception('Failed to fetch note.');

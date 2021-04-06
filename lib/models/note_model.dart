@@ -7,6 +7,7 @@ class Note with _$Note {
   const factory Note(
       {required String id,
       required bool public,
+      String? updatedOn,
       String? excerpt,
       String? content}) = _Note;
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);

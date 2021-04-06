@@ -23,11 +23,13 @@ class _$NoteTearOff {
   _Note call(
       {required String id,
       required bool public,
+      String? updatedOn,
       String? excerpt,
       String? content}) {
     return _Note(
       id: id,
       public: public,
+      updatedOn: updatedOn,
       excerpt: excerpt,
       content: content,
     );
@@ -45,6 +47,7 @@ const $Note = _$NoteTearOff();
 mixin _$Note {
   String get id => throw _privateConstructorUsedError;
   bool get public => throw _privateConstructorUsedError;
+  String? get updatedOn => throw _privateConstructorUsedError;
   String? get excerpt => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
 
@@ -57,7 +60,12 @@ mixin _$Note {
 abstract class $NoteCopyWith<$Res> {
   factory $NoteCopyWith(Note value, $Res Function(Note) then) =
       _$NoteCopyWithImpl<$Res>;
-  $Res call({String id, bool public, String? excerpt, String? content});
+  $Res call(
+      {String id,
+      bool public,
+      String? updatedOn,
+      String? excerpt,
+      String? content});
 }
 
 /// @nodoc
@@ -72,6 +80,7 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? public = freezed,
+    Object? updatedOn = freezed,
     Object? excerpt = freezed,
     Object? content = freezed,
   }) {
@@ -84,6 +93,10 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
           ? _value.public
           : public // ignore: cast_nullable_to_non_nullable
               as bool,
+      updatedOn: updatedOn == freezed
+          ? _value.updatedOn
+          : updatedOn // ignore: cast_nullable_to_non_nullable
+              as String?,
       excerpt: excerpt == freezed
           ? _value.excerpt
           : excerpt // ignore: cast_nullable_to_non_nullable
@@ -101,7 +114,12 @@ abstract class _$NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
   factory _$NoteCopyWith(_Note value, $Res Function(_Note) then) =
       __$NoteCopyWithImpl<$Res>;
   @override
-  $Res call({String id, bool public, String? excerpt, String? content});
+  $Res call(
+      {String id,
+      bool public,
+      String? updatedOn,
+      String? excerpt,
+      String? content});
 }
 
 /// @nodoc
@@ -117,6 +135,7 @@ class __$NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? public = freezed,
+    Object? updatedOn = freezed,
     Object? excerpt = freezed,
     Object? content = freezed,
   }) {
@@ -129,6 +148,10 @@ class __$NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
           ? _value.public
           : public // ignore: cast_nullable_to_non_nullable
               as bool,
+      updatedOn: updatedOn == freezed
+          ? _value.updatedOn
+          : updatedOn // ignore: cast_nullable_to_non_nullable
+              as String?,
       excerpt: excerpt == freezed
           ? _value.excerpt
           : excerpt // ignore: cast_nullable_to_non_nullable
@@ -146,7 +169,11 @@ class __$NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
 /// @nodoc
 class _$_Note implements _Note {
   const _$_Note(
-      {required this.id, required this.public, this.excerpt, this.content});
+      {required this.id,
+      required this.public,
+      this.updatedOn,
+      this.excerpt,
+      this.content});
 
   factory _$_Note.fromJson(Map<String, dynamic> json) =>
       _$_$_NoteFromJson(json);
@@ -156,13 +183,15 @@ class _$_Note implements _Note {
   @override
   final bool public;
   @override
+  final String? updatedOn;
+  @override
   final String? excerpt;
   @override
   final String? content;
 
   @override
   String toString() {
-    return 'Note(id: $id, public: $public, excerpt: $excerpt, content: $content)';
+    return 'Note(id: $id, public: $public, updatedOn: $updatedOn, excerpt: $excerpt, content: $content)';
   }
 
   @override
@@ -173,6 +202,9 @@ class _$_Note implements _Note {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.public, public) ||
                 const DeepCollectionEquality().equals(other.public, public)) &&
+            (identical(other.updatedOn, updatedOn) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedOn, updatedOn)) &&
             (identical(other.excerpt, excerpt) ||
                 const DeepCollectionEquality()
                     .equals(other.excerpt, excerpt)) &&
@@ -185,6 +217,7 @@ class _$_Note implements _Note {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(public) ^
+      const DeepCollectionEquality().hash(updatedOn) ^
       const DeepCollectionEquality().hash(excerpt) ^
       const DeepCollectionEquality().hash(content);
 
@@ -203,6 +236,7 @@ abstract class _Note implements Note {
   const factory _Note(
       {required String id,
       required bool public,
+      String? updatedOn,
       String? excerpt,
       String? content}) = _$_Note;
 
@@ -212,6 +246,8 @@ abstract class _Note implements Note {
   String get id => throw _privateConstructorUsedError;
   @override
   bool get public => throw _privateConstructorUsedError;
+  @override
+  String? get updatedOn => throw _privateConstructorUsedError;
   @override
   String? get excerpt => throw _privateConstructorUsedError;
   @override

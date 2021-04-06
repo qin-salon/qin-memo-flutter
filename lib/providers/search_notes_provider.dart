@@ -14,8 +14,8 @@ final AutoDisposeFutureProviderFamily<List<Note>, String> searchNotesProvider =
     return <Note>[];
   }
 
-  final Uri uri =
-      Uri.parse('http://127.0.0.1:4010/users/$userId/notes/search?q=$search');
+  final Uri uri = Uri.parse(
+      'http://127.0.0.1:8080/v1/users/$userId/notes/search?q=$search');
   final http.Response response = await http.get(uri);
   if (response.statusCode != 200) {
     throw Exception('Failed to fetch search notes.');

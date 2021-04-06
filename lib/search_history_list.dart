@@ -9,7 +9,7 @@ import 'models/search_history_model.dart';
 
 class SearchHistoryList extends HookWidget {
   final AsyncValue<List<SearchHistory>> config =
-      useProvider(getSearchHistoriesProvider('userId'));
+      useProvider(getSearchHistoriesProvider('testuser'));
   final StateController<String> searchStateController =
       useProvider(searchStateProvider);
   final StateController<String> searchTextFieldController =
