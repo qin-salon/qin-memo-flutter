@@ -12,11 +12,12 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.1
-  hooks_riverpod:
+  hooks_riverpod: ^0.14.0
   flutter_hooks:
   json_annotation:
   freezed_annotation:
   http:
+  intl:
 
 dev_dependencies:
   build_runner:
