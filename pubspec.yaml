@@ -18,6 +18,7 @@ dependencies:
   freezed_annotation:
   http:
   intl:
+  dio:
 
 dev_dependencies:
   build_runner:
