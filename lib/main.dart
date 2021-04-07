@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/providers/user_provider.dart';
 
 import 'home_page.dart';
 
@@ -7,12 +9,14 @@ void main() {
   runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends HookWidget {
   // This widget is the root of your application.
   final TextTheme appBarTextTheme = Typography.material2018().black;
 
   @override
   Widget build(BuildContext context) {
+    final Future<void> _future =
+        useProvider(userProvider.notifier).getUser('testuser');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Qin Memo',
@@ -27,7 +31,18 @@ class MyApp extends StatelessWidget {
                 headline6: appBarTextTheme.headline6!
                     .copyWith(fontSize: 18, fontWeight: FontWeight.bold))),
       ),
-      home: HomePage(),
+      home: FutureBuilder<void>(
+        future: _future,
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text('loading');
+          }
+          if (snapshot.hasError) {
+            return const Text('エラー');
+          }
+          return HomePage();
+        },
+      ),
     );
   }
 }
