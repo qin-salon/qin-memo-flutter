@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/all_note_list.dart';
+import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/new_note_page.dart';
 import 'package:qin_memo/profile_dialog.dart';
+import 'package:qin_memo/providers/notes_provider.dart';
+import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/search_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final NotesNotifier noteNotifier = useProvider(notesProvider.notifier);
+    final User? userState = useProvider(userProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('ホーム'),
@@ -39,8 +47,9 @@ class HomePage extends StatelessWidget {
               child: Container(
                 width: 36,
                 height: 36,
-                child: const CircleAvatar(
-                  backgroundImage: NetworkImage(
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: NetworkImage(userState?.avatarUrl ??
                       'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
                 ),
               ),
@@ -49,11 +58,12 @@ class HomePage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => <void>{
+        onPressed: () async {
+          final String noteId = await noteNotifier.add();
           Navigator.of(context).push<NewNotePage>(
               MaterialPageRoute<NewNotePage>(builder: (BuildContext context) {
-            return NewNotePage();
-          }))
+            return NewNotePage(noteId: noteId);
+          }));
         },
         label: const Text(
           'メモを書く',

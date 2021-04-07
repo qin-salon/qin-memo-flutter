@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/models/user_model.dart';
+import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/qin_account_connection_page.dart';
 import 'package:qin_memo/qin_account_delete_page.dart';
 import 'package:qin_memo/qin_account_profile_page.dart';
 import 'package:qin_memo/qin_account_support_page.dart';
 import 'package:qin_memo/setting_option.dart';
 
-class QinAccountPage extends StatelessWidget {
+class QinAccountPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final User? user = useProvider(userProvider);
+
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
@@ -31,15 +37,16 @@ class QinAccountPage extends StatelessWidget {
                   Container(
                     width: 72,
                     height: 72,
-                    child: const CircleAvatar(
-                      backgroundImage: NetworkImage(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      backgroundImage: NetworkImage(user?.avatarUrl ??
                           'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Text('ようこそ、しまぶーさん',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text('ようこそ、${user?.name ?? ''}さん',
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
                   const Text('Qinアカウントに関する各種設定ができます。',
                       style: TextStyle(fontSize: 12, color: Color(0xFFC2C6D2))),
