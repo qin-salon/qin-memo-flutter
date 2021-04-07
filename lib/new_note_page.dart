@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/providers/notes_provider.dart';
 
-class NewNotePage extends StatelessWidget {
+class NewNotePage extends HookWidget {
+  const NewNotePage({required this.noteId});
+  final String noteId;
+
   @override
   Widget build(BuildContext context) {
+    final NotesNotifier notifier = useProvider(notesProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -13,7 +21,10 @@ class NewNotePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () async {
+                  await notifier.update(noteId: noteId, content: 'テストです');
+                  Navigator.pop(context);
+                },
                 child: const Icon(Icons.close, color: Colors.black),
               ),
               GestureDetector(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/get_notes_response.dart';
 import 'package:qin_memo/models/note_model.dart';
@@ -25,14 +26,30 @@ class NotesNotifier extends StateNotifier<List<Note>> {
     state = <Note>[...state, ...notes];
   }
 
-  Future<void> add() async {
+  Future<String> add() async {
     final Uri uri = Uri.parse('http://127.0.0.1:8080/v1/notes');
     final http.Response response = await http.post(uri);
     if (response.statusCode != 201) {
       throw Exception('Failed to add note.');
     }
-    final Note note = json.decode(response.body) as Note;
-    state = <Note>[...state, note];
+    final Note note =
+        Note.fromJson(json.decode(response.body) as Map<String, dynamic>);
+    state = <Note>[note, ...state];
+    return note.id;
+  }
+
+  Future<void> update({required String noteId, required String content}) async {
+    final Response<Map<String, dynamic>> response = await Dio()
+        .put<Map<String, dynamic>>('http://127.0.0.1:8080/v1/notes/$noteId',
+            data: <String, String>{'content': content});
+    final Map<String, dynamic>? data = response.data;
+    if (response.statusCode != 200 || data == null) {
+      throw Exception('Failed to update note.');
+    }
+    state = <Note>[
+      Note.fromJson(data),
+      ...state.where((Note note) => note.id != noteId).toList(),
+    ];
   }
 
   // void remove(String noteId) {
