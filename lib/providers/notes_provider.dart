@@ -26,6 +26,14 @@ class NotesNotifier extends StateNotifier<List<Note>> {
     state = <Note>[...state, ...notes];
   }
 
+  Note? getNoteFromState(String noteId) {
+    final Iterable<Note> note = state.where((Note note) => note.id == noteId);
+    if (note.isEmpty) {
+      return null;
+    }
+    return note.first;
+  }
+
   Future<String> add() async {
     final Uri uri = Uri.parse('http://127.0.0.1:8080/v1/notes');
     final http.Response response = await http.post(uri);

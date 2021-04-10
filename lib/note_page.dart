@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/note_page_bottom_sheet.dart';
-import 'package:qin_memo/providers/get_note_provider.dart';
+import 'package:qin_memo/providers/notes_provider.dart';
 
-import 'models/note_model.dart';
+final StateProvider<String> noteStateProvider =
+    StateProvider<String>((ProviderReference ref) => '');
 
 class NotePage extends HookWidget {
-  const NotePage({required this.noteId});
+  const NotePage({required this.noteId, this.isCreate = false});
 
   final String noteId;
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<Note> config = useProvider(getNoteProvider(noteId));
+    final StateController<String> noteState = useProvider(noteStateProvider);
+    final NotesNotifier noteNotifier = useProvider(notesProvider.notifier);
+    final String initialValue = useMemoized(
+        () => noteNotifier.getNoteFromState(noteId)?.content ?? '', <Object>[]);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -24,8 +30,14 @@ class NotePage extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                onTap: () async {
+                  await noteNotifier.update(
+                      noteId: noteId, content: noteState.state);
+                  Navigator.pop(context);
+                },
+                child: isCreate
+                    ? const Icon(Icons.close, color: Colors.black)
+                    : const Icon(Icons.arrow_back_ios, color: Colors.black),
               ),
               GestureDetector(
                 onTap: () {
@@ -48,10 +60,20 @@ class NotePage extends HookWidget {
         ),
       ),
       body: Container(
-        child: config.when(
-          loading: () => const Text('loading'),
-          error: (_, __) => const Text('エラー'),
-          data: (Note note) => Text(note.content ?? ''),
+        child: TextFormField(
+          autofocus: true,
+          initialValue: initialValue,
+          onChanged: (String? value) {
+            if (value != null) {
+              noteState.state = value;
+            }
+          },
+          maxLines: 100000000,
+          decoration: const InputDecoration(
+            hintText: '本文を入力する',
+            hintStyle: TextStyle(color: Color(0xFFC2C6D2)),
+            border: InputBorder.none,
+          ),
         ),
         padding: const EdgeInsets.all(24),
       ),
