@@ -32,8 +32,10 @@ class ProfileDialog extends HookWidget {
                         height: 48,
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage(user?.avatarUrl ??
-                              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                          backgroundImage: NetworkImage(
+                            user?.avatarUrl ??
+                                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
