@@ -5,13 +5,7 @@ import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 
 final StateProvider<String> nameStateProvider =
-    StateProvider<String>((ProviderReference ref) {
-  final User? user = ref.watch<User?>(userProvider);
-  if (user == null) {
-    return '';
-  }
-  return user.name;
-});
+    StateProvider<String>((ProviderReference ref) => '');
 
 final StateProvider<String> userNameStateProvider =
     StateProvider<String>((ProviderReference ref) => '');
