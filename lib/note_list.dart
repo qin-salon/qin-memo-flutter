@@ -23,6 +23,7 @@ class NoteList extends StatelessWidget {
                 MaterialPageRoute<NotePage>(builder: (BuildContext context) {
               return NotePage(
                 noteId: notes[index].id,
+                noteContent: notes[index].content,
               );
             }))
           },

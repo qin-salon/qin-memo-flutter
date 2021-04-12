@@ -34,6 +34,16 @@ class NotesNotifier extends StateNotifier<List<Note>> {
     return note.first;
   }
 
+  Future<String?> getNote(String noteId) async {
+    final Response<Map<String, dynamic>> response = await Dio()
+        .get<Map<String, dynamic>>('http://127.0.0.1:8080/v1/notes/$noteId');
+    final Map<String, dynamic>? data = response.data;
+    if (response.statusCode != 200 || data == null) {
+      throw Exception('Failed to fetch user note.');
+    }
+    return Note.fromJson(data).content;
+  }
+
   Future<String> add() async {
     final Uri uri = Uri.parse('http://127.0.0.1:8080/v1/notes');
     final http.Response response = await http.post(uri);
