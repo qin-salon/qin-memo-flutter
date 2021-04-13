@@ -227,7 +227,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0"
+    version: "0.14.0+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -239,7 +239,7 @@ packages:
       name: freezed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.1"
+    version: "0.12.7"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -252,6 +252,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fusionauth_dart_client:
+    dependency: "direct main"
+    description:
+      name: fusionauth_dart_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.25.0"
   glob:
     dependency: transitive
     description:
@@ -272,7 +279,7 @@ packages:
       name: hooks_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0"
+    version: "0.14.0+1"
   http:
     dependency: "direct main"
     description:
@@ -424,7 +431,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0"
+    version: "0.14.0+1"
   shelf:
     dependency: transitive
     description:
@@ -444,6 +451,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_page_indicator:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "0.3.0-nullSafety"
+      resolved-ref: "69ef043a8b56c337f789b3385f1e058776b2b1a8"
+      url: "https://github.com/Milad-Akarie/smooth_page_indicator.git"
+    source: git
+    version: "0.3.0-nullsafety.0"
   source_gen:
     dependency: transitive
     description:

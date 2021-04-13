@@ -19,6 +19,13 @@ dependencies:
   http:
   intl:
   dio:
+  fusionauth_dart_client: ^1.21.0
+  smooth_page_indicator:
+    git:
+      url: https://github.com/Milad-Akarie/smooth_page_indicator.git
+      ref: 0.3.0-nullSafety
+dependency_overrides:
+  json_annotation: 4.0.1
 
 dev_dependencies:
   build_runner:

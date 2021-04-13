@@ -8,6 +8,9 @@ import 'package:qin_memo/profile_dialog.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/search_page.dart';
+import 'package:qin_memo/walkthrough_page.dart';
+
+import 'dots_indicator_page_view.dart';
 
 class HomePage extends HookWidget {
   @override
@@ -62,7 +65,7 @@ class HomePage extends HookWidget {
           final String noteId = await noteNotifier.add();
           Navigator.of(context).push<NewNotePage>(
               MaterialPageRoute<NewNotePage>(builder: (BuildContext context) {
-            return NewNotePage(noteId: noteId);
+            return DotsIndicatorPageView();
           }));
         },
         label: const Text(
