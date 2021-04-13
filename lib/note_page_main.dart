@@ -26,7 +26,7 @@ class NotePageMain extends HookWidget {
       Future<void>.microtask(() {
         noteState.state = initialContent ?? '';
       });
-    }, <Object>[]);
+    });
 
     return Scaffold(
       appBar: AppBar(

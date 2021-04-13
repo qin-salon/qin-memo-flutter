@@ -4,22 +4,21 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 
-final StateProvider<String> nameStateProvider =
-    StateProvider<String>((ProviderReference ref) => '');
-
-final StateProvider<String> userNameStateProvider =
-    StateProvider<String>((ProviderReference ref) => '');
-
 class QinAccountProfilePage extends HookWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final StateController<String> nameState = useProvider(nameStateProvider);
-    final StateController<String> userNameState =
-        useProvider(userNameStateProvider);
+    final ValueNotifier<String> nameState = useState('');
+    final ValueNotifier<String> userNameState = useState('');
     final User? user = useProvider(userProvider);
     final UserNotifier userNotifier = useProvider(userProvider.notifier);
+
+    useEffect(() {
+      Future<void>.microtask(() {
+        nameState.value = user?.name ?? '';
+      });
+    });
 
     return Scaffold(
         appBar: AppBar(
@@ -95,7 +94,7 @@ class QinAccountProfilePage extends HookWidget {
                           ),
                           const SizedBox(height: 8),
                           TextFormField(
-                            initialValue: nameState.state,
+                            initialValue: user?.name,
                             decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                 vertical: 13,
@@ -120,7 +119,7 @@ class QinAccountProfilePage extends HookWidget {
                             },
                             onSaved: (String? value) {
                               if (value != null) {
-                                nameState.state = value;
+                                nameState.value = value;
                               }
                             },
                           ),
@@ -142,7 +141,7 @@ class QinAccountProfilePage extends HookWidget {
                           const SizedBox(height: 8),
                           TextField(
                             onChanged: (String value) {
-                              userNameState.state = value;
+                              userNameState.value = value;
                             },
                             decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
@@ -193,7 +192,7 @@ class QinAccountProfilePage extends HookWidget {
                             }
                             if (currentState.validate()) {
                               currentState.save();
-                              await userNotifier.update(name: nameState.state);
+                              await userNotifier.update(name: nameState.value);
                               print('こうしんしました');
                             }
                           } catch (e) {
