@@ -30,7 +30,6 @@ class NotePage extends HookWidget {
         if (snapshot.hasError) {
           return const Text('エラー');
         }
-        print(snapshot.data);
         return NotePageMain(
           noteId: noteId,
           initialContent: snapshot.data,

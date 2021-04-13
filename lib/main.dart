@@ -15,8 +15,6 @@ class MyApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Future<void> _future =
-        useProvider(userProvider.notifier).getUser('testuser');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Qin Memo',
@@ -31,18 +29,25 @@ class MyApp extends HookWidget {
                 headline6: appBarTextTheme.headline6!
                     .copyWith(fontSize: 18, fontWeight: FontWeight.bold))),
       ),
-      home: FutureBuilder<void>(
-        future: _future,
-        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('loading');
-          }
-          if (snapshot.hasError) {
-            return const Text('エラー');
-          }
-          return HomePage();
-        },
-      ),
+      home: HomeWidget(),
     );
+  }
+}
+
+class HomeWidget extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    final UserNotifier notifier = useProvider(userProvider.notifier);
+    final Future<void> _future =
+        useMemoized(() => notifier.getUser('testuser'));
+    final AsyncSnapshot<void> snapshot = useFuture(_future, initialData: null);
+
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Text('loading');
+    }
+    if (snapshot.hasError) {
+      return const Text('エラー');
+    }
+    return HomePage();
   }
 }
