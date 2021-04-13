@@ -4,9 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/note_page_bottom_sheet.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 
-final AutoDisposeStateProvider<String> noteStateProvider =
-    StateProvider.autoDispose<String>((AutoDisposeProviderReference ref) => '');
-
 class NotePageMain extends HookWidget {
   const NotePageMain(
       {required this.noteId,
@@ -19,14 +16,8 @@ class NotePageMain extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final StateController<String> noteState = useProvider(noteStateProvider);
+    final ValueNotifier<String> noteState = useState(initialContent ?? '');
     final NotesNotifier noteNotifier = useProvider(notesProvider.notifier);
-
-    useEffect(() {
-      Future<void>.microtask(() {
-        noteState.state = initialContent ?? '';
-      });
-    });
 
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +31,7 @@ class NotePageMain extends HookWidget {
               GestureDetector(
                 onTap: () async {
                   await noteNotifier.update(
-                      noteId: noteId, content: noteState.state);
+                      noteId: noteId, content: noteState.value);
                   Navigator.pop(context);
                 },
                 child: isCreate
@@ -73,7 +64,7 @@ class NotePageMain extends HookWidget {
           initialValue: initialContent,
           onChanged: (String? value) {
             if (value != null) {
-              noteState.state = value;
+              noteState.value = value;
             }
           },
           maxLines: 100000000,
