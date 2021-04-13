@@ -9,21 +9,19 @@ import 'models/note_model.dart';
 class AllNoteList extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final NotesNotifier notifier = useProvider(notesProvider.notifier);
     final Future<void> _fetchNotes =
-        useProvider(notesProvider.notifier).getNotes('testuser');
+        useMemoized(() => notifier.getNotes('testuser'));
+    final AsyncSnapshot<void> snapshot =
+        useFuture<void>(_fetchNotes, initialData: null);
 
-    return FutureBuilder<void>(
-      future: _fetchNotes,
-      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text('loading');
-        }
-        if (snapshot.hasError) {
-          return const Text('エラー');
-        }
-        return NoteListContainer();
-      },
-    );
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Text('loading');
+    }
+    if (snapshot.hasError) {
+      return const Text('えらー');
+    }
+    return NoteListContainer();
   }
 }
 
