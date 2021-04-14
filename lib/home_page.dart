@@ -7,7 +7,7 @@ import 'package:qin_memo/note/new_note_page.dart';
 import 'package:qin_memo/profile_dialog.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
-import 'package:qin_memo/search_page.dart';
+import 'package:qin_memo/search/search_page.dart';
 
 class HomePage extends HookWidget {
   @override
