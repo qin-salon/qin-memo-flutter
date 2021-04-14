@@ -3,10 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/user_provider.dart';
-import 'package:qin_memo/qin_account_connection_page.dart';
-import 'package:qin_memo/qin_account_delete_page.dart';
-import 'package:qin_memo/qin_account_profile_page.dart';
-import 'package:qin_memo/qin_account_support_page.dart';
+import 'package:qin_memo/qin_account/qin_account_connection_page.dart';
+import 'package:qin_memo/qin_account/qin_account_delete_page.dart';
+import 'package:qin_memo/qin_account/qin_account_profile_page.dart';
+import 'package:qin_memo/qin_account/qin_account_support_page.dart';
 import 'package:qin_memo/setting/setting_option.dart';
 
 class QinAccountPage extends HookWidget {
