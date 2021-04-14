@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../custom_alert_dialog.dart';
+import '../dialog/custom_alert_dialog.dart';
 
 class QinAccountDeletePage extends StatelessWidget {
   @override

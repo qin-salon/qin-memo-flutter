@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:qin_memo/custom_alert_dialog.dart';
+import 'package:qin_memo/dialog/custom_alert_dialog.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 
 class NotePageBottomSheet extends HookWidget {
