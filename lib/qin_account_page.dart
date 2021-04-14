@@ -7,7 +7,7 @@ import 'package:qin_memo/qin_account_connection_page.dart';
 import 'package:qin_memo/qin_account_delete_page.dart';
 import 'package:qin_memo/qin_account_profile_page.dart';
 import 'package:qin_memo/qin_account_support_page.dart';
-import 'package:qin_memo/setting_option.dart';
+import 'package:qin_memo/setting/setting_option.dart';
 
 class QinAccountPage extends HookWidget {
   @override

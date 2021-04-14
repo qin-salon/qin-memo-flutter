@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qin_memo/setting_option.dart';
+import 'package:qin_memo/setting/setting_option.dart';
 import 'package:qin_memo/theme_page.dart';
 
 class SettingPage extends StatelessWidget {

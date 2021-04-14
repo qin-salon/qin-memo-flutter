@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/custom_alert_dialog.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/qin_account_page.dart';
-import 'package:qin_memo/setting_page.dart';
+import 'package:qin_memo/setting/setting_page.dart';
 
 import 'providers/user_provider.dart';
 
