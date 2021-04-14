@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qin_memo/all_note_list.dart';
+import 'package:qin_memo/note/all_note_list.dart';
 import 'package:qin_memo/models/user_model.dart';
-import 'package:qin_memo/new_note_page.dart';
+import 'package:qin_memo/note/new_note_page.dart';
 import 'package:qin_memo/profile_dialog.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';

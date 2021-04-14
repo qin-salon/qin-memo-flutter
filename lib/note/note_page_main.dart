@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qin_memo/note_page_bottom_sheet.dart';
+import 'package:qin_memo/models/note_model.dart';
+import 'package:qin_memo/note/note_page_bottom_sheet.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 
 class NotePageMain extends HookWidget {
   const NotePageMain(
-      {required this.noteId,
+      {required this.note,
       required this.initialContent,
       this.isCreate = false});
 
-  final String noteId;
+  final Note note;
   final String? initialContent;
   final bool isCreate;
 
@@ -31,27 +32,48 @@ class NotePageMain extends HookWidget {
               GestureDetector(
                 onTap: () async {
                   await noteNotifier.update(
-                      noteId: noteId, content: noteState.value);
+                      noteId: note.id, content: noteState.value);
                   Navigator.pop(context);
                 },
                 child: isCreate
                     ? const Icon(Icons.close, color: Colors.black)
                     : const Icon(Icons.arrow_back_ios, color: Colors.black),
               ),
-              GestureDetector(
-                onTap: () {
-                  showModalBottomSheet<Widget>(
-                    isScrollControlled: true,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+              Row(
+                children: <Widget>[
+                  if (note.public)
+                    Container(
+                      child: const Text(
+                        '公開中',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(9999),
+                        color: const Color(0xFFFB923C),
+                      ),
                     ),
-                    context: context,
-                    builder: (BuildContext context) {
-                      return NotePageBottomSheet(noteId: noteId);
+                  const SizedBox(width: 16),
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet<Widget>(
+                        isScrollControlled: true,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        context: context,
+                        builder: (BuildContext context) {
+                          return NotePageBottomSheet(noteId: note.id);
+                        },
+                      );
                     },
-                  );
-                },
-                child: const Icon(Icons.more_horiz, color: Colors.black),
+                    child: const Icon(Icons.more_horiz, color: Colors.black),
+                  ),
+                ],
               ),
             ],
           ),

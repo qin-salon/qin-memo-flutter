@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'models/note_model.dart';
-import 'note_page.dart';
+import 'package:qin_memo/models/note_model.dart';
+import 'package:qin_memo/note/note_page.dart';
 
 class NoteList extends StatelessWidget {
   const NoteList({required this.notes});
@@ -21,10 +20,7 @@ class NoteList extends StatelessWidget {
           onTap: () => <void>{
             Navigator.of(context).push<NotePage>(
                 MaterialPageRoute<NotePage>(builder: (BuildContext context) {
-              return NotePage(
-                noteId: notes[index].id,
-                noteContent: notes[index].content,
-              );
+              return NotePage(note: notes[index]);
             }))
           },
           child: Container(

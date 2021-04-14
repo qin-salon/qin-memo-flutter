@@ -66,4 +66,26 @@ class NotesNotifier extends StateNotifier<List<Note>> {
       ...state.where((Note note) => note.id != noteId).toList(),
     ];
   }
+
+  Future<void> patch({required String noteId}) async {
+    final Note? note = getNoteFromState(noteId);
+    if (note == null) {
+      throw Exception('Invalid note id.');
+    }
+    final Response<Map<String, dynamic>> response = await Dio()
+        .patch<Map<String, dynamic>>(
+            'http://127.0.0.1:8080/v1/notes/$noteId/public',
+            data: <dynamic, dynamic>{});
+    final Map<String, dynamic>? data = response.data;
+    if (response.statusCode != 200 || data == null) {
+      throw Exception('Failed to patch note.');
+    }
+
+    state = <Note>[
+      note.copyWith(
+          public: Note.fromJson(data).public,
+          updatedOn: Note.fromJson(data).updatedOn),
+      ...state.where((Note note) => note.id != noteId).toList(),
+    ];
+  }
 }

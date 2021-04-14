@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
-import 'custom_alert_dialog.dart';
+import 'package:qin_memo/custom_alert_dialog.dart';
+import 'package:qin_memo/providers/notes_provider.dart';
 
 class NotePageBottomSheet extends HookWidget {
   const NotePageBottomSheet({required this.noteId});
@@ -11,6 +11,8 @@ class NotePageBottomSheet extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NotesNotifier notifier = useProvider(notesProvider.notifier);
+
     return Container(
       child: Wrap(
         children: <Widget>[
@@ -62,9 +64,7 @@ class NotePageBottomSheet extends HookWidget {
                                 GestureDetector(
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () async {
-                                    final Uri uri = Uri.parse(
-                                        'http://127.0.0.1:8080/v1/notes/$noteId/public');
-                                    await http.patch(uri);
+                                    await notifier.patch(noteId: noteId);
                                     Navigator.of(context).pop();
                                   },
                                   child: Container(
