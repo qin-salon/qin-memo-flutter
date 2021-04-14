@@ -88,4 +88,19 @@ class NotesNotifier extends StateNotifier<List<Note>> {
       ...state.where((Note note) => note.id != noteId).toList(),
     ];
   }
+
+  Future<void> delete({required String noteId}) async {
+    final Note? note = getNoteFromState(noteId);
+    if (note == null) {
+      throw Exception('Invalid note id.');
+    }
+    final Response<void> response = await Dio().delete(
+        'http://127.0.0.1:8080/v1/notes/$noteId',
+        data: <dynamic, dynamic>{});
+    if (response.statusCode != 200) {
+      throw Exception('Failed to delete note.');
+    }
+
+    state = <Note>[...state.where((Note note) => note.id != noteId).toList()];
+  }
 }

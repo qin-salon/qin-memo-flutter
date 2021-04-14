@@ -111,7 +111,13 @@ class NotePageBottomSheet extends HookWidget {
                                           title: 'メモを削除',
                                           subText: '復元できませんがよろしいですか？',
                                           actionText: 'OK',
-                                          action: () => print('delete memo'),
+                                          action: () async {
+                                            await notifier.delete(
+                                                noteId: noteId);
+                                            Navigator.of(context).popUntil(
+                                                (Route<dynamic> route) =>
+                                                    route.isFirst);
+                                          },
                                         );
                                       },
                                     );
