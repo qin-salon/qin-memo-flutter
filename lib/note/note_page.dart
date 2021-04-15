@@ -16,7 +16,7 @@ class NotePage extends HookWidget {
 
     if (note.content != null) {
       return NotePageMain(
-        note: note,
+        noteId: note.id,
         initialContent: note.content,
       );
     }
@@ -31,7 +31,7 @@ class NotePage extends HookWidget {
           return const Text('エラー');
         }
         return NotePageMain(
-          note: note,
+          noteId: note.id,
           initialContent: snapshot.data,
         );
       },

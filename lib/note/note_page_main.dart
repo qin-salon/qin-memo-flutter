@@ -3,15 +3,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/note/note_page_bottom_sheet.dart';
+import 'package:qin_memo/providers/note_provider.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 
 class NotePageMain extends HookWidget {
   const NotePageMain(
-      {required this.note,
+      {required this.noteId,
       required this.initialContent,
       this.isCreate = false});
 
-  final Note note;
+  final String noteId;
   final String? initialContent;
   final bool isCreate;
 
@@ -19,6 +20,7 @@ class NotePageMain extends HookWidget {
   Widget build(BuildContext context) {
     final ValueNotifier<String> noteState = useState(initialContent ?? '');
     final NotesNotifier noteNotifier = useProvider(notesProvider.notifier);
+    final Note? note = useProvider(noteProvider(noteId)).state;
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +34,7 @@ class NotePageMain extends HookWidget {
               GestureDetector(
                 onTap: () async {
                   await noteNotifier.update(
-                      noteId: note.id, content: noteState.value);
+                      noteId: noteId, content: noteState.value);
                   Navigator.pop(context);
                 },
                 child: isCreate
@@ -41,7 +43,7 @@ class NotePageMain extends HookWidget {
               ),
               Row(
                 children: <Widget>[
-                  if (note.public)
+                  if (note?.public == true)
                     Container(
                       child: const Text(
                         '公開中',
@@ -67,7 +69,7 @@ class NotePageMain extends HookWidget {
                         ),
                         context: context,
                         builder: (BuildContext context) {
-                          return NotePageBottomSheet(noteId: note.id);
+                          return NotePageBottomSheet(noteId: noteId);
                         },
                       );
                     },
