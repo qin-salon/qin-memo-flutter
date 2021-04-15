@@ -17,7 +17,8 @@ class SearchPage extends HookWidget {
         title: SearchAppBarTitle(),
       ),
       body: Container(
-        child: searchText != '' ? SearchNoteList() : SearchHistoryList(),
+        child:
+            searchText != '' ? SearchNoteList() : SearchHistoryListContainer(),
         padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
       ),
     );

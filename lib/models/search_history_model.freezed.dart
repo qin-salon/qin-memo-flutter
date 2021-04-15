@@ -20,10 +20,14 @@ SearchHistory _$SearchHistoryFromJson(Map<String, dynamic> json) {
 class _$SearchHistoryTearOff {
   const _$SearchHistoryTearOff();
 
-  _SearchHistory call({required String id, required String keyword}) {
+  _SearchHistory call(
+      {required String id,
+      required String keyword,
+      required String createdOn}) {
     return _SearchHistory(
       id: id,
       keyword: keyword,
+      createdOn: createdOn,
     );
   }
 
@@ -39,6 +43,7 @@ const $SearchHistory = _$SearchHistoryTearOff();
 mixin _$SearchHistory {
   String get id => throw _privateConstructorUsedError;
   String get keyword => throw _privateConstructorUsedError;
+  String get createdOn => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +56,7 @@ abstract class $SearchHistoryCopyWith<$Res> {
   factory $SearchHistoryCopyWith(
           SearchHistory value, $Res Function(SearchHistory) then) =
       _$SearchHistoryCopyWithImpl<$Res>;
-  $Res call({String id, String keyword});
+  $Res call({String id, String keyword, String createdOn});
 }
 
 /// @nodoc
@@ -67,6 +72,7 @@ class _$SearchHistoryCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? keyword = freezed,
+    Object? createdOn = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -76,6 +82,10 @@ class _$SearchHistoryCopyWithImpl<$Res>
       keyword: keyword == freezed
           ? _value.keyword
           : keyword // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdOn: createdOn == freezed
+          ? _value.createdOn
+          : createdOn // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -88,7 +98,7 @@ abstract class _$SearchHistoryCopyWith<$Res>
           _SearchHistory value, $Res Function(_SearchHistory) then) =
       __$SearchHistoryCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String keyword});
+  $Res call({String id, String keyword, String createdOn});
 }
 
 /// @nodoc
@@ -106,6 +116,7 @@ class __$SearchHistoryCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? keyword = freezed,
+    Object? createdOn = freezed,
   }) {
     return _then(_SearchHistory(
       id: id == freezed
@@ -116,6 +127,10 @@ class __$SearchHistoryCopyWithImpl<$Res>
           ? _value.keyword
           : keyword // ignore: cast_nullable_to_non_nullable
               as String,
+      createdOn: createdOn == freezed
+          ? _value.createdOn
+          : createdOn // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -124,7 +139,8 @@ class __$SearchHistoryCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SearchHistory implements _SearchHistory {
-  const _$_SearchHistory({required this.id, required this.keyword});
+  const _$_SearchHistory(
+      {required this.id, required this.keyword, required this.createdOn});
 
   factory _$_SearchHistory.fromJson(Map<String, dynamic> json) =>
       _$_$_SearchHistoryFromJson(json);
@@ -133,10 +149,12 @@ class _$_SearchHistory implements _SearchHistory {
   final String id;
   @override
   final String keyword;
+  @override
+  final String createdOn;
 
   @override
   String toString() {
-    return 'SearchHistory(id: $id, keyword: $keyword)';
+    return 'SearchHistory(id: $id, keyword: $keyword, createdOn: $createdOn)';
   }
 
   @override
@@ -146,14 +164,19 @@ class _$_SearchHistory implements _SearchHistory {
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.keyword, keyword) ||
-                const DeepCollectionEquality().equals(other.keyword, keyword)));
+                const DeepCollectionEquality()
+                    .equals(other.keyword, keyword)) &&
+            (identical(other.createdOn, createdOn) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdOn, createdOn)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(keyword);
+      const DeepCollectionEquality().hash(keyword) ^
+      const DeepCollectionEquality().hash(createdOn);
 
   @JsonKey(ignore: true)
   @override
@@ -167,8 +190,10 @@ class _$_SearchHistory implements _SearchHistory {
 }
 
 abstract class _SearchHistory implements SearchHistory {
-  const factory _SearchHistory({required String id, required String keyword}) =
-      _$_SearchHistory;
+  const factory _SearchHistory(
+      {required String id,
+      required String keyword,
+      required String createdOn}) = _$_SearchHistory;
 
   factory _SearchHistory.fromJson(Map<String, dynamic> json) =
       _$_SearchHistory.fromJson;
@@ -177,6 +202,8 @@ abstract class _SearchHistory implements SearchHistory {
   String get id => throw _privateConstructorUsedError;
   @override
   String get keyword => throw _privateConstructorUsedError;
+  @override
+  String get createdOn => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SearchHistoryCopyWith<_SearchHistory> get copyWith =>

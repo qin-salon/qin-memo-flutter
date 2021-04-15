@@ -4,8 +4,10 @@ part 'search_history_model.g.dart';
 
 @freezed
 class SearchHistory with _$SearchHistory {
-  const factory SearchHistory({required String id, required String keyword}) =
-      _SearchHistory;
+  const factory SearchHistory(
+      {required String id,
+      required String keyword,
+      required String createdOn}) = _SearchHistory;
   factory SearchHistory.fromJson(Map<String, dynamic> json) =>
       _$SearchHistoryFromJson(json);
 }
