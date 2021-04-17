@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/providers/theme_provider.dart';
 
 class ThemePage extends StatelessWidget {
   @override
@@ -21,12 +24,15 @@ class ThemePage extends StatelessWidget {
           children: const <Widget>[
             ThemeOption(
               text: 'OSの設定に合わせる',
+              type: 'os',
             ),
             ThemeOption(
               text: 'ライト',
+              type: 'light',
             ),
             ThemeOption(
               text: 'ダーク',
+              type: 'dark',
             ),
           ],
         ),
@@ -36,13 +42,15 @@ class ThemePage extends StatelessWidget {
   }
 }
 
-class ThemeOption extends StatelessWidget {
-  const ThemeOption({required this.text});
+class ThemeOption extends HookWidget {
+  const ThemeOption({required this.text, required this.type});
 
   final String text;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
+    final String theme = useProvider(themeProvider);
     return GestureDetector(
       onTap: () => print('theme'),
       behavior: HitTestBehavior.opaque,
@@ -54,10 +62,11 @@ class ThemeOption extends StatelessWidget {
               text,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const Icon(
-              Icons.check,
-              color: Color(0xFF3B82F6),
-            )
+            if (theme == type)
+              const Icon(
+                Icons.check,
+                color: Color(0xFF3B82F6),
+              )
           ],
         ),
         padding: const EdgeInsets.symmetric(vertical: 14),
