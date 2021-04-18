@@ -8,32 +8,35 @@ class DotsIndicatorPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        PageView(
-          controller: controller,
-          children: pages,
-        ),
-        Positioned.fill(
-          bottom: 100,
-          child: Container(
-            padding: const EdgeInsets.only(top: 8),
-            alignment: Alignment.bottomCenter,
-            child: SmoothPageIndicator(
-              controller: controller,
-              count: pages.length,
-              effect: const SlideEffect(
-                spacing: 6,
-                radius: 6,
-                dotWidth: 6,
-                dotHeight: 6,
-                dotColor: Colors.black12,
-                activeDotColor: Colors.blue,
+    return Scaffold(
+      appBar: AppBar(),
+      body: Stack(
+        children: <Widget>[
+          PageView(
+            controller: controller,
+            children: pages,
+          ),
+          Positioned.fill(
+            bottom: 100,
+            child: Container(
+              padding: const EdgeInsets.only(top: 8),
+              alignment: Alignment.bottomCenter,
+              child: SmoothPageIndicator(
+                controller: controller,
+                count: pages.length,
+                effect: const SlideEffect(
+                  spacing: 6,
+                  radius: 6,
+                  dotWidth: 6,
+                  dotHeight: 6,
+                  dotColor: Colors.black12,
+                  activeDotColor: Colors.blue,
+                ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
