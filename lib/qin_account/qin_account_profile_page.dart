@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 
@@ -13,6 +16,9 @@ class QinAccountProfilePage extends HookWidget {
     final ValueNotifier<String> userNameState = useState('');
     final User? user = useProvider(userProvider);
     final UserNotifier userNotifier = useProvider(userProvider.notifier);
+    final ValueNotifier<File?> imageFileState = useState<File?>(null);
+
+    final ImagePicker picker = ImagePicker();
 
     useEffect(() {
       Future<void>.microtask(() {
@@ -58,10 +64,12 @@ class QinAccountProfilePage extends HookWidget {
                         Container(
                           width: 100,
                           height: 100,
-                          child: Image(
-                            image: NetworkImage(user?.avatarUrl ??
-                                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                          ),
+                          child: imageFileState.value != null
+                              ? Image.file(imageFileState.value!)
+                              : Image(
+                                  image: NetworkImage(user?.avatarUrl ??
+                                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                                ),
                         ),
                         const SizedBox(width: 24),
                         ElevatedButton(
@@ -76,7 +84,13 @@ class QinAccountProfilePage extends HookWidget {
                             onPrimary: Colors.black,
                             shape: const StadiumBorder(),
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            final PickedFile? pickedFile = await picker
+                                .getImage(source: ImageSource.gallery);
+                            final String? path = pickedFile?.path;
+                            imageFileState.value =
+                                path != null ? File(path) : null;
+                          },
                         ),
                       ],
                     ),
