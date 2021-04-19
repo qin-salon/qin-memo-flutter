@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/get_notes_response.dart';
 import 'package:qin_memo/models/note_model.dart';
+import 'package:qin_memo/providers/constants.dart';
 
 final StateNotifierProvider<NotesNotifier, List<Note>> notesProvider =
     StateNotifierProvider<NotesNotifier, List<Note>>(
@@ -11,8 +12,8 @@ class NotesNotifier extends StateNotifier<List<Note>> {
   NotesNotifier() : super(<Note>[]);
 
   Future<void> getNotes(String userId) async {
-    final Response<dynamic> response = await Dio()
-        .get<dynamic>('http://127.0.0.1:8080/v1/users/$userId/notes');
+    final Response<dynamic> response =
+        await Dio().get<dynamic>('$API_ORIGIN/v1/users/$userId/notes');
 
     if (response.statusCode != 200 || response.data == null) {
       throw Exception('Failed to fetch user notes.');
@@ -31,8 +32,8 @@ class NotesNotifier extends StateNotifier<List<Note>> {
   }
 
   Future<String?> getNote(String noteId) async {
-    final Response<Map<String, dynamic>> response = await Dio()
-        .get<Map<String, dynamic>>('http://127.0.0.1:8080/v1/notes/$noteId');
+    final Response<Map<String, dynamic>> response =
+        await Dio().get<Map<String, dynamic>>('$API_ORIGIN/v1/notes/$noteId');
     final Map<String, dynamic>? data = response.data;
     if (response.statusCode != 200 || data == null) {
       throw Exception('Failed to fetch user note.');
@@ -42,7 +43,7 @@ class NotesNotifier extends StateNotifier<List<Note>> {
 
   Future<String> add() async {
     final Response<Map<String, dynamic>> response = await Dio()
-        .post<Map<String, dynamic>>('http://127.0.0.1:8080/v1/notes',
+        .post<Map<String, dynamic>>('$API_ORIGIN/v1/notes',
             data: <dynamic, dynamic>{});
     final Map<String, dynamic>? data = response.data;
     if (response.statusCode != 201 || data == null) {
@@ -55,7 +56,7 @@ class NotesNotifier extends StateNotifier<List<Note>> {
 
   Future<void> update({required String noteId, required String content}) async {
     final Response<Map<String, dynamic>> response = await Dio()
-        .put<Map<String, dynamic>>('http://127.0.0.1:8080/v1/notes/$noteId',
+        .put<Map<String, dynamic>>('$API_ORIGIN/v1/notes/$noteId',
             data: <String, String>{'content': content});
     final Map<String, dynamic>? data = response.data;
     if (response.statusCode != 200 || data == null) {
@@ -73,8 +74,7 @@ class NotesNotifier extends StateNotifier<List<Note>> {
       throw Exception('Invalid note id.');
     }
     final Response<Map<String, dynamic>> response = await Dio()
-        .patch<Map<String, dynamic>>(
-            'http://127.0.0.1:8080/v1/notes/$noteId/public',
+        .patch<Map<String, dynamic>>('$API_ORIGIN/v1/notes/$noteId/public',
             data: <dynamic, dynamic>{});
     final Map<String, dynamic>? data = response.data;
     if (response.statusCode != 200 || data == null) {
@@ -94,9 +94,8 @@ class NotesNotifier extends StateNotifier<List<Note>> {
     if (note == null) {
       throw Exception('Invalid note id.');
     }
-    final Response<void> response = await Dio().delete(
-        'http://127.0.0.1:8080/v1/notes/$noteId',
-        data: <dynamic, dynamic>{});
+    final Response<void> response = await Dio()
+        .delete('$API_ORIGIN/v1/notes/$noteId', data: <dynamic, dynamic>{});
     if (response.statusCode != 200) {
       throw Exception('Failed to delete note.');
     }

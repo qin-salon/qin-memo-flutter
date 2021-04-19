@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/models/search_notes_response.dart';
+import 'package:qin_memo/providers/constants.dart';
 import 'package:qin_memo/providers/search_state_provider.dart';
 
 final AutoDisposeFutureProviderFamily<List<Note>, String> searchNotesProvider =
@@ -14,8 +15,8 @@ final AutoDisposeFutureProviderFamily<List<Note>, String> searchNotesProvider =
     return <Note>[];
   }
 
-  final Uri uri = Uri.parse(
-      'http://127.0.0.1:8080/v1/users/$userId/notes/search?q=$search');
+  final Uri uri =
+      Uri.parse('$API_ORIGIN/v1/users/$userId/notes/search?q=$search');
   final http.Response response = await http.get(uri);
   if (response.statusCode != 200) {
     throw Exception('Failed to fetch search notes.');

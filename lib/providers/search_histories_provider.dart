@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/get_search_histories_response.dart';
 import 'package:qin_memo/models/search_history_model.dart';
+import 'package:qin_memo/providers/constants.dart';
 
 final StateNotifierProvider<SearchHistoriesNotifier, List<SearchHistory>>
     searchHistoriesProvider =
@@ -16,7 +17,7 @@ class SearchHistoriesNotifier extends StateNotifier<List<SearchHistory>> {
       return;
     }
     final Response<dynamic> response = await Dio()
-        .get<dynamic>('http://127.0.0.1:8080/v1/users/$userId/searchHistories');
+        .get<dynamic>('$API_ORIGIN/v1/users/$userId/searchHistories');
 
     if (response.statusCode != 200 || response.data == null) {
       throw Exception('Failed to fetch user searchHistories.');
@@ -34,7 +35,7 @@ class SearchHistoriesNotifier extends StateNotifier<List<SearchHistory>> {
   Future<void> add({required String userId, required String keyword}) async {
     final Response<Map<String, dynamic>> response = await Dio()
         .post<Map<String, dynamic>>(
-            'http://127.0.0.1:8080/v1/users/$userId/searchHistories',
+            '$API_ORIGIN/v1/users/$userId/searchHistories',
             data: <String, String>{'keyword': keyword});
     final Map<String, dynamic>? data = response.data;
     if (response.statusCode != 201 || data == null) {
@@ -47,7 +48,7 @@ class SearchHistoriesNotifier extends StateNotifier<List<SearchHistory>> {
   Future<void> delete(
       {required String userId, required String searchHistoryId}) async {
     final Response<void> response = await Dio().delete(
-        'http://127.0.0.1:8080/v1/users/$userId/searchHistories/$searchHistoryId',
+        '$API_ORIGIN/v1/users/$userId/searchHistories/$searchHistoryId',
         data: <dynamic, dynamic>{});
     if (response.statusCode != 200) {
       throw Exception('Failed to delete searchHistory.');
