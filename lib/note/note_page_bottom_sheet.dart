@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:qin_memo/dialog/custom_alert_dialog.dart';
 import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
@@ -241,71 +242,46 @@ class NotePageBottomSheet extends HookWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'リンクをコピーする',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () {
+                        FlutterClipboard.copy(
+                            'https://memo.qin.sh/notes/$noteId');
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'リンクをコピーする',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: isPublic
+                                    ? Colors.black
+                                    : const Color(0xFFC2C6D2),
+                              ),
+                            ),
+                            Icon(
+                              Icons.copy,
                               color: isPublic
                                   ? Colors.black
                                   : const Color(0xFFC2C6D2),
                             ),
-                          ),
-                          Icon(
-                            Icons.copy,
-                            color: isPublic
-                                ? Colors.black
-                                : const Color(0xFFC2C6D2),
-                          ),
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF1F5F9),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 16,
-                        horizontal: 24,
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF1F5F9),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 24,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'その他のオプション',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: isPublic
-                                  ? Colors.black
-                                  : const Color(0xFFC2C6D2),
-                            ),
-                          ),
-                          Icon(
-                            Icons.more_horiz,
-                            color: isPublic
-                                ? Colors.black
-                                : const Color(0xFFC2C6D2),
-                          ),
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF1F5F9),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 16,
-                        horizontal: 24,
-                      ),
-                    ),
                   ],
                 ),
               ),
