@@ -112,19 +112,6 @@ class QinAccountPage extends HookWidget {
             ),
             padding: const EdgeInsets.all(24),
           ),
-          Container(
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text(
-                  'Qinサービス',
-                  style: TextStyle(fontSize: 14, color: Color(0xFFC2C6D2)),
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.all(24),
-          ),
         ],
       ),
     );
