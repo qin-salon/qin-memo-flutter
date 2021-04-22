@@ -21,6 +21,7 @@ dependencies:
   dio:
   clipboard:
   image_picker:
+  share:
 
 dev_dependencies:
   build_runner:
