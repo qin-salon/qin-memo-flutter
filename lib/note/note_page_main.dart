@@ -61,8 +61,9 @@ class NotePageMain extends HookWidget {
                     ),
                   const SizedBox(width: 16),
                   GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet<Widget>(
+                    onTap: () async {
+                      FocusScope.of(context).unfocus();
+                      await showModalBottomSheet<Widget>(
                         isScrollControlled: true,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
