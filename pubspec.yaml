@@ -22,6 +22,7 @@ dependencies:
   clipboard:
   image_picker:
   share:
+  easy_debounce:
 
 dev_dependencies:
   build_runner:
