@@ -65,10 +65,14 @@ class QinAccountProfilePage extends HookWidget {
                           width: 100,
                           height: 100,
                           child: imageFileState.value != null
-                              ? Image.file(imageFileState.value!)
+                              ? Image.file(
+                                  imageFileState.value!,
+                                  fit: BoxFit.cover,
+                                )
                               : Image(
                                   image: NetworkImage(user?.avatarUrl ??
                                       'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                                  fit: BoxFit.cover,
                                 ),
                         ),
                         const SizedBox(width: 24),
