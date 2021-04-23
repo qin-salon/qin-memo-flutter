@@ -71,6 +71,26 @@ class NotePageBottomSheet extends HookWidget {
                                   onTap: () async {
                                     await notifier.patch(noteId: noteId);
                                     Navigator.of(context).pop();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          isPublic ? '非公開にしました' : '公開しました',
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        duration:
+                                            const Duration(milliseconds: 1000),
+                                        width: 162,
+                                        behavior: SnackBarBehavior.floating,
+                                        backgroundColor: Colors.blue,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(999),
+                                        ),
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     child: Row(
