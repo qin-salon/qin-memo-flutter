@@ -1,3 +1,4 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -32,11 +33,7 @@ class NotePageMain extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               GestureDetector(
-                onTap: () async {
-                  await noteNotifier.update(
-                      noteId: noteId, content: noteState.value);
-                  Navigator.pop(context);
-                },
+                onTap: () => Navigator.pop(context),
                 child: isCreate
                     ? const Icon(Icons.close, color: Colors.black)
                     : const Icon(Icons.arrow_back_ios, color: Colors.black),
@@ -90,6 +87,12 @@ class NotePageMain extends HookWidget {
           onChanged: (String? value) {
             if (value != null) {
               noteState.value = value;
+              EasyDebounce.debounce(
+                  'notedebouncer', const Duration(milliseconds: 1000),
+                  () async {
+                await noteNotifier.update(
+                    noteId: noteId, content: noteState.value);
+              });
             }
           },
           maxLines: 100000000,
