@@ -175,9 +175,9 @@ class QinAccountProfilePage extends HookWidget {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          const Text(
-                            'https://memo.qin.page/shimabu',
-                            style: TextStyle(
+                          Text(
+                            'https://memo.qin.page/${userNameState.value}',
+                            style: const TextStyle(
                               fontSize: 14,
                               color: Color(0xFFC2C6D2),
                             ),
