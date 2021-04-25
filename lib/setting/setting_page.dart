@@ -30,7 +30,6 @@ class SettingPage extends HookWidget {
               'アカウント設定',
               style: TextStyle(fontSize: 14, color: Color(0xFFC2C6D2)),
             ),
-            const SettingOption(text: '通知'),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
