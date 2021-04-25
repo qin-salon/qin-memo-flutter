@@ -23,6 +23,7 @@ dependencies:
   image_picker:
   share:
   easy_debounce:
+  shared_preferences:
 
 dev_dependencies:
   build_runner:
