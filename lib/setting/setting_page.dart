@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/providers/theme_provider.dart';
 import 'package:qin_memo/setting/setting_option.dart';
 import 'package:qin_memo/theme_page.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeEnum theme = useProvider(themeProvider);
+
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
@@ -45,16 +50,16 @@ class SettingPage extends StatelessWidget {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Row(
-                      children: const <Widget>[
+                      children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(right: 24),
+                          padding: const EdgeInsets.only(right: 24),
                           child: Text(
-                            'OSの設定に合わせる',
-                            style: TextStyle(
+                            theme.getThemeText(),
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.arrow_forward_ios,
                           color: Color(0xFFC2C6D2),
                         ),

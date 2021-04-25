@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/providers/theme_provider.dart';
 
-class ThemePage extends StatelessWidget {
+class ThemePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,18 +21,18 @@ class ThemePage extends StatelessWidget {
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
+          children: <Widget>[
             ThemeOption(
-              text: 'OSの設定に合わせる',
-              type: 'os',
+              text: ThemeEnum.OS.getThemeText(),
+              type: ThemeEnum.OS.getThemeType(),
             ),
             ThemeOption(
-              text: 'ライト',
-              type: 'light',
+              text: ThemeEnum.LIGHT.getThemeText(),
+              type: ThemeEnum.LIGHT.getThemeType(),
             ),
             ThemeOption(
-              text: 'ダーク',
-              type: 'dark',
+              text: ThemeEnum.DARK.getThemeText(),
+              type: ThemeEnum.DARK.getThemeType(),
             ),
           ],
         ),
@@ -50,9 +50,13 @@ class ThemeOption extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String theme = useProvider(themeProvider);
+    final ThemeNotifier notifier = useProvider(themeProvider.notifier);
+    final ThemeEnum theme = useProvider(themeProvider);
+
     return GestureDetector(
-      onTap: () => print('theme'),
+      onTap: () {
+        notifier.setTheme(type);
+      },
       behavior: HitTestBehavior.opaque,
       child: Container(
         child: Row(
@@ -62,7 +66,7 @@ class ThemeOption extends HookWidget {
               text,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            if (theme == type)
+            if (theme.getThemeType() == type)
               const Icon(
                 Icons.check,
                 color: Color(0xFF3B82F6),
