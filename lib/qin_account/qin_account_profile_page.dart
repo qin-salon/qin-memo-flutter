@@ -27,18 +27,19 @@ class QinAccountProfilePage extends HookWidget {
     });
 
     return Scaffold(
-        appBar: AppBar(
-          titleSpacing: 0,
-          leading: GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: const Padding(
-              padding: EdgeInsets.only(left: 24),
-              child: Icon(Icons.arrow_back_ios),
-            ),
+      appBar: AppBar(
+        titleSpacing: 0,
+        leading: GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: const Padding(
+            padding: EdgeInsets.only(left: 24),
+            child: Icon(Icons.arrow_back_ios),
           ),
-          title: const Text('Qinアカウント'),
         ),
-        body: Container(
+        title: const Text('Qinアカウント'),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -224,6 +225,8 @@ class QinAccountProfilePage extends HookWidget {
             ],
           ),
           padding: const EdgeInsets.all(24),
-        ));
+        ),
+      ),
+    );
   }
 }
