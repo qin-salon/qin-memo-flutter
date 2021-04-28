@@ -32,7 +32,10 @@ class NoteItem extends StatelessWidget {
   List<String> _createExcerpt(String text) {
     final List<String> excerpts =
         text.split('\n').where((String value) => value.isNotEmpty).toList();
-    if (excerpts.length <= 1) {
+    if (excerpts.isEmpty) {
+      return <String>['', ''];
+    }
+    if (excerpts.length == 1) {
       return <String>[excerpts[0], ''];
     }
     return excerpts;

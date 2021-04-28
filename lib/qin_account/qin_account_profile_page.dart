@@ -211,7 +211,6 @@ class QinAccountProfilePage extends HookWidget {
                             if (currentState.validate()) {
                               currentState.save();
                               await userNotifier.update(name: nameState.value);
-                              print('こうしんしました');
                             }
                           } catch (e) {
                             print(e);

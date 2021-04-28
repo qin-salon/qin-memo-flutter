@@ -11,7 +11,6 @@ class UserNotifier extends StateNotifier<User?> {
   UserNotifier() : super(null);
 
   Future<void> getUser(String userId) async {
-    print('$API_ORIGIN/v1/users/$userId');
     final Response<Map<String, dynamic>> response =
         await Dio().get<Map<String, dynamic>>('$API_ORIGIN/v1/users/$userId');
     final Map<String, dynamic>? data = response.data;
