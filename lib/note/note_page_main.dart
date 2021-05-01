@@ -1,6 +1,7 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/note/note_page_bottom_sheet.dart';
@@ -71,7 +72,7 @@ class NotePageMain extends HookWidget {
                         },
                       );
                     },
-                    child: const Icon(Icons.more_horiz, color: Colors.black),
+                    child: SvgPicture.asset('assets/vector.svg'),
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:share/share.dart';
@@ -72,17 +73,37 @@ class NotePageBottomSheet extends HookWidget {
                                     await notifier.patch(noteId: noteId);
                                     Navigator.of(context).pop();
                                     ScaffoldMessenger.of(context).showSnackBar(
+                                      // TODO: widthの設定をどうすればいいかわからない
                                       SnackBar(
-                                        content: Text(
-                                          isPublic ? '非公開にしました' : '公開しました',
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                        content: Row(
+                                          children: <Widget>[
+                                            if (isPublic)
+                                              const Icon(
+                                                Icons.close,
+                                                color: Colors.white,
+                                              )
+                                            else
+                                              const Icon(
+                                                Icons.check_circle_outline,
+                                                color: Colors.white,
+                                              ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              isPublic
+                                                  ? 'メモを非公開にしました'
+                                                  : 'メモを公開しました',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         duration:
                                             const Duration(milliseconds: 1000),
-                                        width: 162,
+                                        // width: 162,
                                         behavior: SnackBarBehavior.floating,
                                         backgroundColor: Colors.blue,
                                         shape: RoundedRectangleBorder(
@@ -150,8 +171,8 @@ class NotePageBottomSheet extends HookWidget {
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      children: const <Widget>[
-                                        Text(
+                                      children: <Widget>[
+                                        const Text(
                                           '削除する',
                                           style: TextStyle(
                                             fontSize: 14,
@@ -159,10 +180,7 @@ class NotePageBottomSheet extends HookWidget {
                                             color: Color(0xFFEF4444),
                                           ),
                                         ),
-                                        Icon(
-                                          Icons.delete_outline_sharp,
-                                          color: Color(0xFFEF4444),
-                                        ),
+                                        SvgPicture.asset('assets/trash.svg'),
                                       ],
                                     ),
                                     padding: const EdgeInsets.symmetric(
@@ -214,12 +232,7 @@ class NotePageBottomSheet extends HookWidget {
                                                 : const Color(0xFFC2C6D2),
                                           ),
                                         ),
-                                        Icon(
-                                          Icons.star,
-                                          color: isPublic
-                                              ? const Color(0xFF1DA1F2)
-                                              : const Color(0xFFC2C6D2),
-                                        ),
+                                        SvgPicture.asset('assets/twitter.svg'),
                                       ],
                                     ),
                                     padding: const EdgeInsets.symmetric(
@@ -248,12 +261,7 @@ class NotePageBottomSheet extends HookWidget {
                                               : const Color(0xFFC2C6D2),
                                         ),
                                       ),
-                                      Icon(
-                                        Icons.star,
-                                        color: isPublic
-                                            ? const Color(0xFF1DA1F2)
-                                            : const Color(0xFFC2C6D2),
-                                      ),
+                                      SvgPicture.asset('assets/twitter.svg'),
                                     ],
                                   ),
                                   padding: const EdgeInsets.symmetric(
@@ -291,12 +299,13 @@ class NotePageBottomSheet extends HookWidget {
                                     : const Color(0xFFC2C6D2),
                               ),
                             ),
-                            Icon(
-                              Icons.copy,
-                              color: isPublic
-                                  ? Colors.black
-                                  : const Color(0xFFC2C6D2),
-                            ),
+                            SvgPicture.asset('assets/clipboard-copy.svg'),
+                            // Icon(
+                            //   Icons.copy,
+                            //   color: isPublic
+                            //       ? Colors.black
+                            //       : const Color(0xFFC2C6D2),
+                            // ),
                           ],
                         ),
                         decoration: BoxDecoration(

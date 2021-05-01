@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class QinAccountConnectionPage extends StatelessWidget {
   @override
@@ -58,10 +59,9 @@ class ConnectionRow extends StatelessWidget {
               Container(
                 width: 24,
                 height: 24,
-                child: const Image(
-                  image: NetworkImage(
-                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                ),
+                child: SvgPicture.asset(text == 'Google'
+                    ? 'assets/google.svg'
+                    : 'assets/apple.svg'),
               ),
               const SizedBox(width: 12),
               Text(
