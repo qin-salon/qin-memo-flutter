@@ -23,60 +23,71 @@ class ProfileDialog extends HookWidget {
             child: Column(
               children: <Widget>[
                 const SizedBox(height: 8),
-                Container(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        width: 48,
-                        height: 48,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage(
-                            user?.avatarUrl ??
-                                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute<QinAccountPage>(
+                          builder: (BuildContext context) {
+                        return QinAccountPage();
+                      }),
+                    );
+                  },
+                  child: Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: 48,
+                          height: 48,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            backgroundImage: NetworkImage(
+                              user?.avatarUrl ??
+                                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute<QinAccountPage>(
-                                builder: (BuildContext context) {
-                              return QinAccountPage();
-                            }),
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              user?.name ?? '',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF070417),
-                                decoration: TextDecoration.none,
+                        const SizedBox(width: 12),
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute<QinAccountPage>(
+                                  builder: (BuildContext context) {
+                                return QinAccountPage();
+                              }),
+                            );
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                user?.name ?? '',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF070417),
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            const Text(
-                              '@shimabuit',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Color(0xFFC2C6D2),
-                                decoration: TextDecoration.none,
+                              const Text(
+                                '@shimabuit',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFFC2C6D2),
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
                 ),
                 DialogOption(
                   onTap: () {
@@ -167,6 +178,7 @@ class DialogOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: onTap,
       child: Container(
         height: 44,
