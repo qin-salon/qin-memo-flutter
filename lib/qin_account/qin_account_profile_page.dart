@@ -204,6 +204,7 @@ class QinAccountProfilePage extends HookWidget {
                         ),
                         onPressed: () async {
                           try {
+                            FocusScope.of(context).unfocus();
                             final FormState? currentState =
                                 _formKey.currentState;
                             if (currentState == null) {
