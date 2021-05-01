@@ -33,7 +33,7 @@ class NoteItem extends StatelessWidget {
     final List<String> excerpts =
         text.split('\n').where((String value) => value.isNotEmpty).toList();
     if (excerpts.isEmpty) {
-      return <String>['', ''];
+      return <String>['新規メモ', ''];
     }
     if (excerpts.length == 1) {
       return <String>[excerpts[0], ''];
@@ -46,11 +46,14 @@ class NoteItem extends StatelessWidget {
     final List<String> excerpts = _createExcerpt(note.excerpt ?? '');
 
     return GestureDetector(
-      onTap: () => <void>{
-        Navigator.of(context).push<NotePage>(
-            MaterialPageRoute<NotePage>(builder: (BuildContext context) {
-          return NotePage(note: note);
-        }))
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute<NotePage>(
+            builder: (BuildContext context) {
+              return NotePage(note: note);
+            },
+          ),
+        );
       },
       child: Container(
         child: Container(
