@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/privacy_policy.dart';
 import 'package:qin_memo/providers/theme_provider.dart';
 import 'package:qin_memo/setting/setting_option.dart';
 import 'package:qin_memo/theme_page.dart';
@@ -76,7 +77,17 @@ class SettingPage extends HookWidget {
               'サポート',
               style: TextStyle(fontSize: 14, color: Color(0xFFC2C6D2)),
             ),
-            const SettingOption(text: 'プライバシーポリシー'),
+            SettingOption(
+                text: 'プライバシーポリシー',
+                action: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<PrivacyPolicyPage>(
+                      builder: (BuildContext context) {
+                        return const PrivacyPolicyPage();
+                      },
+                    ),
+                  );
+                }),
             const SettingOption(text: '利用規約'),
             const SettingOption(text: 'オープンソースライセンス'),
             SettingOption(

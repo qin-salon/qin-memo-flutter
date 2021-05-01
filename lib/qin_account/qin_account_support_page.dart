@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qin_memo/privacy_policy.dart';
 import 'package:qin_memo/setting/setting_option.dart';
 import 'package:qin_memo/webview.dart';
 
@@ -27,7 +28,18 @@ class QinAccountSupportPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const SettingOption(text: 'プライバシーポリシー'),
+                SettingOption(
+                  text: 'プライバシーポリシー',
+                  action: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<PrivacyPolicyPage>(
+                        builder: (BuildContext context) {
+                          return const PrivacyPolicyPage();
+                        },
+                      ),
+                    );
+                  },
+                ),
                 const SettingOption(text: '利用規約'),
                 const SettingOption(text: 'オープンソースライセンス'),
                 SettingOption(
