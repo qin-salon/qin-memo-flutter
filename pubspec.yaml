@@ -25,6 +25,7 @@ dependencies:
   easy_debounce:
   shared_preferences:
   flutter_svg:
+  webview_flutter:
 
 dev_dependencies:
   build_runner:
