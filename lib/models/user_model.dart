@@ -11,3 +11,13 @@ class User with _$User {
   }) = _User;
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
+
+@freezed
+class UserState with _$UserState {
+  factory UserState({
+    @Default(null) User? user,
+    @Default(true) bool loading,
+  }) = _UserState;
+  factory UserState.fromJson(Map<String, dynamic> json) =>
+      _$UserStateFromJson(json);
+}

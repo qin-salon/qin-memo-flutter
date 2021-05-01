@@ -19,3 +19,18 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'name': instance.name,
       'avatarUrl': instance.avatarUrl,
     };
+
+_$_UserState _$_$_UserStateFromJson(Map<String, dynamic> json) {
+  return _$_UserState(
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+    loading: json['loading'] as bool? ?? true,
+  );
+}
+
+Map<String, dynamic> _$_$_UserStateToJson(_$_UserState instance) =>
+    <String, dynamic>{
+      'user': instance.user,
+      'loading': instance.loading,
+    };

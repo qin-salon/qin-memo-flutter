@@ -1,1 +1,1 @@
-const String API_ORIGIN = 'http://192.168.100.85:8080';
+const String API_ORIGIN = 'http://127.0.0.1:8080';

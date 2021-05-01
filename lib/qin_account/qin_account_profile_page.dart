@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 
 class QinAccountProfilePage extends HookWidget {
@@ -14,8 +13,10 @@ class QinAccountProfilePage extends HookWidget {
   Widget build(BuildContext context) {
     final ValueNotifier<String> nameState = useState('');
     final ValueNotifier<String> userNameState = useState('');
-    final User? user = useProvider(userProvider);
-    final UserNotifier userNotifier = useProvider(userProvider.notifier);
+    final user =
+        useProvider(userProvider('testuser').select((value) => value.user));
+    final UserNotifier userNotifier =
+        useProvider(userProvider('testuser').notifier);
     final ValueNotifier<File?> imageFileState = useState<File?>(null);
 
     final ImagePicker picker = ImagePicker();

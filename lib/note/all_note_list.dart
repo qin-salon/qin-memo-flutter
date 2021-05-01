@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/note/note_list.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
+import 'package:qin_memo/providers/user_provider.dart';
 
 import '../models/note_model.dart';
 
@@ -14,9 +15,11 @@ class AllNoteList extends HookWidget {
         useMemoized(() => notifier.getNotes('testuser'));
     final AsyncSnapshot<void> snapshot =
         useFuture<void>(_fetchNotes, initialData: null);
+    final userLoading =
+        useProvider(userProvider('testuser').select((value) => value.loading));
 
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return const Text('loading');
+    if (snapshot.connectionState == ConnectionState.waiting && userLoading) {
+      return const CircularProgressIndicator();
     }
     if (snapshot.hasError) {
       return const Text('えらー');

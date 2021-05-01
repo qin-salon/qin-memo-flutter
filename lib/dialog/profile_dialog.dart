@@ -12,7 +12,8 @@ import '../providers/user_provider.dart';
 class ProfileDialog extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final User? user = useProvider(userProvider);
+    final User? user =
+        useProvider(userProvider('testuser').select((value) => value.user));
 
     return Align(
       alignment: Alignment.topCenter,

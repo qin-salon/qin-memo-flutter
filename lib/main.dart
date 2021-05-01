@@ -39,21 +39,21 @@ class HomeWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: この辺りふぁくたしたい
-    final UserNotifier notifier = useProvider(userProvider.notifier);
-    final ThemeNotifier themeNotifier = useProvider(themeProvider.notifier);
-    final Future<void> _future =
-        useMemoized(() => notifier.getUser('testuser'));
-    final AsyncSnapshot<void> snapshot = useFuture(_future, initialData: null);
-    final Future<void> _themeFuture =
-        useMemoized(() => themeNotifier.getTheme());
-    useFuture(_themeFuture, initialData: null);
+    // final UserNotifier notifier = useProvider(userProvider.notifier);
+    // final ThemeNotifier themeNotifier = useProvider(themeProvider.notifier);
+    // final Future<void> _future =
+    //     useMemoized(() => notifier.getUser('testuser'));
+    // final AsyncSnapshot<void> snapshot = useFuture(_future, initialData: null);
+    // final Future<void> _themeFuture =
+    //     useMemoized(() => themeNotifier.getTheme());
+    // useFuture(_themeFuture, initialData: null);
 
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return const Text('loading');
-    }
-    if (snapshot.hasError) {
-      return const Text('エラー');
-    }
+    // if (snapshot.connectionState != ConnectionState.waiting) {
+    //   return const CircularProgressIndicator();
+    // }
+    // if (snapshot.hasError) {
+    //   return const Text('エラー');
+    // }
     return HomePage();
   }
 }
