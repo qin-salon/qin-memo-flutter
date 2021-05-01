@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/providers/theme_provider.dart';
 import 'package:qin_memo/setting/setting_option.dart';
 import 'package:qin_memo/theme_page.dart';
+import 'package:qin_memo/webview.dart';
 
 class SettingPage extends HookWidget {
   @override
@@ -78,7 +79,21 @@ class SettingPage extends HookWidget {
             const SettingOption(text: 'プライバシーポリシー'),
             const SettingOption(text: '利用規約'),
             const SettingOption(text: 'オープンソースライセンス'),
-            const SettingOption(text: 'お問い合わせ'),
+            SettingOption(
+              text: 'お問い合わせ',
+              action: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<WebViewPage>(
+                    builder: (BuildContext context) {
+                      return const WebViewPage(
+                        title: 'お問い合わせ',
+                        url: 'https://forms.gle/pNNUdFnf3YmYpqhJ6',
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
