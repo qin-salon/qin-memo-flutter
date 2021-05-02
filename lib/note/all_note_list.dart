@@ -26,7 +26,7 @@ class NoteListContainer extends HookWidget {
   Widget build(BuildContext context) {
     final notesState = useProvider(notesProvider('testuser'));
     if (notesState.notes.isEmpty) {
-      return const Text('メモがまだありません');
+      return const Text('メモがありません', style: TextStyle(fontSize: 16));
     }
     return NoteList(notes: notesState.notes);
   }

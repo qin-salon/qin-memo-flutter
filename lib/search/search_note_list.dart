@@ -13,7 +13,13 @@ class SearchNoteList extends HookWidget {
 
     return config.when(
         loading: () => NormalLoading(),
-        error: (_, __) => const Text('見つかりませんでした'),
+        error: (_, __) => const Padding(
+              padding: EdgeInsets.only(top: 24),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text('見つかりませんでした', style: TextStyle(fontSize: 16)),
+              ),
+            ),
         data: (List<Note> notes) {
           return NoteList(notes: notes);
         });

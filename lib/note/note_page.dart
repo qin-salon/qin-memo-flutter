@@ -20,7 +20,13 @@ class NotePage extends HookWidget {
       appBar: NotePageAppBar(noteId: note.id),
       body: config.when(
           loading: () => NormalLoading(),
-          error: (_, __) => const Text('エラーが発生しました'),
+          error: (_, __) => const Padding(
+                padding: EdgeInsets.only(top: 24),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Text('エラーが発生しました'),
+                ),
+              ),
           data: (data) {
             return NotePageBody(noteId: note.id, content: data.content ?? '');
           }),
