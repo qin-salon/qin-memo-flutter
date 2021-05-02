@@ -5,25 +5,18 @@ import 'package:qin_memo/note/note_list.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 
-import '../models/note_model.dart';
-
 class AllNoteList extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final NotesNotifier notifier = useProvider(notesProvider.notifier);
-    final Future<void> _fetchNotes =
-        useMemoized(() => notifier.getNotes('testuser'));
-    final AsyncSnapshot<void> snapshot =
-        useFuture<void>(_fetchNotes, initialData: null);
+    final notesLoading =
+        useProvider(notesProvider('testuser').select((value) => value.loading));
     final userLoading =
         useProvider(userProvider('testuser').select((value) => value.loading));
 
-    if (snapshot.connectionState == ConnectionState.waiting && userLoading) {
+    if (notesLoading && userLoading) {
       return const CircularProgressIndicator();
     }
-    if (snapshot.hasError) {
-      return const Text('えらー');
-    }
+
     return NoteListContainer();
   }
 }
@@ -31,7 +24,7 @@ class AllNoteList extends HookWidget {
 class NoteListContainer extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final List<Note> notes = useProvider<List<Note>>(notesProvider);
-    return NoteList(notes: notes);
+    final notesState = useProvider(notesProvider('testuser'));
+    return NoteList(notes: notesState.notes);
   }
 }

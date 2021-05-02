@@ -321,7 +321,7 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_UserState implements _UserState {
-  const _$_UserState({this.user = null, this.loading = true});
+  _$_UserState({this.user = null, this.loading = true});
 
   factory _$_UserState.fromJson(Map<String, dynamic> json) =>
       _$_$_UserStateFromJson(json);
@@ -366,7 +366,7 @@ class _$_UserState implements _UserState {
 }
 
 abstract class _UserState implements UserState {
-  const factory _UserState({User? user, bool loading}) = _$_UserState;
+  factory _UserState({User? user, bool loading}) = _$_UserState;
 
   factory _UserState.fromJson(Map<String, dynamic> json) =
       _$_UserState.fromJson;

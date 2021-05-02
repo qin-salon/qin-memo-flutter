@@ -12,7 +12,8 @@ import 'package:qin_memo/search/search_page.dart';
 class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final NotesNotifier noteNotifier = useProvider(notesProvider.notifier);
+    final NotesNotifier noteNotifier =
+        useProvider(notesProvider('testuser').notifier);
     final userState =
         useProvider(userProvider('testuser').select((value) => value.user));
     useProvider(themeProvider);

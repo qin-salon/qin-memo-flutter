@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/note/note_page_bottom_sheet.dart';
-import 'package:qin_memo/providers/note_provider.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 
 class NotePageMain extends HookWidget {
@@ -21,8 +19,10 @@ class NotePageMain extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<String> noteState = useState(initialContent ?? '');
-    final NotesNotifier noteNotifier = useProvider(notesProvider.notifier);
-    final Note? note = useProvider(noteProvider(noteId)).state;
+    final NotesNotifier noteNotifier =
+        useProvider(notesProvider('testuser').notifier);
+    final note = useProvider(notesProvider('testuser').select(
+        (value) => value.notes.firstWhere((note) => note.id == noteId)));
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +41,7 @@ class NotePageMain extends HookWidget {
               ),
               Row(
                 children: <Widget>[
-                  if (note?.public == true)
+                  if (note.public == true)
                     Container(
                       child: const Text(
                         '公開中',
@@ -72,7 +72,7 @@ class NotePageMain extends HookWidget {
                         },
                       );
                     },
-                    child: SvgPicture.asset('assets/vector.svg'),
+                    child: SvgPicture.asset('assets/more.svg'),
                   ),
                 ],
               ),
@@ -92,7 +92,7 @@ class NotePageMain extends HookWidget {
                   'notedebouncer', const Duration(milliseconds: 1000),
                   () async {
                 await noteNotifier.update(
-                    noteId: noteId, content: noteState.value);
+                    note: note.copyWith(content: noteState.value));
               });
             }
           },

@@ -1,105 +1,52 @@
-import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qin_memo/models/get_notes_response.dart';
+import 'package:qin_memo/models/api.dart';
 import 'package:qin_memo/models/note_model.dart';
-import 'package:qin_memo/providers/constants.dart';
+import 'package:qin_memo/models/notes_state_model.dart';
 
-final StateNotifierProvider<NotesNotifier, List<Note>> notesProvider =
-    StateNotifierProvider<NotesNotifier, List<Note>>(
-        (ProviderReference ref) => NotesNotifier());
+final notesProvider =
+    StateNotifierProvider.family<NotesNotifier, NotesState, String>(
+        (ProviderReference ref, String userId) =>
+            NotesNotifier(ref.read, userId));
 
-class NotesNotifier extends StateNotifier<List<Note>> {
-  NotesNotifier() : super(<Note>[]);
-
-  Future<void> getNotes(String userId) async {
-    final Response<dynamic> response =
-        await Dio().get<dynamic>('$API_ORIGIN/v1/users/$userId/notes');
-
-    if (response.statusCode != 200 || response.data == null) {
-      throw Exception('Failed to fetch user notes.');
-    }
-
-    final Map<String, dynamic> data = <String, dynamic>{'notes': response.data};
-    state = <Note>[...state, ...GetNotesResponse.fromJson(data).notes];
+class NotesNotifier extends StateNotifier<NotesState> {
+  NotesNotifier(this._read, this._userId) : super(NotesState()) {
+    () async {
+      state = state.copyWith(
+          notes: await _read(notesFetcher(_userId).future), loading: false);
+    }();
   }
 
-  Note? getNoteFromState(String noteId) {
-    final Iterable<Note> note = state.where((Note note) => note.id == noteId);
-    if (note.isEmpty) {
-      return null;
-    }
-    return note.first;
-  }
-
-  Future<String?> getNote(String noteId) async {
-    final Response<Map<String, dynamic>> response =
-        await Dio().get<Map<String, dynamic>>('$API_ORIGIN/v1/notes/$noteId');
-    final Map<String, dynamic>? data = response.data;
-    if (response.statusCode != 200 || data == null) {
-      throw Exception('Failed to fetch user note.');
-    }
-    return Note.fromJson(data).content;
-  }
+  final Reader _read;
+  final String _userId;
 
   Future<String> add() async {
-    final Response<Map<String, dynamic>> response = await Dio()
-        .post<Map<String, dynamic>>('$API_ORIGIN/v1/notes',
-            data: <dynamic, dynamic>{});
-    final Map<String, dynamic>? data = response.data;
-    if (response.statusCode != 201 || data == null) {
-      throw Exception('Failed to update note.');
-    }
-    final Note note = Note.fromJson(data);
-    state = <Note>[note, ...state];
+    final note = await _read(notePoster.future);
+    final notes = <Note>[note, ...state.notes];
+    state = state.copyWith(notes: notes);
     return note.id;
   }
 
-  Future<void> update({required String noteId, required String content}) async {
-    final Response<Map<String, dynamic>> response = await Dio()
-        .put<Map<String, dynamic>>('$API_ORIGIN/v1/notes/$noteId',
-            data: <String, String>{'content': content});
-    final Map<String, dynamic>? data = response.data;
-    if (response.statusCode != 200 || data == null) {
-      throw Exception('Failed to update note.');
-    }
-    state = <Note>[
-      Note.fromJson(data),
-      ...state.where((Note note) => note.id != noteId).toList(),
+  Future<void> update({required Note note}) async {
+    final responseNote = await _read(notePuter(note).future);
+    final notes = <Note>[
+      responseNote,
+      ...state.notes.where((Note value) => value.id != note.id)
     ];
+    state = state.copyWith(notes: notes);
   }
 
   Future<void> patch({required String noteId}) async {
-    final Note? note = getNoteFromState(noteId);
-    if (note == null) {
-      throw Exception('Invalid note id.');
-    }
-    final Response<Map<String, dynamic>> response = await Dio()
-        .patch<Map<String, dynamic>>('$API_ORIGIN/v1/notes/$noteId/public',
-            data: <dynamic, dynamic>{});
-    final Map<String, dynamic>? data = response.data;
-    if (response.statusCode != 200 || data == null) {
-      throw Exception('Failed to patch note.');
-    }
-
-    state = <Note>[
-      note.copyWith(
-          public: Note.fromJson(data).public,
-          updatedOn: Note.fromJson(data).updatedOn),
-      ...state.where((Note note) => note.id != noteId).toList(),
+    final note = await _read(notePatcher(noteId).future);
+    final notes = <Note>[
+      note,
+      ...state.notes.where((Note value) => value.id != noteId).toList(),
     ];
+    state = state.copyWith(notes: notes);
   }
 
   Future<void> delete({required String noteId}) async {
-    final Note? note = getNoteFromState(noteId);
-    if (note == null) {
-      throw Exception('Invalid note id.');
-    }
-    final Response<void> response = await Dio()
-        .delete('$API_ORIGIN/v1/notes/$noteId', data: <dynamic, dynamic>{});
-    if (response.statusCode != 200) {
-      throw Exception('Failed to delete note.');
-    }
-
-    state = <Note>[...state.where((Note note) => note.id != noteId).toList()];
+    await _read(noteDeleter(noteId).future);
+    final notes = state.notes.where((Note note) => note.id != noteId).toList();
+    state = state.copyWith(notes: notes);
   }
 }

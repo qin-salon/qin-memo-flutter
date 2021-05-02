@@ -5,7 +5,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:share/share.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:qin_memo/dialog/custom_alert_dialog.dart';
-import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 
 class NotePageBottomSheet extends HookWidget {
@@ -15,9 +14,11 @@ class NotePageBottomSheet extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NotesNotifier notifier = useProvider(notesProvider.notifier);
-    final Note? note = notifier.getNoteFromState(noteId);
-    final bool isPublic = note?.public != null && note?.public == true;
+    final NotesNotifier notifier =
+        useProvider(notesProvider('testuser').notifier);
+    final note = useProvider(notesProvider('testuser').select(
+        (value) => value.notes.firstWhere((note) => note.id == noteId)));
+    final bool isPublic = note.public == true;
 
     return Container(
       child: Wrap(
@@ -300,12 +301,6 @@ class NotePageBottomSheet extends HookWidget {
                               ),
                             ),
                             SvgPicture.asset('assets/clipboard-copy.svg'),
-                            // Icon(
-                            //   Icons.copy,
-                            //   color: isPublic
-                            //       ? Colors.black
-                            //       : const Color(0xFFC2C6D2),
-                            // ),
                           ],
                         ),
                         decoration: BoxDecoration(
