@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/search_history_model.dart';
+import 'package:qin_memo/normal_loading.dart';
 import 'package:qin_memo/providers/search_histories_provider.dart';
 import 'package:qin_memo/providers/search_state_provider.dart';
 import 'package:qin_memo/providers/search_text_field_provider.dart';
@@ -13,13 +14,7 @@ class SearchHistoryListContainer extends HookWidget {
         searchHistoriesProvider('testuser').select((value) => value.loading));
 
     if (loading) {
-      return const Padding(
-        padding: EdgeInsets.only(top: 24),
-        child: Align(
-          child: CircularProgressIndicator(),
-          alignment: Alignment.topCenter,
-        ),
-      );
+      return NormalLoading();
     }
 
     return SearchHistoryList();
