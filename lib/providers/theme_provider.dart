@@ -30,7 +30,13 @@ final StateNotifierProvider<ThemeNotifier, ThemeEnum> themeProvider =
         (ProviderReference ref) => ThemeNotifier());
 
 class ThemeNotifier extends StateNotifier<ThemeEnum> {
-  ThemeNotifier() : super(ThemeEnum.OS);
+  ThemeNotifier() : super(ThemeEnum.OS) {
+    () async {
+      final SharedPreferences pref = await SharedPreferences.getInstance();
+      state =
+          _getThemeEnum(pref.getString('theme') ?? ThemeEnum.OS.getThemeType());
+    }();
+  }
 
   ThemeEnum _getThemeEnum(String value) {
     switch (value) {
@@ -43,12 +49,6 @@ class ThemeNotifier extends StateNotifier<ThemeEnum> {
       default:
         return ThemeEnum.OS;
     }
-  }
-
-  Future<void> getTheme() async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    state =
-        _getThemeEnum(pref.getString('theme') ?? ThemeEnum.OS.getThemeType());
   }
 
   Future<void> setTheme(String value) async {

@@ -13,12 +13,9 @@ class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final NotesNotifier noteNotifier = useProvider(notesProvider.notifier);
-    // final User? userState = useProvider(userProvider());
     final userState =
         useProvider(userProvider('testuser').select((value) => value.user));
-    final themeNotifier = useProvider(themeProvider.notifier);
-    final _themeFuture = useMemoized(() => themeNotifier.getTheme());
-    useFuture(_themeFuture, initialData: null);
+    useProvider(themeProvider);
 
     return Scaffold(
       appBar: AppBar(
