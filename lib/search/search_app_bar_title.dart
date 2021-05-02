@@ -9,7 +9,7 @@ class SearchAppBarTitle extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final SearchHistoriesNotifier notifier =
-        useProvider(searchHistoriesProvider.notifier);
+        useProvider(searchHistoriesProvider('testuser').notifier);
     final StateController<String> searchStateController =
         useProvider(searchStateProvider);
     final StateController<String> searchTextFieldController =
@@ -29,6 +29,7 @@ class SearchAppBarTitle extends HookWidget {
             onTap: () => Navigator.pop(context),
             child: const Icon(Icons.arrow_back_ios, color: Colors.black),
           ),
+          const SizedBox(width: 8),
           Flexible(
             child: TextField(
               onChanged: (String value) {
@@ -57,6 +58,7 @@ class SearchAppBarTitle extends HookWidget {
               ),
             ),
           ),
+          const SizedBox(width: 8),
           GestureDetector(
             onTap: () {
               searchStateController.state = '';

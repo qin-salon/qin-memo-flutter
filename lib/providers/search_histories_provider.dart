@@ -1,64 +1,37 @@
-import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qin_memo/models/get_search_histories_response.dart';
-import 'package:qin_memo/models/search_history_model.dart';
-import 'package:qin_memo/providers/constants.dart';
+import 'package:qin_memo/models/api.dart';
+import 'package:qin_memo/models/search_histories_state_model.dart';
 
-final StateNotifierProvider<SearchHistoriesNotifier, List<SearchHistory>>
-    searchHistoriesProvider =
-    StateNotifierProvider<SearchHistoriesNotifier, List<SearchHistory>>(
-        (ProviderReference ref) => SearchHistoriesNotifier());
+final searchHistoriesProvider = StateNotifierProvider.family<
+    SearchHistoriesNotifier,
+    SearchHistoriesState,
+    String>((ref, String userId) => SearchHistoriesNotifier(ref.read, userId));
 
-class SearchHistoriesNotifier extends StateNotifier<List<SearchHistory>> {
-  SearchHistoriesNotifier() : super(<SearchHistory>[]);
-
-  Future<void> getSearchHistories(String userId) async {
-    if (state.isNotEmpty) {
-      return;
-    }
-    final Response<dynamic> response = await Dio()
-        .get<dynamic>('$API_ORIGIN/v1/users/$userId/searchHistories');
-
-    if (response.statusCode != 200 || response.data == null) {
-      throw Exception('Failed to fetch user searchHistories.');
-    }
-
-    final Map<String, dynamic> data = <String, dynamic>{
-      'searchHistories': response.data
-    };
-    state = <SearchHistory>[
-      ...state,
-      ...GetSearchHistoriesResponse.fromJson(data).searchHistories
-    ];
+class SearchHistoriesNotifier extends StateNotifier<SearchHistoriesState> {
+  SearchHistoriesNotifier(this._read, this._userId)
+      : super(SearchHistoriesState()) {
+    () async {
+      state = state.copyWith(
+          histories: await _read(searchHistoriesFetcher(_userId).future),
+          loading: false);
+    }();
   }
 
+  final Reader _read;
+  final String _userId;
+
   Future<void> add({required String userId, required String keyword}) async {
-    final Response<Map<String, dynamic>> response = await Dio()
-        .post<Map<String, dynamic>>(
-            '$API_ORIGIN/v1/users/$userId/searchHistories',
-            data: <String, String>{'keyword': keyword});
-    final Map<String, dynamic>? data = response.data;
-    if (response.statusCode != 201 || data == null) {
-      throw Exception('Failed to add searchHistory.');
-    }
-    final SearchHistory searchHistory = SearchHistory.fromJson(data);
-    state = <SearchHistory>[searchHistory, ...state];
+    final history = await _read(createSearchHistory(keyword).future);
+    state = state.copyWith(histories: [history, ...state.histories]);
   }
 
   Future<void> delete(
       {required String userId, required String searchHistoryId}) async {
-    final Response<void> response = await Dio().delete(
-        '$API_ORIGIN/v1/users/$userId/searchHistories/$searchHistoryId',
-        data: <dynamic, dynamic>{});
-    if (response.statusCode != 200) {
-      throw Exception('Failed to delete searchHistory.');
-    }
+    await _read(deleteSearchHistory(searchHistoryId).future);
 
-    state = <SearchHistory>[
-      ...state
-          .where((SearchHistory searchHistory) =>
-              searchHistory.id != searchHistoryId)
-          .toList()
-    ];
+    state = state.copyWith(
+        histories: state.histories
+            .where((history) => history.id != searchHistoryId)
+            .toList());
   }
 }

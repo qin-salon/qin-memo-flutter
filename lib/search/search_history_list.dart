@@ -9,19 +9,17 @@ import 'package:qin_memo/providers/search_text_field_provider.dart';
 class SearchHistoryListContainer extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final SearchHistoriesNotifier notifier =
-        useProvider(searchHistoriesProvider.notifier);
-    final Future<void> _fetchSearchHistories =
-        useMemoized(() => notifier.getSearchHistories('testuser'));
-    final AsyncSnapshot<void> snapshot =
-        useFuture<void>(_fetchSearchHistories, initialData: null);
+    final loading = useProvider(
+        searchHistoriesProvider('testuser').select((value) => value.loading));
 
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return const Text('loading');
-    }
-    if (snapshot.hasError) {
-      print(snapshot.error);
-      return const Text('えらー');
+    if (loading) {
+      return const Padding(
+        padding: EdgeInsets.only(top: 24),
+        child: Align(
+          child: CircularProgressIndicator(),
+          alignment: Alignment.topCenter,
+        ),
+      );
     }
 
     return SearchHistoryList();
@@ -31,10 +29,10 @@ class SearchHistoryListContainer extends HookWidget {
 class SearchHistoryList extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final List<SearchHistory> searchHistories =
-        useProvider(searchHistoriesProvider);
+    final List<SearchHistory> searchHistories = useProvider(
+        searchHistoriesProvider('testuser').select((value) => value.histories));
     final SearchHistoriesNotifier notifier =
-        useProvider(searchHistoriesProvider.notifier);
+        useProvider(searchHistoriesProvider('testuser').notifier);
     final StateController<String> searchStateController =
         useProvider(searchStateProvider);
     final StateController<String> searchTextFieldController =

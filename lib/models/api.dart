@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/note_model.dart';
+import 'package:qin_memo/models/search_history_model.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/constants.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
@@ -119,4 +120,42 @@ final noteDeleter =
     throw Exception('Failed to delete note.');
   }
   return noteId;
+});
+
+final searchHistoriesFetcher =
+    FutureProvider.autoDispose.family((ref, String userId) async {
+  final Response<dynamic> response =
+      await Dio().get<dynamic>('$API_ORIGIN/v1/users/$userId/searchHistories');
+
+  if (response.statusCode != 200 || response.data == null) {
+    throw Exception('Failed to fetch user searchHistories.');
+  }
+  final json = (response.data as List).cast<Map<String, dynamic>>();
+  final list = json.map((e) => SearchHistory.fromJson(e)).toList();
+  return list;
+});
+
+final createSearchHistory =
+    FutureProvider.autoDispose.family((ref, String keyword) async {
+  // TODO: testuserを修正
+  final Response<Map<String, dynamic>> response = await Dio()
+      .post<Map<String, dynamic>>(
+          '$API_ORIGIN/v1/users/testuser/searchHistories',
+          data: <String, String>{'keyword': keyword});
+  final Map<String, dynamic>? data = response.data;
+  if (response.statusCode != 201 || data == null) {
+    throw Exception('Failed to add searchHistory.');
+  }
+  return SearchHistory.fromJson(data);
+});
+
+final deleteSearchHistory =
+    FutureProvider.autoDispose.family((ref, String searchHistoryId) async {
+  // TODO: testuser修正
+  final Response<void> response = await Dio().delete(
+      '$API_ORIGIN/v1/users/testuser/searchHistories/$searchHistoryId',
+      data: <dynamic, dynamic>{});
+  if (response.statusCode != 200) {
+    throw Exception('Failed to delete searchHistory.');
+  }
 });
