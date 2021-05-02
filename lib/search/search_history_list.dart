@@ -54,10 +54,31 @@ class SearchHistoryList extends HookWidget {
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      notifier.delete(
-                          userId: 'testuser',
-                          searchHistoryId: searchHistories[index].id);
+                    onTap: () async {
+                      try {
+                        await notifier.delete(
+                            userId: 'testuser',
+                            searchHistoryId: searchHistories[index].id);
+                      } catch (error) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text(
+                              'エラーが発生しました',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            duration: const Duration(milliseconds: 1000),
+                            // width: 162,
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: const Color(0xFFEF4444),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(999),
+                            ),
+                          ),
+                        );
+                      }
                     },
                     child: const Icon(
                       Icons.close,

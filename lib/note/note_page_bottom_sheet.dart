@@ -71,48 +71,75 @@ class NotePageBottomSheet extends HookWidget {
                                 GestureDetector(
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () async {
-                                    await notifier.patch(noteId: noteId);
-                                    Navigator.of(context).pop();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      // TODO: widthの設定をどうすればいいかわからない
-                                      SnackBar(
-                                        content: Row(
-                                          children: <Widget>[
-                                            if (isPublic)
-                                              const Icon(
-                                                Icons.close,
-                                                color: Colors.white,
-                                              )
-                                            else
-                                              const Icon(
-                                                Icons.check_circle_outline,
-                                                color: Colors.white,
+                                    try {
+                                      await notifier.patch(noteId: noteId);
+                                      Navigator.of(context).pop();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        // TODO: widthの設定をどうすればいいかわからない
+                                        SnackBar(
+                                          content: Row(
+                                            children: <Widget>[
+                                              if (isPublic)
+                                                const Icon(
+                                                  Icons.close,
+                                                  color: Colors.white,
+                                                )
+                                              else
+                                                const Icon(
+                                                  Icons.check_circle_outline,
+                                                  color: Colors.white,
+                                                ),
+                                              const SizedBox(
+                                                width: 8,
                                               ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text(
-                                              isPublic
-                                                  ? 'メモを非公開にしました'
-                                                  : 'メモを公開しました',
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
+                                              Text(
+                                                isPublic
+                                                    ? 'メモを非公開にしました'
+                                                    : 'メモを公開しました',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
+                                            ],
+                                          ),
+                                          duration: const Duration(
+                                              milliseconds: 1000),
+                                          // width: 162,
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor: Colors.blue,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(999),
+                                          ),
+                                        ),
+                                      );
+                                    } catch (error) {
+                                      Navigator.of(context).pop();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: const Text(
+                                            'エラーが発生しました',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
+                                          ),
+                                          duration: const Duration(
+                                              milliseconds: 1000),
+                                          // width: 162,
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor:
+                                              const Color(0xFFEF4444),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(999),
+                                          ),
                                         ),
-                                        duration:
-                                            const Duration(milliseconds: 1000),
-                                        // width: 162,
-                                        behavior: SnackBarBehavior.floating,
-                                        backgroundColor: Colors.blue,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(999),
-                                        ),
-                                      ),
-                                    );
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     child: Row(
@@ -156,11 +183,40 @@ class NotePageBottomSheet extends HookWidget {
                                           subText: '復元できませんがよろしいですか？',
                                           actionText: 'OK',
                                           action: () async {
-                                            await notifier.delete(
-                                                noteId: noteId);
-                                            Navigator.of(context).popUntil(
-                                                (Route<dynamic> route) =>
-                                                    route.isFirst);
+                                            try {
+                                              await notifier.delete(
+                                                  noteId: noteId);
+                                              Navigator.of(context).popUntil(
+                                                  (Route<dynamic> route) =>
+                                                      route.isFirst);
+                                            } catch (error) {
+                                              Navigator.of(context).pop();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: const Text(
+                                                    'エラーが発生しました',
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  duration: const Duration(
+                                                      milliseconds: 1000),
+                                                  // width: 162,
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  backgroundColor:
+                                                      const Color(0xFFEF4444),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            999),
+                                                  ),
+                                                ),
+                                              );
+                                            }
                                           },
                                         );
                                       },

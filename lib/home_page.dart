@@ -62,11 +62,32 @@ class HomePage extends HookWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          final String noteId = await noteNotifier.add();
-          Navigator.of(context).push<NewNotePage>(
-              MaterialPageRoute<NewNotePage>(builder: (BuildContext context) {
-            return NewNotePage(noteId: noteId);
-          }));
+          try {
+            final String noteId = await noteNotifier.add();
+            Navigator.of(context).push<NewNotePage>(
+                MaterialPageRoute<NewNotePage>(builder: (BuildContext context) {
+              return NewNotePage(noteId: noteId);
+            }));
+          } catch (error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'エラーが発生しました',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                duration: const Duration(milliseconds: 1000),
+                // width: 162,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: const Color(0xFFEF4444),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(999),
+                ),
+              ),
+            );
+          }
         },
         label: const Text(
           'メモを書く',
