@@ -110,18 +110,6 @@ class ProfileDialog extends HookWidget {
                   ),
                 ),
                 DialogOption(
-                  onTap: () => print('help'),
-                  icon: const Icon(Icons.help_outline_outlined),
-                  text: const Text(
-                    'ヘルプ',
-                    style: TextStyle(
-                      color: Color(0xFF070417),
-                      fontSize: 14,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                ),
-                DialogOption(
                   onTap: () async => <void>{
                     Navigator.of(context).pop(),
                     await showDialog(
