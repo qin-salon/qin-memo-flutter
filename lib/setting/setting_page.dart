@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qin_memo/privacy_policy.dart';
 import 'package:qin_memo/providers/theme_provider.dart';
-import 'package:qin_memo/setting/setting_option.dart';
+import 'package:qin_memo/setting/contact_option.dart';
+import 'package:qin_memo/setting/open_source_license_option.dart';
+import 'package:qin_memo/setting/privacy_policy_option.dart';
+import 'package:qin_memo/setting/terms_option.dart';
+import 'package:qin_memo/setting/user_id_option.dart';
+import 'package:qin_memo/setting/version_option.dart';
 import 'package:qin_memo/theme_page.dart';
-import 'package:qin_memo/webview.dart';
 
 class SettingPage extends HookWidget {
   @override
@@ -77,66 +81,12 @@ class SettingPage extends HookWidget {
               'サポート',
               style: TextStyle(fontSize: 14, color: Color(0xFFC2C6D2)),
             ),
-            SettingOption(
-                text: 'プライバシーポリシー',
-                action: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<PrivacyPolicyPage>(
-                      builder: (BuildContext context) {
-                        return const PrivacyPolicyPage();
-                      },
-                    ),
-                  );
-                }),
-            const SettingOption(text: '利用規約'),
-            const SettingOption(text: 'オープンソースライセンス'),
-            SettingOption(
-              text: 'お問い合わせ',
-              action: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<WebViewPage>(
-                    builder: (BuildContext context) {
-                      return const WebViewPage(
-                        title: 'お問い合わせ',
-                        url: 'https://forms.gle/pNNUdFnf3YmYpqhJ6',
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const <Widget>[
-                  Text(
-                    'バージョン',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    '1.0.0',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 0),
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const <Widget>[
-                  Text(
-                    'User ID',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'FIFIFIFIFIFI',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 0),
-            ),
+            const PrivacyPolicyOption(),
+            const TermsOption(),
+            const OpenSourceLicenseOption(),
+            const ContactOption(),
+            const VersionOption(),
+            const UserIdOption(),
           ],
         ),
         padding: const EdgeInsets.all(24),
