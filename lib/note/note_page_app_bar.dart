@@ -13,8 +13,9 @@ class NotePageAppBar extends HookWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final note = useProvider(notesProvider('testuser').select(
-        (value) => value.notes.firstWhere((note) => note.id == noteId)));
+    final note = useProvider(notesProvider('testuser')
+            .select((value) => value.notes.where((note) => note.id == noteId)))
+        .toList();
 
     return AppBar(
       automaticallyImplyLeading: false,
@@ -32,7 +33,7 @@ class NotePageAppBar extends HookWidget with PreferredSizeWidget {
             ),
             Row(
               children: <Widget>[
-                if (note.public == true)
+                if (note.isNotEmpty && note.first.public == true)
                   Container(
                     child: const Text(
                       '公開中',
