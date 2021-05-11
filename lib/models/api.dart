@@ -5,7 +5,6 @@ import 'package:qin_memo/models/search_history_model.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/constants.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
-import 'package:qin_memo/providers/user_provider.dart';
 
 // ignore: top_level_function_literal_block
 final userFetcher = FutureProviderFamily((ref, userId) async {
@@ -23,14 +22,10 @@ final userFetcher = FutureProviderFamily((ref, userId) async {
 });
 
 // ignore: top_level_function_literal_block
-final userUpdater = FutureProviderFamily((ref, String name) async {
-  final user = ref.watch(userProvider('testuser')).user;
-  if (user?.id == null) {
-    return user;
-  }
+final userUpdater = FutureProviderFamily((ref, User user) async {
   final Response<Map<String, dynamic>> response = await Dio()
-      .put<Map<String, dynamic>>('$API_ORIGIN/v1/users/${user?.id}',
-          data: <String, String>{'name': name});
+      .put<Map<String, dynamic>>('$API_ORIGIN/v1/users/${user.id}',
+          data: <String, String>{'name': user.name, 'userName': user.userName});
   final Map<String, dynamic>? data = response.data;
   if (response.statusCode != 200 || data == null) {
     throw Exception('Failed to update user.');
@@ -126,7 +121,9 @@ final searchHistoriesFetcher =
     FutureProvider.autoDispose.family((ref, String userId) async {
   final Response<dynamic> response =
       await Dio().get<dynamic>('$API_ORIGIN/v1/users/$userId/searchHistories');
-
+  if (response.statusCode == 404) {
+    return <SearchHistory>[];
+  }
   if (response.statusCode != 200 || response.data == null) {
     throw Exception('Failed to fetch user searchHistories.');
   }

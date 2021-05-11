@@ -71,9 +71,9 @@ class HomePage extends HookWidget {
           } catch (error) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(
+                content: const Text(
                   'エラーが発生しました',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

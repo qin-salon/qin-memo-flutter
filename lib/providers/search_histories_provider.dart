@@ -11,9 +11,13 @@ class SearchHistoriesNotifier extends StateNotifier<SearchHistoriesState> {
   SearchHistoriesNotifier(this._read, this._userId)
       : super(SearchHistoriesState()) {
     () async {
-      state = state.copyWith(
-          histories: await _read(searchHistoriesFetcher(_userId).future),
-          loading: false);
+      try {
+        state = state.copyWith(
+            histories: await _read(searchHistoriesFetcher(_userId).future),
+            loading: false);
+      } catch (error) {
+        state = state.copyWith(loading: false);
+      }
     }();
   }
 

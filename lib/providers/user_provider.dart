@@ -17,8 +17,8 @@ class UserNotifier extends StateNotifier<UserState> {
   final Reader _read;
   final String _userId;
 
-  Future<void> update({required String name}) async {
+  Future<void> update({required User user}) async {
     state = state.copyWith(
-        user: await _read(userUpdater(name).future), loading: false);
+        user: await _read(userUpdater(user).future), loading: false);
   }
 }

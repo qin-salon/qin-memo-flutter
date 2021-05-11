@@ -159,26 +159,39 @@ class QinAccountProfilePage extends HookWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 8),
-                          TextField(
-                            onChanged: (String value) {
-                              userNameState.value = value;
-                            },
+                          TextFormField(
+                            initialValue: user?.userName,
                             decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
-                                  vertical: 13, horizontal: 16),
+                                vertical: 13,
+                                horizontal: 16,
+                              ),
                               border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16)),
-                                  borderSide: BorderSide.none),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(16),
+                                ),
+                                borderSide: BorderSide.none,
+                              ),
                               hintText: 'ユーザー名',
                               hintStyle: TextStyle(color: Color(0xFFC2C6D2)),
                               filled: true,
                               fillColor: Color(0xFFF1F5F9),
                             ),
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            onSaved: (String? value) {
+                              if (value != null) {
+                                userNameState.value = value;
+                              }
+                            },
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'https://memo.qin.page/${userNameState.value}',
+                            'https://memo.qin.page/${userNameState.value == '' ? user?.userName : userNameState.value}',
                             style: const TextStyle(
                               fontSize: 14,
                               color: Color(0xFFC2C6D2),
@@ -213,7 +226,13 @@ class QinAccountProfilePage extends HookWidget {
                             }
                             if (currentState.validate()) {
                               currentState.save();
-                              await userNotifier.update(name: nameState.value);
+                              if (user == null) {
+                                return;
+                              }
+                              await userNotifier.update(
+                                  user: user.copyWith(
+                                      name: nameState.value,
+                                      userName: userNameState.value));
                             }
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
