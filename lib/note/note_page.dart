@@ -14,7 +14,7 @@ class NotePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final config = useProvider(noteFetcher(note.id));
+    final config = useProvider(fetchNote(note.id));
 
     return Scaffold(
       appBar: NotePageAppBar(noteId: note.id),

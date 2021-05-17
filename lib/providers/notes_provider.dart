@@ -12,7 +12,7 @@ class NotesNotifier extends StateNotifier<NotesState> {
   NotesNotifier(this._read, this._userId) : super(NotesState()) {
     () async {
       state = state.copyWith(
-          notes: await _read(notesFetcher(_userId).future), loading: false);
+          notes: await _read(fetchNotes(_userId).future), loading: false);
     }();
   }
 
@@ -20,14 +20,14 @@ class NotesNotifier extends StateNotifier<NotesState> {
   final String _userId;
 
   Future<String> add() async {
-    final note = await _read(notePoster.future);
+    final note = await _read(createNote.future);
     final notes = <Note>[note, ...state.notes];
     state = state.copyWith(notes: notes);
     return note.id;
   }
 
   Future<void> update({required Note note}) async {
-    final responseNote = await _read(notePuter(note).future);
+    final responseNote = await _read(updateNote(note).future);
     final notes = <Note>[
       responseNote,
       ...state.notes.where((Note value) => value.id != note.id)
@@ -36,7 +36,7 @@ class NotesNotifier extends StateNotifier<NotesState> {
   }
 
   Future<void> patch({required String noteId}) async {
-    final note = await _read(notePatcher(noteId).future);
+    final note = await _read(patchNote(noteId).future);
     final notes = <Note>[
       note,
       ...state.notes.where((Note value) => value.id != noteId).toList(),
@@ -45,7 +45,7 @@ class NotesNotifier extends StateNotifier<NotesState> {
   }
 
   Future<void> delete({required String noteId}) async {
-    await _read(noteDeleter(noteId).future);
+    await _read(deleteNote(noteId).future);
     final notes = state.notes.where((Note note) => note.id != noteId).toList();
     state = state.copyWith(notes: notes);
   }

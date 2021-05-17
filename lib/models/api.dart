@@ -7,7 +7,7 @@ import 'package:qin_memo/providers/constants.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 
 // ignore: top_level_function_literal_block
-final userFetcher = FutureProviderFamily((ref, userId) async {
+final fetchUser = FutureProviderFamily((ref, userId) async {
   try {
     final Response<Map<String, dynamic>> response =
         await Dio().get<Map<String, dynamic>>('$API_ORIGIN/v1/users/$userId');
@@ -22,7 +22,7 @@ final userFetcher = FutureProviderFamily((ref, userId) async {
 });
 
 // ignore: top_level_function_literal_block
-final userUpdater = FutureProviderFamily((ref, User user) async {
+final updateUser = FutureProviderFamily((ref, User user) async {
   final Response<Map<String, dynamic>> response = await Dio()
       .put<Map<String, dynamic>>('$API_ORIGIN/v1/users/${user.id}',
           data: <String, String>{'name': user.name, 'userName': user.userName});
@@ -35,7 +35,18 @@ final userUpdater = FutureProviderFamily((ref, User user) async {
 });
 
 // ignore: top_level_function_literal_block
-final notesFetcher = FutureProviderFamily((ref, String userId) async {
+final deleteUser = FutureProviderFamily((ref, String userId) async {
+  final Response<Map<String, dynamic>> response = await Dio()
+      .delete<Map<String, dynamic>>('$API_ORIGIN/v1/users/$userId',
+          data: <dynamic, dynamic>{});
+  final Map<String, dynamic>? data = response.data;
+  if (response.statusCode != 200 || data == null) {
+    throw Exception('Failed to delete user.');
+  }
+});
+
+// ignore: top_level_function_literal_block
+final fetchNotes = FutureProviderFamily((ref, String userId) async {
   try {
     final Response<dynamic> response =
         await Dio().get<dynamic>('$API_ORIGIN/v1/users/$userId/notes');
@@ -53,8 +64,7 @@ final notesFetcher = FutureProviderFamily((ref, String userId) async {
 });
 
 // ignore: top_level_function_literal_block
-final noteFetcher =
-    FutureProvider.autoDispose.family((ref, String noteId) async {
+final fetchNote = FutureProvider.autoDispose.family((ref, String noteId) async {
   final note = ref
       .watch(notesProvider('testuser'))
       .notes
@@ -72,8 +82,7 @@ final noteFetcher =
 });
 
 // ignore: top_level_function_literal_block
-final notePatcher =
-    FutureProvider.autoDispose.family((ref, String noteId) async {
+final patchNote = FutureProvider.autoDispose.family((ref, String noteId) async {
   final Response<Map<String, dynamic>> response = await Dio()
       .patch<Map<String, dynamic>>('$API_ORIGIN/v1/notes/$noteId/public',
           data: <dynamic, dynamic>{});
@@ -85,7 +94,7 @@ final notePatcher =
 });
 
 // ignore: top_level_function_literal_block
-final notePoster = FutureProvider.autoDispose((ref) async {
+final createNote = FutureProvider.autoDispose((ref) async {
   final Response<Map<String, dynamic>> response = await Dio()
       .post<Map<String, dynamic>>('$API_ORIGIN/v1/notes',
           data: <dynamic, dynamic>{});
@@ -96,7 +105,7 @@ final notePoster = FutureProvider.autoDispose((ref) async {
   return Note.fromJson(data);
 });
 
-final notePuter = FutureProvider.autoDispose.family((ref, Note note) async {
+final updateNote = FutureProvider.autoDispose.family((ref, Note note) async {
   final Response<Map<String, dynamic>> response = await Dio()
       .put<Map<String, dynamic>>('$API_ORIGIN/v1/notes/${note.id}',
           data: <String, String>{'content': note.content ?? ''});
@@ -107,7 +116,7 @@ final notePuter = FutureProvider.autoDispose.family((ref, Note note) async {
   return Note.fromJson(data);
 });
 
-final noteDeleter =
+final deleteNote =
     FutureProvider.autoDispose.family((ref, String noteId) async {
   final Response<void> response = await Dio()
       .delete('$API_ORIGIN/v1/notes/$noteId', data: <dynamic, dynamic>{});
@@ -117,7 +126,7 @@ final noteDeleter =
   return noteId;
 });
 
-final searchHistoriesFetcher =
+final fetchSearchHistories =
     FutureProvider.autoDispose.family((ref, String userId) async {
   final Response<dynamic> response =
       await Dio().get<dynamic>('$API_ORIGIN/v1/users/$userId/searchHistories');
@@ -148,9 +157,8 @@ final createSearchHistory =
 
 final deleteSearchHistory =
     FutureProvider.autoDispose.family((ref, String searchHistoryId) async {
-  // TODO: testuser修正
   final Response<void> response = await Dio().delete(
-      '$API_ORIGIN/v1/users/testuser/searchHistories/$searchHistoryId',
+      '$API_ORIGIN/v1/searchHistories/$searchHistoryId',
       data: <dynamic, dynamic>{});
   if (response.statusCode != 200) {
     throw Exception('Failed to delete searchHistory.');

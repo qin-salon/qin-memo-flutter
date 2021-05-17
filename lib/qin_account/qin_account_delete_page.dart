@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/dialog/custom_alert_dialog.dart';
+import 'package:qin_memo/providers/user_provider.dart';
 
-import '../dialog/custom_alert_dialog.dart';
-
-class QinAccountDeletePage extends StatelessWidget {
+class QinAccountDeletePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final notifier = useProvider(userProvider('testuser').notifier);
+
     return Scaffold(
         appBar: AppBar(
           titleSpacing: 0,
@@ -68,7 +72,34 @@ class QinAccountDeletePage extends StatelessWidget {
                                   title: 'Qin Memoを削除',
                                   subText: 'Qin Memoを完全に削除してよろしいですか？',
                                   actionText: 'OK',
-                                  action: () => print('logout'),
+                                  action: () async {
+                                    try {
+                                      await notifier.delete(userId: 'testuser');
+                                    } catch (error) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: const Text(
+                                            'エラーが発生しました',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          duration: const Duration(
+                                              milliseconds: 1000),
+                                          // width: 162,
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor:
+                                              const Color(0xFFEF4444),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(999),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
                                 );
                               },
                             );
