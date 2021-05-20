@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "262691093574",
+    "project_id": "qin-app-dev",
+    "storage_bucket": "qin-app-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262691093574:android:8fef8ccb430b9de4509e47",
+        "android_client_info": {
+          "package_name": "com.example.qin_memo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262691093574-tpc5bv2o2jsb80kbbiai0adk6me64rgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDlLa611lZ7gsXSliSdALNSFU3ejQmULg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262691093574-tpc5bv2o2jsb80kbbiai0adk6me64rgt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
