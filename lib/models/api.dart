@@ -22,10 +22,14 @@ final fetchUser = FutureProviderFamily((ref, userId) async {
 });
 
 // ignore: top_level_function_literal_block
-final updateUser = FutureProviderFamily((ref, User user) async {
+final updateUser = FutureProvider.autoDispose.family((ref, User user) async {
   final Response<Map<String, dynamic>> response = await Dio()
       .put<Map<String, dynamic>>('$API_ORIGIN/v1/users/${user.id}',
-          data: <String, String>{'name': user.name, 'userName': user.userName});
+          data: <String, String>{
+        'name': user.name,
+        'userName': user.userName,
+        'avatarUrl': user.avatarUrl
+      });
   final Map<String, dynamic>? data = response.data;
   if (response.statusCode != 200 || data == null) {
     throw Exception('Failed to update user.');
@@ -94,7 +98,8 @@ final patchNote = FutureProvider.autoDispose.family((ref, String noteId) async {
 });
 
 // ignore: top_level_function_literal_block
-final createNote = FutureProvider.autoDispose.family((ref, String userId) async {
+final createNote =
+    FutureProvider.autoDispose.family((ref, String userId) async {
   final Response<Map<String, dynamic>> response = await Dio()
       .post<Map<String, dynamic>>('$API_ORIGIN/v1/users/$userId/notes',
           data: <dynamic, dynamic>{});

@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qin_memo/providers/user_provider.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class QinAccountProfilePage extends HookWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -229,10 +230,22 @@ class QinAccountProfilePage extends HookWidget {
                               if (user == null) {
                                 return;
                               }
+                              final storage =
+                                  firebase_storage.FirebaseStorage.instance;
+                              final file = imageFileState.value;
+                              // TODO: userIdにする
+                              if (file != null) {
+                                await storage
+                                    .ref('thumnails/testuser')
+                                    .putFile(file);
+                              }
+                              // TODO: urlを環境変数に修正する
                               await userNotifier.update(
                                   user: user.copyWith(
                                       name: nameState.value,
-                                      userName: userNameState.value));
+                                      userName: userNameState.value,
+                                      avatarUrl:
+                                          'https://firebasestorage.googleapis.com/v0/b/qin-app-dev.appspot.com/o/thumnails%2Ftestuser?alt=media'));
                             }
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
