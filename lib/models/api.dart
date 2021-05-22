@@ -69,13 +69,15 @@ final fetchNotes = FutureProviderFamily((ref, String userId) async {
 
 // ignore: top_level_function_literal_block
 final fetchNote = FutureProvider.autoDispose.family((ref, String noteId) async {
-  final note = ref
-      .watch(notesProvider('testuser'))
-      .notes
-      .firstWhere((note) => note.id == noteId);
-  if (note.content != null) {
-    return note;
-  }
+  // TODO: refを使ってノートstateをみるとノートが保存された瞬間にfetchNoteがはしってしまう
+  // かといってnoteが存在する場合はstateから取らなければ無駄なリクエストがはしる
+  // final note = ref
+  //     .watch(notesProvider('testuser'))
+  //     .notes
+  //     .firstWhere((note) => note.id == noteId);
+  // if (note.content != null) {
+  //   return note;
+  // }
   final Response<Map<String, dynamic>> response =
       await Dio().get<Map<String, dynamic>>('$API_ORIGIN/v1/notes/$noteId');
   final Map<String, dynamic>? data = response.data;
