@@ -73,9 +73,11 @@ class ProfileDialog extends HookWidget {
                                   decoration: TextDecoration.none,
                                 ),
                               ),
-                              const Text(
-                                '@shimabuit',
-                                style: TextStyle(
+                              Text(
+                                user?.userName != null
+                                    ? '@${user?.userName}'
+                                    : '',
+                                style: const TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFFC2C6D2),
                                   decoration: TextDecoration.none,
