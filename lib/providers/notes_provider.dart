@@ -20,7 +20,7 @@ class NotesNotifier extends StateNotifier<NotesState> {
   final String _userId;
 
   Future<String> add() async {
-    final note = await _read(createNote.future);
+    final note = await _read(createNote('testuser').future);
     final notes = <Note>[note, ...state.notes];
     state = state.copyWith(notes: notes);
     return note.id;

@@ -94,9 +94,9 @@ final patchNote = FutureProvider.autoDispose.family((ref, String noteId) async {
 });
 
 // ignore: top_level_function_literal_block
-final createNote = FutureProvider.autoDispose((ref) async {
+final createNote = FutureProvider.autoDispose.family((ref, String userId) async {
   final Response<Map<String, dynamic>> response = await Dio()
-      .post<Map<String, dynamic>>('$API_ORIGIN/v1/notes',
+      .post<Map<String, dynamic>>('$API_ORIGIN/v1/users/$userId/notes',
           data: <dynamic, dynamic>{});
   final Map<String, dynamic>? data = response.data;
   if (response.statusCode != 201 || data == null) {
