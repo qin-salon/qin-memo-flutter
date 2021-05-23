@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:qin_memo/models/api.dart';
 import 'package:share/share.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:qin_memo/dialog/custom_alert_dialog.dart';
@@ -301,28 +303,66 @@ class NotePageBottomSheet extends HookWidget {
                                   thickness: 1,
                                   color: Color(0xFFEAEBEC),
                                 ),
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        '画像化してシェアする',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: isPublic
-                                              ? Colors.black
-                                              : const Color(0xFFC2C6D2),
+                                GestureDetector(
+                                  onTap: () async {
+                                    try {
+                                      final cacheManager =
+                                          DefaultCacheManager();
+
+                                      final filePaths = await getShareFiles(
+                                          noteId: noteId,
+                                          cacheManager: cacheManager);
+                                      Share.shareFiles(filePaths);
+                                      await cacheManager.emptyCache();
+                                    } catch (error) {
+                                      Navigator.of(context).pop();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: const Text(
+                                            'エラーが発生しました',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          duration: const Duration(
+                                              milliseconds: 1000),
+                                          // width: 162,
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor:
+                                              const Color(0xFFEF4444),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(999),
+                                          ),
                                         ),
-                                      ),
-                                      SvgPicture.asset('assets/twitter.svg'),
-                                    ],
+                                      );
+                                    }
+                                  },
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          '画像化してシェアする',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: isPublic
+                                                ? Colors.black
+                                                : const Color(0xFFC2C6D2),
+                                          ),
+                                        ),
+                                        SvgPicture.asset('assets/twitter.svg'),
+                                      ],
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16, horizontal: 24),
                                   ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16, horizontal: 24),
                                 ),
                               ],
                             ),

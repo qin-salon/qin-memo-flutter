@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/models/search_history_model.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/constants.dart';
-import 'package:qin_memo/providers/notes_provider.dart';
 
 // ignore: top_level_function_literal_block
 final fetchUser = FutureProviderFamily((ref, userId) async {
@@ -171,3 +171,26 @@ final deleteSearchHistory =
     throw Exception('Failed to delete searchHistory.');
   }
 });
+
+Future<List<String>> getShareFiles(
+    {required String noteId, required DefaultCacheManager cacheManager}) async {
+  final response =
+      await Dio().get<dynamic>('$API_ORIGIN/v1/notes/$noteId/share?page=1');
+  final link = response.headers['link'];
+  if (link == null) {
+    throw Exception('Response header is invalid');
+  }
+  final page = RegExp(r'\d').stringMatch(link[0]);
+  if (page == null) {
+    throw Exception('Response header page is invalid');
+  }
+
+  List<String> filePaths = [];
+  for (int i = 1; i <= int.parse(page); i++) {
+    final file = await cacheManager
+        .getSingleFile('$API_ORIGIN/v1/notes/$noteId/share?page=$i');
+    filePaths = [...filePaths, file.path];
+  }
+
+  return filePaths;
+}
