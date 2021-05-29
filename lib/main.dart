@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/providers/theme_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
@@ -29,6 +30,8 @@ class MyApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeMode = useProvider(themeProvider);
+    print(themeMode.subtitle);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Qin Memo',

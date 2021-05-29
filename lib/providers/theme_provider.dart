@@ -3,6 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+const _themePrefsKey = 'selectedThemeKey';
+
 extension ThemeModeExt on ThemeMode {
   String get subtitle {
     switch (this) {
@@ -16,35 +18,26 @@ extension ThemeModeExt on ThemeMode {
   }
 }
 
-final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
-    (ProviderReference ref) =>
-        ThemeNotifier(prefs: ref.watch(sharedPreferencesProvider)));
+final themeProvider =
+    StateNotifierProvider<ThemeNotifier, ThemeMode>((ProviderReference ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  final index = prefs.getInt(_themePrefsKey) ?? ThemeMode.system.index;
+  final themeMode = ThemeMode.values
+      .firstWhere((e) => e.index == index, orElse: () => ThemeMode.system);
+  return ThemeNotifier(
+    prefs: ref.watch(sharedPreferencesProvider),
+    initialThemeMode: themeMode,
+  );
+});
 
 class ThemeNotifier extends StateNotifier<ThemeMode> {
-  ThemeNotifier({required this.prefs}) : super(ThemeMode.system) {
-    () async {
-      state = _getThemeMode(
-          prefs.getString('theme') ?? ThemeMode.system.toString());
-    }();
-  }
+  ThemeNotifier({required this.prefs, required ThemeMode initialThemeMode})
+      : super(initialThemeMode);
 
   final SharedPreferences prefs;
 
-  ThemeMode _getThemeMode(String value) {
-    switch (value) {
-      case 'os':
-        return ThemeMode.system;
-      case 'light':
-        return ThemeMode.light;
-      case 'dark':
-        return ThemeMode.dark;
-      default:
-        return ThemeMode.system;
-    }
-  }
-
-  Future<void> setTheme(ThemeMode value) async {
-    await prefs.setString('theme', value.toString());
-    state = value;
+  Future<void> setTheme(ThemeMode theme) async {
+    await prefs.setInt(_themePrefsKey, theme.index);
+    state = theme;
   }
 }
