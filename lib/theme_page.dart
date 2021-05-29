@@ -23,16 +23,16 @@ class ThemePage extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ThemeOption(
-              text: ThemeEnum.OS.getThemeText(),
-              type: ThemeEnum.OS.getThemeType(),
+              text: ThemeMode.system.subtitle,
+              type: ThemeMode.system,
             ),
             ThemeOption(
-              text: ThemeEnum.LIGHT.getThemeText(),
-              type: ThemeEnum.LIGHT.getThemeType(),
+              text: ThemeMode.light.subtitle,
+              type: ThemeMode.light,
             ),
             ThemeOption(
-              text: ThemeEnum.DARK.getThemeText(),
-              type: ThemeEnum.DARK.getThemeType(),
+              text: ThemeMode.dark.subtitle,
+              type: ThemeMode.dark,
             ),
           ],
         ),
@@ -46,12 +46,12 @@ class ThemeOption extends HookWidget {
   const ThemeOption({required this.text, required this.type});
 
   final String text;
-  final String type;
+  final ThemeMode type;
 
   @override
   Widget build(BuildContext context) {
     final ThemeNotifier notifier = useProvider(themeProvider.notifier);
-    final ThemeEnum theme = useProvider(themeProvider);
+    final ThemeMode theme = useProvider(themeProvider);
 
     return GestureDetector(
       onTap: () {
@@ -66,7 +66,7 @@ class ThemeOption extends HookWidget {
               text,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            if (theme.getThemeType() == type)
+            if (theme == type)
               const Icon(
                 Icons.check,
                 color: Color(0xFF3B82F6),

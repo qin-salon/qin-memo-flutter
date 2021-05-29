@@ -14,7 +14,7 @@ import 'package:qin_memo/theme_page.dart';
 class SettingPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final ThemeEnum theme = useProvider(themeProvider);
+    final theme = useProvider(themeProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +59,7 @@ class SettingPage extends HookWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 24),
                           child: Text(
-                            theme.getThemeText(),
+                            theme.subtitle,
                             style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),

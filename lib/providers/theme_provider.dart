@@ -1,62 +1,50 @@
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum ThemeEnum { OS, LIGHT, DARK }
-
-extension ThemeExtension on ThemeEnum {
-  static final Map<ThemeEnum, String> themeText = <ThemeEnum, String>{
-    ThemeEnum.OS: 'ＯＳの設定に合わせる',
-    ThemeEnum.LIGHT: 'ライト',
-    ThemeEnum.DARK: 'ダーク'
-  };
-
-  static final Map<ThemeEnum, String> themeType = <ThemeEnum, String>{
-    ThemeEnum.OS: 'os',
-    ThemeEnum.LIGHT: 'light',
-    ThemeEnum.DARK: 'dark'
-  };
-
-  String getThemeText() {
-    return themeText[this] ?? 'ＯＳの設定に合わせる';
-  }
-
-  String getThemeType() {
-    return themeType[this] ?? 'os';
+extension ThemeModeExt on ThemeMode {
+  String get subtitle {
+    switch (this) {
+      case ThemeMode.system:
+        return 'ＯＳの設定に合わせる';
+      case ThemeMode.light:
+        return 'ライト';
+      case ThemeMode.dark:
+        return 'ダーク';
+    }
   }
 }
 
-final StateNotifierProvider<ThemeNotifier, ThemeEnum> themeProvider =
-    StateNotifierProvider<ThemeNotifier, ThemeEnum>((ProviderReference ref) =>
+final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
+    (ProviderReference ref) =>
         ThemeNotifier(prefs: ref.watch(sharedPreferencesProvider)));
 
-class ThemeNotifier extends StateNotifier<ThemeEnum> {
-  ThemeNotifier({required this.prefs}) : super(ThemeEnum.OS) {
+class ThemeNotifier extends StateNotifier<ThemeMode> {
+  ThemeNotifier({required this.prefs}) : super(ThemeMode.system) {
     () async {
-      final SharedPreferences pref = await SharedPreferences.getInstance();
-      state =
-          _getThemeEnum(pref.getString('theme') ?? ThemeEnum.OS.getThemeType());
+      state = _getThemeMode(
+          prefs.getString('theme') ?? ThemeMode.system.toString());
     }();
   }
 
   final SharedPreferences prefs;
 
-  ThemeEnum _getThemeEnum(String value) {
+  ThemeMode _getThemeMode(String value) {
     switch (value) {
       case 'os':
-        return ThemeEnum.OS;
+        return ThemeMode.system;
       case 'light':
-        return ThemeEnum.LIGHT;
+        return ThemeMode.light;
       case 'dark':
-        return ThemeEnum.DARK;
+        return ThemeMode.dark;
       default:
-        return ThemeEnum.OS;
+        return ThemeMode.system;
     }
   }
 
-  Future<void> setTheme(String value) async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    await pref.setString('theme', value);
-    state = _getThemeEnum(value);
+  Future<void> setTheme(ThemeMode value) async {
+    await prefs.setString('theme', value.toString());
+    state = value;
   }
 }
