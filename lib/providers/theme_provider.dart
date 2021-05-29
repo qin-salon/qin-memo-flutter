@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum ThemeEnum { OS, LIGHT, DARK }
@@ -26,17 +27,19 @@ extension ThemeExtension on ThemeEnum {
 }
 
 final StateNotifierProvider<ThemeNotifier, ThemeEnum> themeProvider =
-    StateNotifierProvider<ThemeNotifier, ThemeEnum>(
-        (ProviderReference ref) => ThemeNotifier());
+    StateNotifierProvider<ThemeNotifier, ThemeEnum>((ProviderReference ref) =>
+        ThemeNotifier(prefs: ref.watch(sharedPreferencesProvider)));
 
 class ThemeNotifier extends StateNotifier<ThemeEnum> {
-  ThemeNotifier() : super(ThemeEnum.OS) {
+  ThemeNotifier({required this.prefs}) : super(ThemeEnum.OS) {
     () async {
       final SharedPreferences pref = await SharedPreferences.getInstance();
       state =
           _getThemeEnum(pref.getString('theme') ?? ThemeEnum.OS.getThemeType());
     }();
   }
+
+  final SharedPreferences prefs;
 
   ThemeEnum _getThemeEnum(String value) {
     switch (value) {
