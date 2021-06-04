@@ -32,6 +32,19 @@
   <string>This app requires to add file to your camera</string>
   <key>NSMicrophoneUsageDescription</key>
   <string>This app requires to add file to your photo library your microphone</string>
+	<key>CFBundleURLTypes</key>
+  <array>
+  	<dict>
+  		<key>CFBundleTypeRole</key>
+  		<string>Editor</string>
+  		<key>CFBundleURLSchemes</key>
+  		<array>
+  			<!-- TODO Replace this value: -->
+  			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+  			<string>com.googleusercontent.apps.262691093574-97vovgq2jr7so0qrongsqe9prulke3n1</string>
+  		</array>
+  	</dict>
+  </array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
