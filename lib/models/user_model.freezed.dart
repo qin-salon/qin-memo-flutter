@@ -23,12 +23,12 @@ class _$UserTearOff {
   _User call(
       {required String id,
       required String name,
-      required String userName,
+      required String accountId,
       required String avatarUrl}) {
     return _User(
       id: id,
       name: name,
-      userName: userName,
+      accountId: accountId,
       avatarUrl: avatarUrl,
     );
   }
@@ -45,7 +45,7 @@ const $User = _$UserTearOff();
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get userName => throw _privateConstructorUsedError;
+  String get accountId => throw _privateConstructorUsedError;
   String get avatarUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -57,7 +57,7 @@ mixin _$User {
 abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
-  $Res call({String id, String name, String userName, String avatarUrl});
+  $Res call({String id, String name, String accountId, String avatarUrl});
 }
 
 /// @nodoc
@@ -72,7 +72,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
-    Object? userName = freezed,
+    Object? accountId = freezed,
     Object? avatarUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -84,9 +84,9 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      userName: userName == freezed
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
+      accountId: accountId == freezed
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
               as String,
       avatarUrl: avatarUrl == freezed
           ? _value.avatarUrl
@@ -101,7 +101,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) then) =
       __$UserCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String name, String userName, String avatarUrl});
+  $Res call({String id, String name, String accountId, String avatarUrl});
 }
 
 /// @nodoc
@@ -117,7 +117,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
-    Object? userName = freezed,
+    Object? accountId = freezed,
     Object? avatarUrl = freezed,
   }) {
     return _then(_User(
@@ -129,9 +129,9 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      userName: userName == freezed
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
+      accountId: accountId == freezed
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
               as String,
       avatarUrl: avatarUrl == freezed
           ? _value.avatarUrl
@@ -148,7 +148,7 @@ class _$_User implements _User {
   const _$_User(
       {required this.id,
       required this.name,
-      required this.userName,
+      required this.accountId,
       required this.avatarUrl});
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
@@ -159,13 +159,13 @@ class _$_User implements _User {
   @override
   final String name;
   @override
-  final String userName;
+  final String accountId;
   @override
   final String avatarUrl;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, userName: $userName, avatarUrl: $avatarUrl)';
+    return 'User(id: $id, name: $name, accountId: $accountId, avatarUrl: $avatarUrl)';
   }
 
   @override
@@ -176,9 +176,9 @@ class _$_User implements _User {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.userName, userName) ||
+            (identical(other.accountId, accountId) ||
                 const DeepCollectionEquality()
-                    .equals(other.userName, userName)) &&
+                    .equals(other.accountId, accountId)) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.avatarUrl, avatarUrl)));
@@ -189,7 +189,7 @@ class _$_User implements _User {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(userName) ^
+      const DeepCollectionEquality().hash(accountId) ^
       const DeepCollectionEquality().hash(avatarUrl);
 
   @JsonKey(ignore: true)
@@ -207,7 +207,7 @@ abstract class _User implements User {
   const factory _User(
       {required String id,
       required String name,
-      required String userName,
+      required String accountId,
       required String avatarUrl}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
@@ -217,7 +217,7 @@ abstract class _User implements User {
   @override
   String get name => throw _privateConstructorUsedError;
   @override
-  String get userName => throw _privateConstructorUsedError;
+  String get accountId => throw _privateConstructorUsedError;
   @override
   String get avatarUrl => throw _privateConstructorUsedError;
   @override

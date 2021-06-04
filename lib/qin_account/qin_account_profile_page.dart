@@ -13,7 +13,7 @@ class QinAccountProfilePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<String> nameState = useState('');
-    final ValueNotifier<String> userNameState = useState('');
+    final ValueNotifier<String> accountIdState = useState('');
     final user =
         useProvider(userProvider('testuser').select((value) => value.user));
     final UserNotifier userNotifier =
@@ -161,7 +161,7 @@ class QinAccountProfilePage extends HookWidget {
                           ),
                           const SizedBox(height: 8),
                           TextFormField(
-                            initialValue: user?.userName,
+                            initialValue: user?.accountId,
                             decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                 vertical: 13,
@@ -186,13 +186,13 @@ class QinAccountProfilePage extends HookWidget {
                             },
                             onSaved: (String? value) {
                               if (value != null) {
-                                userNameState.value = value;
+                                accountIdState.value = value;
                               }
                             },
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'https://memo.qin.page/${userNameState.value == '' ? user?.userName : userNameState.value}',
+                            'https://memo.qin.page/${accountIdState.value == '' ? user?.accountId : accountIdState.value}',
                             style: const TextStyle(
                               fontSize: 14,
                               color: Color(0xFFC2C6D2),
@@ -243,7 +243,7 @@ class QinAccountProfilePage extends HookWidget {
                               await userNotifier.update(
                                   user: user.copyWith(
                                       name: nameState.value,
-                                      userName: userNameState.value,
+                                      accountId: accountIdState.value,
                                       avatarUrl:
                                           'https://firebasestorage.googleapis.com/v0/b/qin-app-dev.appspot.com/o/thumnails%2Ftestuser?alt=media'));
                             }

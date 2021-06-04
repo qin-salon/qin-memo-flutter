@@ -74,8 +74,8 @@ class ProfileDialog extends HookWidget {
                                 ),
                               ),
                               Text(
-                                user?.userName != null
-                                    ? '@${user?.userName}'
+                                user?.accountId != null
+                                    ? '@${user?.accountId}'
                                     : '',
                                 style: const TextStyle(
                                   fontSize: 12,
