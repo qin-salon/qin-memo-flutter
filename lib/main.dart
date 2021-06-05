@@ -2,6 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/normal_loading.dart';
+import 'package:qin_memo/providers/user_provider.dart';
+import 'package:qin_memo/signup/signin_page.dart';
+import 'package:qin_memo/signup/signup_page.dart';
+import 'package:qin_memo/walkthrough/walkthrough_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
@@ -24,11 +29,13 @@ Future<void> main() async {
 }
 
 class MyApp extends HookWidget {
-  // This widget is the root of your application.
   final TextTheme appBarTextTheme = Typography.material2018().black;
 
   @override
   Widget build(BuildContext context) {
+    final user = useProvider(userProvider.select((value) => value.user));
+    final loading = useProvider(userProvider.select((value) => value.loading));
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Qin Memo',
@@ -43,7 +50,15 @@ class MyApp extends HookWidget {
                 headline6: appBarTextTheme.headline6!
                     .copyWith(fontSize: 18, fontWeight: FontWeight.bold))),
       ),
-      home: HomePage(),
+      home: loading
+          ? const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : user == null
+              ? WalkthroughPage()
+              : HomePage(),
     );
   }
 }
