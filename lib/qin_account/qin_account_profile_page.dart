@@ -14,10 +14,8 @@ class QinAccountProfilePage extends HookWidget {
   Widget build(BuildContext context) {
     final ValueNotifier<String> nameState = useState('');
     final ValueNotifier<String> accountIdState = useState('');
-    final user =
-        useProvider(userProvider('testuser').select((value) => value.user));
-    final UserNotifier userNotifier =
-        useProvider(userProvider('testuser').notifier);
+    final user = useProvider(userProvider.select((value) => value.user));
+    final UserNotifier userNotifier = useProvider(userProvider.notifier);
     final ValueNotifier<File?> imageFileState = useState<File?>(null);
 
     final ImagePicker picker = ImagePicker();

@@ -6,14 +6,14 @@ import 'package:qin_memo/dialog/custom_alert_dialog.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/qin_account/qin_account_page.dart';
 import 'package:qin_memo/setting/setting_page.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fa;
 
 import '../providers/user_provider.dart';
 
 class ProfileDialog extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final User? user =
-        useProvider(userProvider('testuser').select((value) => value.user));
+    final User? user = useProvider(userProvider.select((value) => value.user));
 
     return Align(
       alignment: Alignment.topCenter,
@@ -121,7 +121,10 @@ class ProfileDialog extends HookWidget {
                           title: 'ログアウト',
                           subText: 'ログアウトしますか？',
                           actionText: 'ログアウト',
-                          action: () => print('logout'),
+                          action: () async {
+                            await fa.FirebaseAuth.instance.signOut();
+                            Navigator.of(context).pop();
+                          },
                         );
                       },
                     )

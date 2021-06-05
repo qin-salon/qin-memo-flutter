@@ -7,7 +7,6 @@ import 'package:qin_memo/note/all_note_list.dart';
 import 'package:qin_memo/note/new_note_page.dart';
 import 'package:qin_memo/dialog/profile_dialog.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
-import 'package:qin_memo/providers/theme_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/search/search_page.dart';
 
@@ -16,9 +15,7 @@ class HomePage extends HookWidget {
   Widget build(BuildContext context) {
     final NotesNotifier noteNotifier =
         useProvider(notesProvider('testuser').notifier);
-    final userState =
-        useProvider(userProvider('testuser').select((value) => value.user));
-    useProvider(themeProvider);
+    final userState = useProvider(userProvider.select((value) => value.user));
 
     return Scaffold(
       appBar: AppBar(
@@ -101,6 +98,46 @@ class HomePage extends HookWidget {
       body: Container(
         child: Column(
           children: <Widget>[
+            GestureDetector(
+              onTap: () async {
+                final googleUser = await GoogleSignIn().signIn();
+
+                // Obtain the auth details from the request
+                final googleAuth = await googleUser?.authentication;
+
+                // Create a new credential
+                final credential = GoogleAuthProvider.credential(
+                  accessToken: googleAuth?.accessToken,
+                  idToken: googleAuth?.idToken,
+                );
+
+                // Once signed in, return the UserCredential
+                await FirebaseAuth.instance.signInWithCredential(credential);
+              },
+              child: Container(
+                child: TextButton(
+                  onPressed: () async {
+                    final googleUser = await GoogleSignIn().signIn();
+
+                    // Obtain the auth details from the request
+                    final googleAuth = await googleUser?.authentication;
+
+                    // Create a new credential
+                    final credential = GoogleAuthProvider.credential(
+                      accessToken: googleAuth?.accessToken,
+                      idToken: googleAuth?.idToken,
+                    );
+
+                    // Once signed in, return the UserCredential
+                    await FirebaseAuth.instance
+                        .signInWithCredential(credential);
+                  },
+                  child: const Text('ろぐいん'),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 13, horizontal: 0),
+              ),
+            ),
             GestureDetector(
               onTap: () async {
                 final googleUser = await GoogleSignIn().signIn();

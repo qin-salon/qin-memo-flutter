@@ -3,14 +3,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/api.dart';
 import 'package:qin_memo/models/user_model.dart';
 
-final userProvider =
-    StateNotifierProvider.family<UserNotifier, UserState, String>(
-        (ref, String userId) => UserNotifier(ref.read));
+final userProvider = StateNotifierProvider<UserNotifier, UserState>(
+    (ref) => UserNotifier(ref.read));
 
 class UserNotifier extends StateNotifier<UserState> {
   UserNotifier(this._read) : super(UserState()) {
     () {
       _auth.userChanges().listen((user) async {
+        if (user == null) {
+          state = state.copyWith(user: null, loading: false);
+          return;
+        }
         state =
             state.copyWith(user: await _read(fetchUser.future), loading: false);
       });

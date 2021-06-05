@@ -7,7 +7,7 @@ import 'package:qin_memo/providers/user_provider.dart';
 class QinAccountDeletePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final notifier = useProvider(userProvider('testuser').notifier);
+    final notifier = useProvider(userProvider.notifier);
 
     return Scaffold(
         appBar: AppBar(

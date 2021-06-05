@@ -11,7 +11,7 @@ class AllNoteList extends HookWidget {
     final notesLoading =
         useProvider(notesProvider('testuser').select((value) => value.loading));
     final userLoading =
-        useProvider(userProvider('testuser').select((value) => value.loading));
+        useProvider(userProvider.select((value) => value.loading));
 
     if (notesLoading && userLoading) {
       return const CircularProgressIndicator();

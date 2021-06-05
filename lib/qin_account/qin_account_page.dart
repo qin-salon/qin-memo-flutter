@@ -12,8 +12,7 @@ import 'package:qin_memo/setting/setting_option.dart';
 class QinAccountPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final User? user =
-        useProvider(userProvider('testuser').select((value) => value.user));
+    final User? user = useProvider(userProvider.select((value) => value.user));
 
     return Scaffold(
       appBar: AppBar(
