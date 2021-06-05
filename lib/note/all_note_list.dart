@@ -9,7 +9,7 @@ class AllNoteList extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final notesLoading =
-        useProvider(notesProvider('testuser').select((value) => value.loading));
+        useProvider(notesProvider.select((value) => value.loading));
     final userLoading =
         useProvider(userProvider.select((value) => value.loading));
 
@@ -24,7 +24,7 @@ class AllNoteList extends HookWidget {
 class NoteListContainer extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final notesState = useProvider(notesProvider('testuser'));
+    final notesState = useProvider(notesProvider);
     if (notesState.notes.isEmpty) {
       return const Text('メモがありません', style: TextStyle(fontSize: 16));
     }

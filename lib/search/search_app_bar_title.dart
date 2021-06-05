@@ -9,7 +9,7 @@ class SearchAppBarTitle extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final SearchHistoriesNotifier notifier =
-        useProvider(searchHistoriesProvider('testuser').notifier);
+        useProvider(searchHistoriesProvider.notifier);
     final StateController<String> searchStateController =
         useProvider(searchStateProvider);
     final StateController<String> searchTextFieldController =
@@ -40,7 +40,10 @@ class SearchAppBarTitle extends HookWidget {
               onSubmitted: (String str) async {
                 searchStateController.state = str;
                 try {
-                  await notifier.add(userId: 'testuser', keyword: str);
+                  if (str == '') {
+                    return;
+                  }
+                  await notifier.add(keyword: str);
                 } catch (error) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

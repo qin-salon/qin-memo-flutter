@@ -6,6 +6,8 @@ import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/models/search_history_model.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/constants.dart';
+import 'package:qin_memo/providers/search_state_provider.dart';
+import 'package:qin_memo/providers/user_provider.dart';
 
 final dio = Dio()
   ..interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async {
@@ -157,13 +159,18 @@ final fetchSearchHistories =
   return list;
 });
 
-final createSearchHistory =
-    FutureProvider.autoDispose.family((ref, String keyword) async {
-  // TODO: testuserを修正
+class CreateSearchHistoryFamily {
+  CreateSearchHistoryFamily(this.userId, this.keyword);
+  final String userId;
+  final String keyword;
+}
+
+final createSearchHistory = FutureProvider.autoDispose
+    .family((ref, CreateSearchHistoryFamily family) async {
   final Response<Map<String, dynamic>> response = await dio
       .post<Map<String, dynamic>>(
-          '$API_ORIGIN/v1/users/testuser/searchHistories',
-          data: <String, String>{'keyword': keyword});
+          '$API_ORIGIN/v1/users/${family.userId}/searchHistories',
+          data: <String, String>{'keyword': family.keyword});
   final Map<String, dynamic>? data = response.data;
   if (response.statusCode != 201 || data == null) {
     throw Exception('Failed to add searchHistory.');
@@ -179,6 +186,26 @@ final deleteSearchHistory =
   if (response.statusCode != 200) {
     throw Exception('Failed to delete searchHistory.');
   }
+});
+
+final searchNotes = FutureProvider.autoDispose<List<Note>>(
+    (AutoDisposeProviderReference ref) async {
+  final search = ref.watch(searchStateProvider).state;
+  final userId = ref.watch(userProvider).user?.id;
+
+  if (search == '' || userId == null) {
+    return <Note>[];
+  }
+
+  final Response<dynamic> response = await dio
+      .get<dynamic>('$API_ORIGIN/v1/users/$userId/notes/search?q=$search');
+
+  if (response.statusCode != 200 || response.data == null) {
+    throw Exception('Failed to fetch search notes.');
+  }
+  final json = (response.data as List).cast<Map<String, dynamic>>();
+  final list = json.map((e) => Note.fromJson(e)).toList();
+  return list;
 });
 
 Future<List<String>> getShareFiles(

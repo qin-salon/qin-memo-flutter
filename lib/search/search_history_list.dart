@@ -10,8 +10,8 @@ import 'package:qin_memo/providers/search_text_field_provider.dart';
 class SearchHistoryListContainer extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final loading = useProvider(
-        searchHistoriesProvider('testuser').select((value) => value.loading));
+    final loading =
+        useProvider(searchHistoriesProvider.select((value) => value.loading));
 
     if (loading) {
       return NormalLoading();
@@ -24,10 +24,10 @@ class SearchHistoryListContainer extends HookWidget {
 class SearchHistoryList extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final List<SearchHistory> searchHistories = useProvider(
-        searchHistoriesProvider('testuser').select((value) => value.histories));
+    final List<SearchHistory> searchHistories =
+        useProvider(searchHistoriesProvider.select((value) => value.histories));
     final SearchHistoriesNotifier notifier =
-        useProvider(searchHistoriesProvider('testuser').notifier);
+        useProvider(searchHistoriesProvider.notifier);
     final StateController<String> searchStateController =
         useProvider(searchStateProvider);
     final StateController<String> searchTextFieldController =
@@ -57,7 +57,6 @@ class SearchHistoryList extends HookWidget {
                     onTap: () async {
                       try {
                         await notifier.delete(
-                            userId: 'testuser',
                             searchHistoryId: searchHistories[index].id);
                       } catch (error) {
                         ScaffoldMessenger.of(context).showSnackBar(

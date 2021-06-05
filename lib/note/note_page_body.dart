@@ -13,8 +13,8 @@ class NotePageBody extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final noteState = useState(content);
-    final notifier = useProvider(notesProvider('testuser').notifier);
-    final note = useProvider(notesProvider('testuser').select(
+    final notifier = useProvider(notesProvider.notifier);
+    final note = useProvider(notesProvider.select(
         (value) => value.notes.firstWhere((note) => note.id == noteId)));
 
     return Container(

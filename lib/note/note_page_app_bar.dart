@@ -13,9 +13,8 @@ class NotePageAppBar extends HookWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final note = useProvider(notesProvider('testuser')
-            .select((value) => value.notes.where((note) => note.id == noteId)))
-        .toList();
+    final note = useProvider(notesProvider.select(
+        (value) => value.notes.where((note) => note.id == noteId))).toList();
 
     return AppBar(
       automaticallyImplyLeading: false,

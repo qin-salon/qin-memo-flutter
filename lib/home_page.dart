@@ -13,8 +13,7 @@ import 'package:qin_memo/search/search_page.dart';
 class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final NotesNotifier noteNotifier =
-        useProvider(notesProvider('testuser').notifier);
+    final NotesNotifier noteNotifier = useProvider(notesProvider.notifier);
     final userState = useProvider(userProvider.select((value) => value.user));
 
     return Scaffold(
@@ -140,19 +139,6 @@ class HomePage extends HookWidget {
             ),
             GestureDetector(
               onTap: () async {
-                final googleUser = await GoogleSignIn().signIn();
-
-                // Obtain the auth details from the request
-                final googleAuth = await googleUser?.authentication;
-
-                // Create a new credential
-                final credential = GoogleAuthProvider.credential(
-                  accessToken: googleAuth?.accessToken,
-                  idToken: googleAuth?.idToken,
-                );
-
-                // Once signed in, return the UserCredential
-                await FirebaseAuth.instance.signInWithCredential(credential);
                 Navigator.of(context).push<SearchPage>(
                   PageRouteBuilder<SearchPage>(
                     pageBuilder: (_, __, ___) => SearchPage(),
