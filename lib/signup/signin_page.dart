@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:qin_memo/authentication.dart';
 
 class SigninPage extends StatelessWidget {
   @override
@@ -49,14 +48,7 @@ class SigninPage extends StatelessWidget {
                     shape: const StadiumBorder(),
                   ),
                   onPressed: () async {
-                    final googleUser = await GoogleSignIn().signIn();
-                    final googleAuth = await googleUser?.authentication;
-                    final credential = GoogleAuthProvider.credential(
-                      accessToken: googleAuth?.accessToken,
-                      idToken: googleAuth?.idToken,
-                    );
-                    await FirebaseAuth.instance
-                        .signInWithCredential(credential);
+                    await AuthenticationService.signInWithGoogle();
                   },
                 ),
               ),

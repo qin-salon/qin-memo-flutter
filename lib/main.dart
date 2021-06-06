@@ -2,10 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qin_memo/normal_loading.dart';
 import 'package:qin_memo/providers/user_provider.dart';
-import 'package:qin_memo/signup/signin_page.dart';
-import 'package:qin_memo/signup/signup_page.dart';
 import 'package:qin_memo/walkthrough/walkthrough_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

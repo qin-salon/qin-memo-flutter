@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/authentication.dart';
 import 'package:qin_memo/dialog/custom_alert_dialog.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/qin_account/qin_account_page.dart';
 import 'package:qin_memo/setting/setting_page.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fa;
 
 import '../providers/user_provider.dart';
 
@@ -122,7 +122,7 @@ class ProfileDialog extends HookWidget {
                           subText: 'ログアウトしますか？',
                           actionText: 'ログアウト',
                           action: () async {
-                            await fa.FirebaseAuth.instance.signOut();
+                            await AuthenticationService.signOut();
                             Navigator.of(context).pop();
                           },
                         );

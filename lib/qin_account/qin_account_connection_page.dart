@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class QinAccountConnectionPage extends StatelessWidget {
   @override
@@ -41,13 +43,22 @@ class QinAccountConnectionPage extends StatelessWidget {
   }
 }
 
-class ConnectionRow extends StatelessWidget {
+class ConnectionRow extends HookWidget {
   const ConnectionRow({required this.text});
 
   final String text;
 
   @override
   Widget build(BuildContext context) {
+    final providerState = useState<List<String>>(FirebaseAuth
+            .instance.currentUser?.providerData
+            .map((e) => e.providerId)
+            .toList() ??
+        []);
+
+    final isConnected = text == 'Google' &&
+            providerState.value.any((id) => id == 'google.com') ||
+        text == 'Apple' && providerState.value.any((id) => id == 'apple.com');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,19 +84,36 @@ class ConnectionRow extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 24),
-        ElevatedButton(
-          child: const Text(
-            '連携する',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        if (isConnected)
+          ElevatedButton(
+            child: const Text(
+              '解除する',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            ),
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              primary: const Color(0xFFF1F5F9),
+              onPrimary: Colors.black,
+              shape: const StadiumBorder(),
+            ),
+            onPressed: () {
+              FirebaseAuth.instance.currentUser?.unlink('google.com');
+            },
           ),
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            primary: const Color(0xFF3B82F6),
-            onPrimary: Colors.white,
-            shape: const StadiumBorder(),
+        if (!isConnected)
+          ElevatedButton(
+            child: const Text(
+              '連携する',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            ),
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              primary: const Color(0xFF3B82F6),
+              onPrimary: Colors.white,
+              shape: const StadiumBorder(),
+            ),
+            onPressed: () {},
           ),
-          onPressed: () {},
-        ),
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fa;
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/authentication.dart';
 import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/models/search_history_model.dart';
 import 'package:qin_memo/models/user_model.dart';
@@ -11,7 +11,7 @@ import 'package:qin_memo/providers/user_provider.dart';
 
 final dio = Dio()
   ..interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async {
-    final idToken = await fa.FirebaseAuth.instance.currentUser?.getIdToken();
+    final idToken = await AuthenticationService.getIdToken();
     options.headers
         .addAll(<String, String>{'Authorization': 'Bearer $idToken'});
     return handler.next(options);
