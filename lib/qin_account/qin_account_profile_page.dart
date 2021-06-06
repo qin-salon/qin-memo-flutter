@@ -10,6 +10,12 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 class QinAccountProfilePage extends HookWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  String createAvatarUrl(String userId) {
+    final filePath = Uri.encodeComponent('thumbnails/${userId}_200x200');
+    const url = String.fromEnvironment('FIRE_STORAGE_URL');
+    return '$url/$filePath?alt=media';
+  }
+
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<String> nameState = useState('');
@@ -19,12 +25,6 @@ class QinAccountProfilePage extends HookWidget {
     final ValueNotifier<File?> imageFileState = useState<File?>(null);
 
     final ImagePicker picker = ImagePicker();
-
-    useEffect(() {
-      Future<void>.microtask(() {
-        nameState.value = user?.name ?? '';
-      });
-    });
 
     return Scaffold(
       appBar: AppBar(
@@ -231,19 +231,19 @@ class QinAccountProfilePage extends HookWidget {
                               final storage =
                                   firebase_storage.FirebaseStorage.instance;
                               final file = imageFileState.value;
-                              // TODO: userIdにする
                               if (file != null) {
-                                await storage
-                                    .ref('thumnails/testuser')
-                                    .putFile(file);
+                                await storage.ref(user.id).putFile(file);
                               }
-                              // TODO: urlを環境変数に修正する
                               await userNotifier.update(
-                                  user: user.copyWith(
-                                      name: nameState.value,
-                                      accountId: accountIdState.value,
-                                      avatarUrl:
-                                          'https://firebasestorage.googleapis.com/v0/b/qin-app-dev.appspot.com/o/thumnails%2Ftestuser?alt=media'));
+                                user: user.copyWith(
+                                  name: nameState.value,
+                                  accountId: accountIdState.value,
+                                  avatarUrl: file == null
+                                      ? user.avatarUrl
+                                      : createAvatarUrl(user.id),
+                                ),
+                              );
+                              await NetworkImage(user.avatarUrl).evict();
                             }
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
