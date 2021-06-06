@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:qin_memo/authentication.dart';
 
 class QinAccountConnectionPage extends StatelessWidget {
   @override
@@ -27,13 +27,12 @@ class QinAccountConnectionPage extends StatelessWidget {
               const SizedBox(height: 32),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   ConnectionRow(
                     text: 'Google',
+                    providerId: AuthenticationService.googleProviderId,
                   ),
-                  ConnectionRow(
-                    text: 'Apple',
-                  )
+                  const ConnectionRow(text: 'Apple', providerId: 'apple.com')
                 ],
               )
             ],
@@ -44,21 +43,17 @@ class QinAccountConnectionPage extends StatelessWidget {
 }
 
 class ConnectionRow extends HookWidget {
-  const ConnectionRow({required this.text});
+  const ConnectionRow({required this.text, required this.providerId});
 
   final String text;
+  final String providerId;
 
   @override
   Widget build(BuildContext context) {
-    final providerState = useState<List<String>>(FirebaseAuth
-            .instance.currentUser?.providerData
-            .map((e) => e.providerId)
-            .toList() ??
-        []);
+    final providerState =
+        useState<List<String>>(AuthenticationService.providerIds);
+    final isConnected = providerState.value.any((id) => id == providerId);
 
-    final isConnected = text == 'Google' &&
-            providerState.value.any((id) => id == 'google.com') ||
-        text == 'Apple' && providerState.value.any((id) => id == 'apple.com');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -96,8 +91,10 @@ class ConnectionRow extends HookWidget {
               onPrimary: Colors.black,
               shape: const StadiumBorder(),
             ),
-            onPressed: () {
-              FirebaseAuth.instance.currentUser?.unlink('google.com');
+            onPressed: () async {
+              await AuthenticationService.unlink(providerId);
+              providerState.value =
+                  providerState.value.where((e) => e != providerId).toList();
             },
           ),
         if (!isConnected)
@@ -112,7 +109,17 @@ class ConnectionRow extends HookWidget {
               onPrimary: Colors.white,
               shape: const StadiumBorder(),
             ),
-            onPressed: () {},
+            onPressed: () async {
+              if (providerId == AuthenticationService.googleProviderId) {
+                await AuthenticationService.signInWithGoogle();
+                providerState.value = [
+                  ...providerState.value,
+                  AuthenticationService.googleProviderId
+                ];
+                return;
+              }
+              // TODO: Appleの処理も追加する
+            },
           ),
       ],
     );
