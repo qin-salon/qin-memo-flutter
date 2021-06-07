@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/authentication.dart';
 import 'package:qin_memo/dialog/custom_alert_dialog.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 
 class QinAccountDeletePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final user = useProvider(userProvider.select((value) => value.user));
     final notifier = useProvider(userProvider.notifier);
 
     return Scaffold(
@@ -153,7 +155,15 @@ class QinAccountDeletePage extends HookWidget {
                                   title: 'Qinアカウントの削除',
                                   subText: 'Qinアカウントを完全に削除してよろしいですか？',
                                   actionText: 'OK',
-                                  action: () => print('logout'),
+                                  action: () async {
+                                    Navigator.of(context).pop();
+                                    final userId = user?.id;
+                                    if (userId == null) {
+                                      return;
+                                    }
+                                    await notifier.delete(userId: userId);
+                                    await signOut();
+                                  },
                                 );
                               },
                             );

@@ -8,10 +8,11 @@ import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/constants.dart';
 import 'package:qin_memo/providers/search_state_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
+import 'package:nanoid/nanoid.dart';
 
 final dio = Dio()
   ..interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async {
-    final idToken = await AuthenticationService.getIdToken();
+    final idToken = await getIdToken();
     options.headers
         .addAll(<String, String>{'Authorization': 'Bearer $idToken'});
     return handler.next(options);
@@ -20,16 +21,39 @@ final dio = Dio()
 // ignore: top_level_function_literal_block
 final fetchUser = FutureProvider((ref) async {
   try {
-    final Response<Map<String, dynamic>> response =
+    final response =
         await dio.get<Map<String, dynamic>>('$API_ORIGIN/v1/users');
     final Map<String, dynamic>? data = response.data;
-    if (response.statusCode != 200 || data == null) {
+    if (data == null) {
       return null;
     }
     return User.fromJson(data);
   } catch (error) {
     return null;
   }
+});
+
+// ignore: top_level_function_literal_block
+final addUser = FutureProvider.autoDispose((ref) async {
+  final authUser = currentUser;
+  if (authUser == null) {
+    throw Exception('uid is null');
+  }
+  final Response<Map<String, dynamic>> response = await dio
+      .post<Map<String, dynamic>>('$API_ORIGIN/v1/users',
+          data: <String, String>{
+        'id': nanoid(),
+        'uid': authUser.uid,
+        'name': authUser.displayName ?? 'no name',
+        'accountId': nanoid(),
+        'avatarUrl': authUser.photoURL ?? ''
+      });
+  final Map<String, dynamic>? data = response.data;
+  if (response.statusCode != 201 || data == null) {
+    throw Exception('Failed to create user.');
+  }
+
+  return User.fromJson(data);
 });
 
 // ignore: top_level_function_literal_block
@@ -50,12 +74,10 @@ final updateUser = FutureProvider.autoDispose.family((ref, User user) async {
 });
 
 // ignore: top_level_function_literal_block
-final deleteUser = FutureProviderFamily((ref, String userId) async {
-  final Response<Map<String, dynamic>> response = await dio
-      .delete<Map<String, dynamic>>('$API_ORIGIN/v1/users/$userId',
-          data: <dynamic, dynamic>{});
-  final Map<String, dynamic>? data = response.data;
-  if (response.statusCode != 200 || data == null) {
+final deleteUser = FutureProvider.family((ref, String userId) async {
+  final response = await dio
+      .delete<void>('$API_ORIGIN/v1/users/$userId', data: <dynamic, dynamic>{});
+  if (response.statusCode != 200) {
     throw Exception('Failed to delete user.');
   }
 });

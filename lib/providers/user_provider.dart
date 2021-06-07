@@ -14,6 +14,13 @@ class UserNotifier extends StateNotifier<UserState> {
           state = state.copyWith(user: null, loading: false);
           return;
         }
+        final userData = await _read(fetchUser.future);
+        if (userData == null) {
+          state =
+              state.copyWith(user: await _read(addUser.future), loading: false);
+          return;
+        }
+
         state =
             state.copyWith(user: await _read(fetchUser.future), loading: false);
       });
@@ -22,6 +29,11 @@ class UserNotifier extends StateNotifier<UserState> {
 
   final Reader _read;
   final _auth = fa.FirebaseAuth.instance;
+
+  Future<void> add({required User user}) async {
+    state = state.copyWith(
+        user: await _read(updateUser(user).future), loading: false);
+  }
 
   Future<void> update({required User user}) async {
     state = state.copyWith(
