@@ -30,7 +30,7 @@ class QinAccountConnectionPage extends StatelessWidget {
                 children: <Widget>[
                   ConnectionRow(
                     text: 'Google',
-                    providerId: AuthenticationService.googleProviderId,
+                    providerId: googleProviderId,
                   ),
                   const ConnectionRow(text: 'Apple', providerId: 'apple.com')
                 ],
@@ -50,8 +50,7 @@ class ConnectionRow extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final providerState =
-        useState<List<String>>(AuthenticationService.providerIds);
+    final providerState = useState<List<String>>(providerIds);
     final isConnected = providerState.value.any((id) => id == providerId);
 
     return Row(
@@ -92,7 +91,7 @@ class ConnectionRow extends HookWidget {
               shape: const StadiumBorder(),
             ),
             onPressed: () async {
-              await AuthenticationService.unlink(providerId);
+              await unlink(providerId);
               providerState.value =
                   providerState.value.where((e) => e != providerId).toList();
             },
@@ -110,11 +109,11 @@ class ConnectionRow extends HookWidget {
               shape: const StadiumBorder(),
             ),
             onPressed: () async {
-              if (providerId == AuthenticationService.googleProviderId) {
-                await AuthenticationService.signInWithGoogle();
+              if (providerId == googleProviderId) {
+                await signInWithGoogle();
                 providerState.value = [
                   ...providerState.value,
-                  AuthenticationService.googleProviderId
+                  googleProviderId
                 ];
                 return;
               }

@@ -48,7 +48,7 @@ class SigninPage extends StatelessWidget {
                     shape: const StadiumBorder(),
                   ),
                   onPressed: () async {
-                    await AuthenticationService.signInWithGoogle();
+                    await signInWithGoogle();
                   },
                 ),
               ),
