@@ -33,6 +33,16 @@ class SearchHistoryList extends HookWidget {
     final StateController<String> searchTextFieldController =
         useProvider(searchTextFieldProvider);
 
+    if (searchHistories.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.only(top: 24),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Text('検索履歴はありません', style: TextStyle(fontSize: 16)),
+        ),
+      );
+    }
+
     return Container(
       child: ListView.builder(
         itemCount: searchHistories.length,

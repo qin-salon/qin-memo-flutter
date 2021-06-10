@@ -12,7 +12,8 @@ class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final NotesNotifier noteNotifier = useProvider(notesProvider.notifier);
-    final userState = useProvider(userProvider.select((value) => value.user));
+    final avatarUrl =
+        useProvider(userProvider.select((value) => value.user?.avatarUrl));
 
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +49,7 @@ class HomePage extends HookWidget {
                 height: 36,
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
-                  backgroundImage: NetworkImage(userState?.avatarUrl ??
+                  backgroundImage: NetworkImage(avatarUrl ??
                       'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
                 ),
               ),
