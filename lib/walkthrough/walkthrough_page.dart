@@ -60,12 +60,12 @@ class WalkthroughPage extends HookWidget {
         title: '色々なデバイスで使える',
         description: 'メモはクラウドに自動保存されるから\n好きな端末でいつでも続きから書けます'),
   ];
-  final _currentIndex = useState(0);
   static const _duration = Duration(milliseconds: 300);
   static const _curve = Curves.ease;
 
   @override
   Widget build(BuildContext context) {
+    final _currentIndex = useState(0);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFF1F5F9),

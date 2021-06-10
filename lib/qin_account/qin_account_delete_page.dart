@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/authentication.dart';
 import 'package:qin_memo/dialog/custom_alert_dialog.dart';
 import 'package:qin_memo/providers/user_provider.dart';
+import 'package:qin_memo/walkthrough/walkthrough_page.dart';
 
 class QinAccountDeletePage extends HookWidget {
   @override
@@ -76,7 +77,18 @@ class QinAccountDeletePage extends HookWidget {
                                   actionText: 'OK',
                                   action: () async {
                                     try {
-                                      await notifier.delete(userId: 'testuser');
+                                      final userId = user?.id;
+                                      if (userId == null) {
+                                        throw Exception('userId is null');
+                                      }
+                                      await notifier.delete(userId: userId);
+                                      await signOut();
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute<WalkthroughPage>(
+                                        builder: (BuildContext context) {
+                                          return WalkthroughPage();
+                                        },
+                                      ), (Route<dynamic> route) => false);
                                     } catch (error) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(

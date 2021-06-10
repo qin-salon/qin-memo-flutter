@@ -8,7 +8,6 @@ import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/constants.dart';
 import 'package:qin_memo/providers/search_state_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
-import 'package:nanoid/nanoid.dart';
 
 final dio = Dio()
   ..interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async {
@@ -42,10 +41,8 @@ final addUser = FutureProvider.autoDispose((ref) async {
   final Response<Map<String, dynamic>> response = await dio
       .post<Map<String, dynamic>>('$API_ORIGIN/v1/users',
           data: <String, String>{
-        'id': nanoid(),
         'uid': authUser.uid,
         'name': authUser.displayName ?? 'no name',
-        'accountId': nanoid(),
         'avatarUrl': authUser.photoURL ?? ''
       });
   final Map<String, dynamic>? data = response.data;

@@ -8,6 +8,7 @@ import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/qin_account/qin_account_page.dart';
 import 'package:qin_memo/setting/setting_page.dart';
+import 'package:qin_memo/walkthrough/walkthrough_page.dart';
 
 class ProfileDialog extends HookWidget {
   @override
@@ -122,7 +123,12 @@ class ProfileDialog extends HookWidget {
                           actionText: 'ログアウト',
                           action: () async {
                             await signOut();
-                            Navigator.of(context).pop();
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute<WalkthroughPage>(
+                              builder: (BuildContext context) {
+                                return WalkthroughPage();
+                              },
+                            ), (Route<dynamic> route) => false);
                           },
                         );
                       },

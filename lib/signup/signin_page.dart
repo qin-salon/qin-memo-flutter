@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qin_memo/authentication.dart';
+import 'package:qin_memo/home_page.dart';
 
 class SigninPage extends StatelessWidget {
   @override
@@ -49,6 +50,12 @@ class SigninPage extends StatelessWidget {
                   ),
                   onPressed: () async {
                     await signInWithGoogle();
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute<HomePage>(
+                      builder: (BuildContext context) {
+                        return HomePage();
+                      },
+                    ), (Route<dynamic> route) => false);
                   },
                 ),
               ),
