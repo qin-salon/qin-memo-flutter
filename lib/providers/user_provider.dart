@@ -10,19 +10,23 @@ class UserNotifier extends StateNotifier<UserState> {
   UserNotifier(this._read) : super(UserState()) {
     () {
       _auth.userChanges().listen((user) async {
-        if (user == null) {
-          state = state.copyWith(user: null, loading: false);
-          return;
-        }
-        final userData = await _read(fetchUser.future);
-        if (userData == null) {
-          state =
-              state.copyWith(user: await _read(addUser.future), loading: false);
-          return;
-        }
+        try {
+          if (user == null) {
+            state = state.copyWith(user: null, loading: false);
+            return;
+          }
+          final userData = await _read(fetchUser.future);
+          if (userData == null) {
+            state = state.copyWith(
+                user: await _read(addUser.future), loading: false);
+            return;
+          }
 
-        state =
-            state.copyWith(user: await _read(fetchUser.future), loading: false);
+          state = state.copyWith(
+              user: await _read(fetchUser.future), loading: false);
+        } catch (e) {
+          state = state.copyWith(user: null, loading: false);
+        }
       });
     }();
   }

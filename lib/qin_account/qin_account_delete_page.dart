@@ -148,13 +148,17 @@ class QinAccountDeletePage extends HookWidget {
                                   subText: 'Qinアカウントを完全に削除してよろしいですか？',
                                   actionText: 'OK',
                                   action: () async {
-                                    Navigator.of(context).pop();
-                                    final userId = user?.id;
-                                    if (userId == null) {
-                                      return;
+                                    try {
+                                      Navigator.of(context).pop();
+                                      final userId = user?.id;
+                                      if (userId == null) {
+                                        return;
+                                      }
+                                      await notifier.delete(userId: userId);
+                                      await signOut();
+                                    } catch (e) {
+                                      showErrorSnackBar(context);
                                     }
-                                    await notifier.delete(userId: userId);
-                                    await signOut();
                                   },
                                 );
                               },
