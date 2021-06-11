@@ -39,8 +39,19 @@ class QinAccountPage extends HookWidget {
                     height: 72,
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
-                      backgroundImage: NetworkImage(user?.avatarUrl ??
-                          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(9999),
+                        child: Image.network(
+                          user?.avatarUrl ??
+                              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                          errorBuilder: (_, __, ___) {
+                            return Image.network(
+                                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                                fit: BoxFit.cover);
+                          },
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 12),

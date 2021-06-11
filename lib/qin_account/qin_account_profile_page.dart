@@ -70,9 +70,14 @@ class QinAccountProfilePage extends HookWidget {
                                   imageFileState.value!,
                                   fit: BoxFit.cover,
                                 )
-                              : Image(
-                                  image: NetworkImage(user?.avatarUrl ??
-                                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                              : Image.network(
+                                  user?.avatarUrl ??
+                                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                                  errorBuilder: (_, __, ___) {
+                                    return Image.network(
+                                        'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                                        fit: BoxFit.cover);
+                                  },
                                   fit: BoxFit.cover,
                                 ),
                         ),

@@ -49,8 +49,19 @@ class HomePage extends HookWidget {
                 height: 36,
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
-                  backgroundImage: NetworkImage(avatarUrl ??
-                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(9999),
+                    child: Image.network(
+                      avatarUrl ??
+                          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                      errorBuilder: (_, __, ___) {
+                        return Image.network(
+                            'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                            fit: BoxFit.fitHeight);
+                      },
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             ),
