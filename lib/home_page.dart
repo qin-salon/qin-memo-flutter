@@ -7,6 +7,7 @@ import 'package:qin_memo/dialog/profile_dialog.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/search/search_page.dart';
+import 'package:qin_memo/snack_bar/error_snack_bar.dart';
 
 class HomePage extends HookWidget {
   @override
@@ -77,24 +78,7 @@ class HomePage extends HookWidget {
               return NewNotePage(noteId: noteId);
             }));
           } catch (error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text(
-                  'エラーが発生しました',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                duration: const Duration(milliseconds: 1000),
-                // width: 162,
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: const Color(0xFFEF4444),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(999),
-                ),
-              ),
-            );
+            showErrorSnackBar(context);
           }
         },
         label: const Text(

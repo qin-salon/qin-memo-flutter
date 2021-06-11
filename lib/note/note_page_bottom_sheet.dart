@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:qin_memo/models/api.dart';
+import 'package:qin_memo/snack_bar/error_snack_bar.dart';
+import 'package:qin_memo/snack_bar/success_snack_bar.dart';
 import 'package:share/share.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:qin_memo/dialog/custom_alert_dialog.dart';
@@ -75,71 +77,41 @@ class NotePageBottomSheet extends HookWidget {
                                     try {
                                       await notifier.patch(noteId: noteId);
                                       Navigator.of(context).pop();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        // TODO: widthの設定をどうすればいいかわからない
-                                        SnackBar(
-                                          content: Row(
-                                            children: <Widget>[
-                                              if (isPublic)
-                                                const Icon(
-                                                  Icons.close,
-                                                  color: Colors.white,
-                                                )
-                                              else
-                                                const Icon(
-                                                  Icons.check_circle_outline,
-                                                  color: Colors.white,
-                                                ),
-                                              const SizedBox(
-                                                width: 8,
+                                      showSuccessSnackBar(
+                                        context: context,
+                                        content: Row(
+                                          children: <Widget>[
+                                            if (isPublic)
+                                              const Icon(
+                                                Icons.close,
+                                                size: 18,
+                                                color: Colors.white,
+                                              )
+                                            else
+                                              const Icon(
+                                                Icons.check_circle_outline,
+                                                size: 18,
+                                                color: Colors.white,
                                               ),
-                                              Text(
-                                                isPublic
-                                                    ? 'メモを非公開にしました'
-                                                    : 'メモを公開しました',
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                            const SizedBox(
+                                              width: 4,
+                                            ),
+                                            Text(
+                                              isPublic
+                                                  ? 'メモを非公開にしました'
+                                                  : 'メモを公開しました',
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold,
                                               ),
-                                            ],
-                                          ),
-                                          duration: const Duration(
-                                              milliseconds: 1000),
-                                          // width: 162,
-                                          behavior: SnackBarBehavior.floating,
-                                          backgroundColor: Colors.blue,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(999),
-                                          ),
+                                            ),
+                                          ],
                                         ),
+                                        width: isPublic ? 186 : 162,
                                       );
                                     } catch (error) {
                                       Navigator.of(context).pop();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: const Text(
-                                            'エラーが発生しました',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          duration: const Duration(
-                                              milliseconds: 1000),
-                                          // width: 162,
-                                          behavior: SnackBarBehavior.floating,
-                                          backgroundColor:
-                                              const Color(0xFFEF4444),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(999),
-                                          ),
-                                        ),
-                                      );
+                                      showErrorSnackBar(context);
                                     }
                                   },
                                   child: Container(
@@ -192,31 +164,7 @@ class NotePageBottomSheet extends HookWidget {
                                                       route.isFirst);
                                             } catch (error) {
                                               Navigator.of(context).pop();
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: const Text(
-                                                    'エラーが発生しました',
-                                                    style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  duration: const Duration(
-                                                      milliseconds: 1000),
-                                                  // width: 162,
-                                                  behavior:
-                                                      SnackBarBehavior.floating,
-                                                  backgroundColor:
-                                                      const Color(0xFFEF4444),
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            999),
-                                                  ),
-                                                ),
-                                              );
+                                              showErrorSnackBar(context);
                                             }
                                           },
                                         );
@@ -315,28 +263,7 @@ class NotePageBottomSheet extends HookWidget {
                                       await cacheManager.emptyCache();
                                     } catch (error) {
                                       Navigator.of(context).pop();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: const Text(
-                                            'エラーが発生しました',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          duration: const Duration(
-                                              milliseconds: 1000),
-                                          // width: 162,
-                                          behavior: SnackBarBehavior.floating,
-                                          backgroundColor:
-                                              const Color(0xFFEF4444),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(999),
-                                          ),
-                                        ),
-                                      );
+                                      showErrorSnackBar(context);
                                     }
                                   },
                                   child: Container(

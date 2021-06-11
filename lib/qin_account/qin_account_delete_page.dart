@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/authentication.dart';
 import 'package:qin_memo/dialog/custom_alert_dialog.dart';
 import 'package:qin_memo/providers/user_provider.dart';
+import 'package:qin_memo/snack_bar/error_snack_bar.dart';
 import 'package:qin_memo/walkthrough/walkthrough_page.dart';
 
 class QinAccountDeletePage extends HookWidget {
@@ -90,28 +91,7 @@ class QinAccountDeletePage extends HookWidget {
                                         },
                                       ), (Route<dynamic> route) => false);
                                     } catch (error) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: const Text(
-                                            'エラーが発生しました',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          duration: const Duration(
-                                              milliseconds: 1000),
-                                          // width: 162,
-                                          behavior: SnackBarBehavior.floating,
-                                          backgroundColor:
-                                              const Color(0xFFEF4444),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(999),
-                                          ),
-                                        ),
-                                      );
+                                      showErrorSnackBar(context);
                                     }
                                   },
                                 );

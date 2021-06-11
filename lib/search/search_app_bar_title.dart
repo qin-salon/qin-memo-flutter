@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/providers/search_histories_provider.dart';
 import 'package:qin_memo/providers/search_state_provider.dart';
 import 'package:qin_memo/providers/search_text_field_provider.dart';
+import 'package:qin_memo/snack_bar/error_snack_bar.dart';
 
 class SearchAppBarTitle extends HookWidget {
   @override
@@ -45,24 +46,7 @@ class SearchAppBarTitle extends HookWidget {
                   }
                   await notifier.add(keyword: str);
                 } catch (error) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: const Text(
-                        'エラーが発生しました',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      duration: const Duration(milliseconds: 1000),
-                      // width: 162,
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: const Color(0xFFEF4444),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(999),
-                      ),
-                    ),
-                  );
+                  showErrorSnackBar(context);
                 }
               },
               decoration: const InputDecoration(

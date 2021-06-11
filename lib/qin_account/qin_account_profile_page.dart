@@ -6,6 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:qin_memo/snack_bar/error_snack_bar.dart';
+import 'package:qin_memo/snack_bar/success_snack_bar.dart';
 
 class QinAccountProfilePage extends HookWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -222,6 +224,7 @@ class QinAccountProfilePage extends HookWidget {
                         ),
                         onPressed: () async {
                           try {
+                            throw Exception('');
                             FocusScope.of(context).unfocus();
                             final FormState? currentState =
                                 _formKey.currentState;
@@ -250,25 +253,29 @@ class QinAccountProfilePage extends HookWidget {
                               );
                               await NetworkImage(user.avatarUrl).evict();
                             }
-                          } catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: const Text(
-                                  'エラーが発生しました',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                            showSuccessSnackBar(
+                              context: context,
+                              content: Row(
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.check_circle_outline,
+                                    size: 18,
+                                    color: Colors.white,
                                   ),
-                                ),
-                                duration: const Duration(milliseconds: 1000),
-                                // width: 162,
-                                behavior: SnackBarBehavior.floating,
-                                backgroundColor: const Color(0xFFEF4444),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(999),
-                                ),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    '保存しました',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
+                              width: 126,
                             );
+                          } catch (e) {
+                            showErrorSnackBar(context);
                           }
                         },
                       ),
