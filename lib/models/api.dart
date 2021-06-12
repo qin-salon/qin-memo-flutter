@@ -6,6 +6,7 @@ import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/models/search_history_model.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/constants.dart';
+import 'package:qin_memo/providers/notes_provider.dart';
 import 'package:qin_memo/providers/search_state_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 
@@ -55,14 +56,14 @@ final addUser = FutureProvider.autoDispose((ref) async {
 
 // ignore: top_level_function_literal_block
 final updateUser = FutureProvider.autoDispose.family((ref, User user) async {
-  final Response<Map<String, dynamic>> response = await dio
-      .put<Map<String, dynamic>>('$API_ORIGIN/v1/users/${user.id}',
-          data: <String, String>{
-        'name': user.name,
-        'accountId': user.accountId,
-        'avatarUrl': user.avatarUrl
-      });
-  final Map<String, dynamic>? data = response.data;
+  final response = await dio
+      .put<Map<String, dynamic>>('$API_ORIGIN/v1/users/${user.id}', data: {
+    'name': user.name,
+    'accountId': user.accountId,
+    'avatarUrl': user.avatarUrl,
+    'enabledQinMemo': user.enabledQinMemo,
+  });
+  final data = response.data;
   if (response.statusCode != 200 || data == null) {
     throw Exception('Failed to update user.');
   }
@@ -107,15 +108,11 @@ final fetchNotes = FutureProviderFamily((ref, String userId) async {
 
 // ignore: top_level_function_literal_block
 final fetchNote = FutureProvider.autoDispose.family((ref, String noteId) async {
-  // TODO: refを使ってノートstateをみるとノートが保存された瞬間にfetchNoteがはしってしまう
-  // かといってnoteが存在する場合はstateから取らなければ無駄なリクエストがはしる
-  // final note = ref
-  //     .watch(notesProvider('testuser'))
-  //     .notes
-  //     .firstWhere((note) => note.id == noteId);
-  // if (note.content != null) {
-  //   return note;
-  // }
+  final notes =
+      ref.read(notesProvider).notes.where((note) => note.id == noteId);
+  if (notes.isNotEmpty) {
+    return notes.first;
+  }
   final Response<Map<String, dynamic>> response =
       await dio.get<Map<String, dynamic>>('$API_ORIGIN/v1/notes/$noteId');
   final Map<String, dynamic>? data = response.data;

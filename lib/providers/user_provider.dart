@@ -21,6 +21,20 @@ class UserNotifier extends StateNotifier<UserState> {
                 user: await _read(addUser.future), loading: false);
             return;
           }
+          if (!userData.enabledQinMemo) {
+            state = state.copyWith(
+                user: await _read(updateUser(
+                  User(
+                    id: userData.id,
+                    name: userData.name,
+                    accountId: userData.accountId,
+                    avatarUrl: userData.avatarUrl,
+                    enabledQinMemo: true,
+                  ),
+                ).future),
+                loading: false);
+            return;
+          }
 
           state = state.copyWith(
               user: await _read(fetchUser.future), loading: false);

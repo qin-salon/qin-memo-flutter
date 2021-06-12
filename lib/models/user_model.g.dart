@@ -12,6 +12,7 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
     name: json['name'] as String,
     accountId: json['accountId'] as String,
     avatarUrl: json['avatarUrl'] as String,
+    enabledQinMemo: json['enabledQinMemo'] as bool,
   );
 }
 
@@ -20,6 +21,7 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'name': instance.name,
       'accountId': instance.accountId,
       'avatarUrl': instance.avatarUrl,
+      'enabledQinMemo': instance.enabledQinMemo,
     };
 
 _$_UserState _$_$_UserStateFromJson(Map<String, dynamic> json) {

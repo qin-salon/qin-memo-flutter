@@ -9,6 +9,7 @@ class User with _$User {
     required String name,
     required String accountId,
     required String avatarUrl,
+    required bool enabledQinMemo,
   }) = _User;
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }

@@ -24,12 +24,14 @@ class _$UserTearOff {
       {required String id,
       required String name,
       required String accountId,
-      required String avatarUrl}) {
+      required String avatarUrl,
+      required bool enabledQinMemo}) {
     return _User(
       id: id,
       name: name,
       accountId: accountId,
       avatarUrl: avatarUrl,
+      enabledQinMemo: enabledQinMemo,
     );
   }
 
@@ -47,6 +49,7 @@ mixin _$User {
   String get name => throw _privateConstructorUsedError;
   String get accountId => throw _privateConstructorUsedError;
   String get avatarUrl => throw _privateConstructorUsedError;
+  bool get enabledQinMemo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +60,12 @@ mixin _$User {
 abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
-  $Res call({String id, String name, String accountId, String avatarUrl});
+  $Res call(
+      {String id,
+      String name,
+      String accountId,
+      String avatarUrl,
+      bool enabledQinMemo});
 }
 
 /// @nodoc
@@ -74,6 +82,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? name = freezed,
     Object? accountId = freezed,
     Object? avatarUrl = freezed,
+    Object? enabledQinMemo = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -92,6 +101,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      enabledQinMemo: enabledQinMemo == freezed
+          ? _value.enabledQinMemo
+          : enabledQinMemo // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -101,7 +114,12 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) then) =
       __$UserCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String name, String accountId, String avatarUrl});
+  $Res call(
+      {String id,
+      String name,
+      String accountId,
+      String avatarUrl,
+      bool enabledQinMemo});
 }
 
 /// @nodoc
@@ -119,6 +137,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? name = freezed,
     Object? accountId = freezed,
     Object? avatarUrl = freezed,
+    Object? enabledQinMemo = freezed,
   }) {
     return _then(_User(
       id: id == freezed
@@ -137,6 +156,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      enabledQinMemo: enabledQinMemo == freezed
+          ? _value.enabledQinMemo
+          : enabledQinMemo // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -149,7 +172,8 @@ class _$_User implements _User {
       {required this.id,
       required this.name,
       required this.accountId,
-      required this.avatarUrl});
+      required this.avatarUrl,
+      required this.enabledQinMemo});
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
@@ -162,10 +186,12 @@ class _$_User implements _User {
   final String accountId;
   @override
   final String avatarUrl;
+  @override
+  final bool enabledQinMemo;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, accountId: $accountId, avatarUrl: $avatarUrl)';
+    return 'User(id: $id, name: $name, accountId: $accountId, avatarUrl: $avatarUrl, enabledQinMemo: $enabledQinMemo)';
   }
 
   @override
@@ -181,7 +207,10 @@ class _$_User implements _User {
                     .equals(other.accountId, accountId)) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 const DeepCollectionEquality()
-                    .equals(other.avatarUrl, avatarUrl)));
+                    .equals(other.avatarUrl, avatarUrl)) &&
+            (identical(other.enabledQinMemo, enabledQinMemo) ||
+                const DeepCollectionEquality()
+                    .equals(other.enabledQinMemo, enabledQinMemo)));
   }
 
   @override
@@ -190,7 +219,8 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(accountId) ^
-      const DeepCollectionEquality().hash(avatarUrl);
+      const DeepCollectionEquality().hash(avatarUrl) ^
+      const DeepCollectionEquality().hash(enabledQinMemo);
 
   @JsonKey(ignore: true)
   @override
@@ -208,7 +238,8 @@ abstract class _User implements User {
       {required String id,
       required String name,
       required String accountId,
-      required String avatarUrl}) = _$_User;
+      required String avatarUrl,
+      required bool enabledQinMemo}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -220,6 +251,8 @@ abstract class _User implements User {
   String get accountId => throw _privateConstructorUsedError;
   @override
   String get avatarUrl => throw _privateConstructorUsedError;
+  @override
+  bool get enabledQinMemo => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;
