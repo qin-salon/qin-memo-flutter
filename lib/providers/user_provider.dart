@@ -48,4 +48,9 @@ class UserNotifier extends StateNotifier<UserState> {
     await _read(deleteUser(userId).future);
     state = state.copyWith(user: null, loading: false);
   }
+
+  Future<void> deleteMemo({required String userId}) async {
+    await _read(deleteUserMemo(userId).future);
+    state = state.copyWith(user: null, loading: false);
+  }
 }

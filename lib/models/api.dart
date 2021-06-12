@@ -79,6 +79,14 @@ final deleteUser = FutureProvider.family((ref, String userId) async {
   }
 });
 
+final deleteUserMemo = FutureProvider.family((ref, String userId) async {
+  final response = await dio.delete<void>('$API_ORIGIN/v1/users/$userId/memo',
+      data: <dynamic, dynamic>{});
+  if (response.statusCode != 200) {
+    throw Exception('Failed to delete memo.');
+  }
+});
+
 // ignore: top_level_function_literal_block
 final fetchNotes = FutureProviderFamily((ref, String userId) async {
   try {

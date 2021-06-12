@@ -82,7 +82,7 @@ class QinAccountDeletePage extends HookWidget {
                                       if (userId == null) {
                                         throw Exception('userId is null');
                                       }
-                                      await notifier.delete(userId: userId);
+                                      await notifier.deleteMemo(userId: userId);
                                       await signOut();
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute<WalkthroughPage>(
@@ -112,9 +112,10 @@ class QinAccountDeletePage extends HookWidget {
                     const Text(
                       'Qinアカウントの削除',
                       style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFFC2C6D2),
-                          fontWeight: FontWeight.bold),
+                        fontSize: 14,
+                        color: Color(0xFFC2C6D2),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -149,14 +150,20 @@ class QinAccountDeletePage extends HookWidget {
                                   actionText: 'OK',
                                   action: () async {
                                     try {
-                                      Navigator.of(context).pop();
                                       final userId = user?.id;
                                       if (userId == null) {
                                         return;
                                       }
                                       await notifier.delete(userId: userId);
                                       await signOut();
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute<WalkthroughPage>(
+                                        builder: (BuildContext context) {
+                                          return WalkthroughPage();
+                                        },
+                                      ), (Route<dynamic> route) => false);
                                     } catch (e) {
+                                      print('errrrr');
                                       showErrorSnackBar(context);
                                     }
                                   },
