@@ -38,30 +38,6 @@ class MyApp extends HookWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Qin Memo',
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      //   scaffoldBackgroundColor:
-      //       theme == ThemeMode.light ? Colors.white : Colors.black,
-      //   textTheme: TextTheme(
-      //     bodyText1: TextStyle(
-      //         fontSize: 14.0,
-      //         fontWeight: FontWeight.bold,
-      //         color: theme == ThemeMode.light ? Colors.white : Colors.black),
-      //   ),
-      //   appBarTheme: AppBarTheme(
-      //     elevation: 0,
-      //     backgroundColor:
-      //         theme == ThemeMode.light ? Colors.white : Colors.black,
-      //     iconTheme: const IconThemeData(color: Colors.black),
-      //     textTheme: appBarTextTheme.copyWith(
-      //       headline6: appBarTextTheme.headline6!.copyWith(
-      //         fontSize: 18,
-      //         fontWeight: FontWeight.bold,
-      //         color: theme == ThemeMode.light ? Colors.black : Colors.white,
-      //       ),
-      //     ),
-      //   ),
-      // ),
       theme: buildLightTheme(),
       darkTheme: buildDarkTheme(),
       themeMode: useProvider(themeProvider),
