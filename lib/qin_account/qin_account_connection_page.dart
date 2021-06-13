@@ -64,9 +64,12 @@ class ConnectionRow extends HookWidget {
               Container(
                 width: 24,
                 height: 24,
-                child: SvgPicture.asset(text == 'Google'
-                    ? 'assets/google.svg'
-                    : 'assets/apple.svg'),
+                child: SvgPicture.asset(
+                  text == 'Google' ? 'assets/google.svg' : 'assets/apple.svg',
+                  color: text == 'Google'
+                      ? null
+                      : Theme.of(context).textTheme.bodyText1?.color,
+                ),
               ),
               const SizedBox(width: 12),
               Text(

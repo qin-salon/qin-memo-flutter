@@ -8,6 +8,7 @@ void showErrorSnackBar(BuildContext context) {
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
       ),
       duration: const Duration(milliseconds: 1000),

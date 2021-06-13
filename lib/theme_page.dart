@@ -67,10 +67,7 @@ class ThemeOption extends HookWidget {
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             if (theme == type)
-              const Icon(
-                Icons.check,
-                color: Color(0xFF3B82F6),
-              )
+              Icon(Icons.check, color: Theme.of(context).colorScheme.primary)
           ],
         ),
         padding: const EdgeInsets.symmetric(vertical: 14),

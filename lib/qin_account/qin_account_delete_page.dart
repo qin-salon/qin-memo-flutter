@@ -64,7 +64,7 @@ class QinAccountDeletePage extends HookWidget {
                           ),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            primary: const Color(0xFFF1F5F9),
+                            primary: Theme.of(context).backgroundColor,
                             onPrimary: const Color(0xFFEF4444),
                             shape: const StadiumBorder(),
                           ),
@@ -136,7 +136,7 @@ class QinAccountDeletePage extends HookWidget {
                           ),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            primary: const Color(0xFFF1F5F9),
+                            primary: Theme.of(context).backgroundColor,
                             onPrimary: const Color(0xFFEF4444),
                             shape: const StadiumBorder(),
                           ),

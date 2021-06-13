@@ -59,8 +59,8 @@ class QinAccountPage extends HookWidget {
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  const Text('Qinアカウントに関する各種設定ができます。',
-                      style: TextStyle(fontSize: 12, color: Color(0xFFC2C6D2))),
+                  Text('Qinアカウントに関する各種設定ができます。',
+                      style: Theme.of(context).textTheme.subtitle2),
                 ],
               ),
             ),
@@ -70,9 +70,9 @@ class QinAccountPage extends HookWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text(
+                Text(
                   '全般',
-                  style: TextStyle(fontSize: 14, color: Color(0xFFC2C6D2)),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 const SizedBox(height: 8),
                 SettingOption(

@@ -19,10 +19,7 @@ class SettingOption extends StatelessWidget {
               text,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: Color(0xFFC2C6D2),
-            ),
+            const Icon(Icons.arrow_forward_ios),
           ],
         ),
         padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 0),
