@@ -133,9 +133,9 @@ class HomePage extends HookWidget {
                         color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'メモを検索する',
-                      style: TextStyle(color: Color(0xFFC2C6D2)),
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ],
                 ),
