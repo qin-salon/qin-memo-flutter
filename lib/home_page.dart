@@ -135,7 +135,7 @@ class HomePage extends HookWidget {
                     ),
                     Text(
                       'メモを検索する',
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                   ],
                 ),

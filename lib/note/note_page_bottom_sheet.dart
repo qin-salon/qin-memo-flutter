@@ -144,7 +144,6 @@ class NotePageBottomSheet extends HookWidget {
                                 const Divider(
                                   height: 0,
                                   thickness: 1,
-                                  color: Color(0xFFEAEBEC),
                                 ),
                                 GestureDetector(
                                   behavior: HitTestBehavior.opaque,
@@ -257,7 +256,6 @@ class NotePageBottomSheet extends HookWidget {
                                 const Divider(
                                   height: 0,
                                   thickness: 1,
-                                  color: Color(0xFFEAEBEC),
                                 ),
                                 GestureDetector(
                                   onTap: () async {
@@ -368,6 +366,8 @@ class NotePageBottomSheet extends HookWidget {
           ),
         ],
       ),
+      decoration:
+          BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
     );
   }
 }

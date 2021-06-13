@@ -17,7 +17,8 @@ class SettingOption extends StatelessWidget {
           children: <Widget>[
             Text(
               text,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              // style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             const Icon(Icons.arrow_forward_ios),
           ],

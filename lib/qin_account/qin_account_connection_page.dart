@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qin_memo/authentication.dart';
+import 'package:qin_memo/custom_color_scheme.dart';
 
 class QinAccountConnectionPage extends StatelessWidget {
   @override
@@ -22,8 +23,7 @@ class QinAccountConnectionPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text('アカウントの連携',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('アカウントの連携', style: Theme.of(context).textTheme.headline5),
               const SizedBox(height: 32),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,14 +68,13 @@ class ConnectionRow extends HookWidget {
                   text == 'Google' ? 'assets/google.svg' : 'assets/apple.svg',
                   color: text == 'Google'
                       ? null
-                      : Theme.of(context).textTheme.bodyText1?.color,
+                      : Theme.of(context).colorScheme.appleColor,
                 ),
               ),
               const SizedBox(width: 12),
               Text(
                 text,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.subtitle1,
               ),
             ],
           ),

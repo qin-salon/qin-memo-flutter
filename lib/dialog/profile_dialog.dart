@@ -88,7 +88,7 @@ class ProfileDialog extends HookWidget {
                                 user?.accountId != null
                                     ? '@${user?.accountId}'
                                     : '',
-                                style: Theme.of(context).textTheme.subtitle2,
+                                style: Theme.of(context).textTheme.caption,
                               ),
                             ],
                           ),

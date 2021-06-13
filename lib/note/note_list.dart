@@ -86,7 +86,7 @@ class NoteItem extends StatelessWidget {
                         ? DateFormat('yyyy/MM/dd')
                             .format(DateTime.parse(note.updatedOn!))
                         : '不明',
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.subtitle2,
                   ),
                   if (note.public)
                     Container(

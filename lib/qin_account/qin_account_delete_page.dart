@@ -29,9 +29,9 @@ class QinAccountDeletePage extends HookWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text(
+              Text(
                 'データの削除',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headline5,
               ),
               const SizedBox(height: 32),
               Container(
@@ -40,17 +40,16 @@ class QinAccountDeletePage extends HookWidget {
                   children: <Widget>[
                     Text(
                       'Qinサービスの削除',
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        const Text(
+                        Text(
                           'Qin Memoを削除',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                         const SizedBox(width: 24),
                         ElevatedButton(
@@ -108,17 +107,16 @@ class QinAccountDeletePage extends HookWidget {
                   children: <Widget>[
                     Text(
                       'Qinアカウントの削除',
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        const Text(
+                        Text(
                           'アカウントを削除',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                         const SizedBox(width: 24),
                         ElevatedButton(

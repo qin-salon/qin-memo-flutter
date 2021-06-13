@@ -63,7 +63,7 @@ class SearchAppBarTitle extends HookWidget {
                 hintText: '検索',
                 hintStyle: const TextStyle(color: Color(0xFFC2C6D2)),
                 filled: true,
-                fillColor: Theme.of(context).colorScheme.searchBackgroudColor,
+                fillColor: Theme.of(context).backgroundColor,
               ),
             ),
           ),

@@ -15,13 +15,17 @@ ThemeData buildLightTheme() {
     cardColor: const Color(0xFFF3F4F6),
     disabledColor: const Color(0xFFC2C6D2),
     dialogBackgroundColor: Colors.white,
+    dividerColor: const Color(0xFFEAEBEC),
     textTheme: textTheme.copyWith(
-      subtitle1: textTheme.subtitle1?.copyWith(
+      headline5: textTheme.headline5
+          ?.copyWith(fontSize: 22, fontWeight: FontWeight.bold),
+      subtitle1: textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
+      subtitle2: textTheme.subtitle2?.copyWith(
           color: const Color(0xFF9CA3AF),
           fontSize: 14,
           fontWeight: FontWeight.bold),
-      subtitle2: textTheme.subtitle2
-          ?.copyWith(color: const Color(0xFF9CA3AF), fontSize: 12),
+      bodyText1: textTheme.bodyText1?.copyWith(fontSize: 16),
+      caption: textTheme.caption?.copyWith(color: const Color(0xFF9CA3AF)),
     ),
     appBarTheme: AppBarTheme(
       elevation: 0,
@@ -49,18 +53,23 @@ ThemeData buildDarkTheme() {
     ),
   ).copyWith(
     textTheme: textTheme.copyWith(
-      subtitle1: textTheme.subtitle1?.copyWith(
+      headline5: textTheme.headline5
+          ?.copyWith(fontSize: 22, fontWeight: FontWeight.bold),
+      subtitle1: textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
+      subtitle2: textTheme.subtitle2?.copyWith(
           color: const Color(0xFF9CA3AF),
           fontSize: 14,
           fontWeight: FontWeight.bold),
-      subtitle2: textTheme.subtitle2
-          ?.copyWith(color: const Color(0xFF9CA3AF), fontSize: 12),
+      bodyText1: textTheme.bodyText1?.copyWith(fontSize: 16),
+      caption: textTheme.caption?.copyWith(color: const Color(0xFF9CA3AF)),
     ),
-    backgroundColor: const Color(0xFF374151),
-    cardColor: const Color(0xFF374151),
+    backgroundColor: const Color(0xFF3F3F46),
+    cardColor: const Color(0xFF3F3F46),
     disabledColor: const Color(0xFFC2C6D2),
-    dialogBackgroundColor: const Color(0xFF1F2937),
+    dialogBackgroundColor: const Color(0xFF27272A),
+    dividerColor: const Color(0xFF27272A),
     appBarTheme: AppBarTheme(
+      backgroundColor: const Color(0xFF27272A),
       elevation: 0,
       // iconTheme: const IconThemeData(color: Colors.white),
       textTheme: textTheme.copyWith(
@@ -71,6 +80,6 @@ ThemeData buildDarkTheme() {
         ),
       ),
     ),
-    // scaffoldBackgroundColor: Colors.orange,
+    scaffoldBackgroundColor: const Color(0xFF27272A),
   );
 }

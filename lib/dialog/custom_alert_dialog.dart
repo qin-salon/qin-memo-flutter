@@ -31,10 +31,7 @@ class CustomAlertDialog extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1
-                        ?.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Text(
                     subText,

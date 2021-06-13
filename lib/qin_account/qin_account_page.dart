@@ -8,6 +8,7 @@ import 'package:qin_memo/qin_account/qin_account_delete_page.dart';
 import 'package:qin_memo/qin_account/qin_account_profile_page.dart';
 import 'package:qin_memo/qin_account/qin_account_support_page.dart';
 import 'package:qin_memo/setting/setting_option.dart';
+import 'package:qin_memo/custom_color_scheme.dart';
 
 class QinAccountPage extends HookWidget {
   @override
@@ -56,11 +57,11 @@ class QinAccountPage extends HookWidget {
                   ),
                   const SizedBox(height: 12),
                   Text('ようこそ、${user?.name ?? ''}さん',
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold)),
+                      style: Theme.of(context).textTheme.subtitle1),
                   const SizedBox(height: 8),
                   Text('Qinアカウントに関する各種設定ができます。',
-                      style: Theme.of(context).textTheme.subtitle2),
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                          color: Theme.of(context).colorScheme.subTextColor)),
                 ],
               ),
             ),
@@ -72,7 +73,7 @@ class QinAccountPage extends HookWidget {
               children: <Widget>[
                 Text(
                   '全般',
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.subtitle2,
                 ),
                 const SizedBox(height: 8),
                 SettingOption(

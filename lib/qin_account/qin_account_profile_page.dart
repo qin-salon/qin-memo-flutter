@@ -8,6 +8,7 @@ import 'package:qin_memo/providers/user_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:qin_memo/snack_bar/error_snack_bar.dart';
 import 'package:qin_memo/snack_bar/success_snack_bar.dart';
+import 'package:qin_memo/custom_color_scheme.dart';
 
 class QinAccountProfilePage extends HookWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -45,8 +46,7 @@ class QinAccountProfilePage extends HookWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text('プロフィール',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('プロフィール', style: Theme.of(context).textTheme.headline5),
               const SizedBox(height: 32),
               Form(
                 key: _formKey,
@@ -55,7 +55,7 @@ class QinAccountProfilePage extends HookWidget {
                   children: <Widget>[
                     Text(
                       'アイコン',
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -111,7 +111,7 @@ class QinAccountProfilePage extends HookWidget {
                         children: <Widget>[
                           Text(
                             '名前',
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context).textTheme.subtitle2,
                           ),
                           const SizedBox(height: 8),
                           TextFormField(
@@ -161,7 +161,7 @@ class QinAccountProfilePage extends HookWidget {
                         children: <Widget>[
                           Text(
                             'ユーザー名',
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context).textTheme.subtitle2,
                           ),
                           const SizedBox(height: 8),
                           TextFormField(
@@ -204,7 +204,13 @@ class QinAccountProfilePage extends HookWidget {
                           const SizedBox(height: 8),
                           Text(
                             'https://memo.qin.page/${accountIdState.value == '' ? user?.accountId : accountIdState.value}',
-                            style: Theme.of(context).textTheme.subtitle2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .subTextColor),
                           ),
                         ],
                       ),
