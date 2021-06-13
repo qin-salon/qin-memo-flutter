@@ -85,11 +85,13 @@ class NotePageBottomSheet extends HookWidget {
                                               const Icon(
                                                 Icons.close,
                                                 size: 18,
+                                                color: Colors.white,
                                               )
                                             else
                                               const Icon(
                                                 Icons.check_circle_outline,
                                                 size: 18,
+                                                color: Colors.white,
                                               ),
                                             const SizedBox(
                                               width: 4,

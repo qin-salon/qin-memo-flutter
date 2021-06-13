@@ -38,12 +38,9 @@ class QinAccountDeletePage extends HookWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       'Qinサービスの削除',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFFC2C6D2),
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -109,13 +106,9 @@ class QinAccountDeletePage extends HookWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       'Qinアカウントの削除',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFFC2C6D2),
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                     const SizedBox(height: 8),
                     Row(

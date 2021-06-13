@@ -17,9 +17,16 @@ class NotePageBody extends HookWidget {
     final note = useProvider(notesProvider.select(
         (value) => value.notes.firstWhere((note) => note.id == noteId)));
 
+    useEffect(() {
+      Future.microtask(
+          () => notifier.updateState(note: note.copyWith(content: content)));
+    }, []);
+
     return Container(
       child: TextFormField(
         autofocus: true,
+        style: TextStyle(
+            color: Theme.of(context).textTheme.bodyText1?.color, fontSize: 16),
         initialValue: content,
         onChanged: (String? value) {
           if (value != null) {

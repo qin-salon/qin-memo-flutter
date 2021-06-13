@@ -115,6 +115,12 @@ class QinAccountProfilePage extends HookWidget {
                           ),
                           const SizedBox(height: 8),
                           TextFormField(
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.color,
+                                fontSize: 14),
                             initialValue: user?.name,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.symmetric(
@@ -159,6 +165,12 @@ class QinAccountProfilePage extends HookWidget {
                           ),
                           const SizedBox(height: 8),
                           TextFormField(
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.color,
+                                fontSize: 14),
                             initialValue: user?.accountId,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.symmetric(
