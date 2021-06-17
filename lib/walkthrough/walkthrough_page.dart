@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qin_memo/signup/signin_page.dart';
 import 'package:qin_memo/signup/signup_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:qin_memo/reusable_elebvated_button.dart';
 
 class WalkthroughImageAndText extends StatelessWidget {
   const WalkthroughImageAndText(
@@ -60,12 +61,29 @@ class WalkthroughPage extends HookWidget {
         title: '色々なデバイスで使える',
         description: 'メモはクラウドに自動保存されるから\n好きな端末でいつでも続きから書けます'),
   ];
+
   static const _duration = Duration(milliseconds: 300);
   static const _curve = Curves.ease;
+  final _currentIndex = useState(0);
+
+  void _tappedButton(BuildContext context) {
+    if (_currentIndex.value == 2) {
+      Navigator.of(context).push<SignupPage>(
+        MaterialPageRoute<SignupPage>(
+          builder: (BuildContext context) {
+            return SignupPage();
+          },
+        ),
+      );
+    } else {
+      controller.animateToPage(_currentIndex.value += 1,
+          duration: _duration, curve: _curve);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final _currentIndex = useState(0);
+    // final _currentIndex = useState(0);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFF1F5F9),
@@ -103,32 +121,12 @@ class WalkthroughPage extends HookWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 56,
-              child: ElevatedButton(
-                child: Text(
-                  _currentIndex.value == 2 ? 'アカウントを登録する' : '次へ',
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  primary: const Color(0xFF3B82F6),
-                  onPrimary: Colors.white,
-                  shape: const StadiumBorder(),
-                ),
-                onPressed: () {
-                  if (_currentIndex.value == 2) {
-                    Navigator.of(context).push<SignupPage>(
-                      MaterialPageRoute<SignupPage>(
-                        builder: (BuildContext context) {
-                          return SignupPage();
-                        },
-                      ),
-                    );
-                  } else {
-                    controller.animateToPage(_currentIndex.value += 1,
-                        duration: _duration, curve: _curve);
-                  }
-                },
+              child: ReusableElevatedButton(
+                buttonTitle: _currentIndex.value == 2 ? 'アカウントを登録する' : '次へ',
+                buttonFontSize: 16.0,
+                primaryColor: const Color(0xFF3B82F6),
+                onPrimaryColor: Colors.white,
+                onPressed: () => _tappedButton(context),
               ),
             ),
             const SizedBox(height: 24),
@@ -141,21 +139,21 @@ class WalkthroughPage extends HookWidget {
                       fontWeight: FontWeight.bold, color: Color(0xFFC2C6D2)),
                 ),
                 TextButton(
-                    onPressed: () => {
-                          Navigator.of(context).push<SigninPage>(
-                            MaterialPageRoute<SigninPage>(
-                              builder: (BuildContext context) {
-                                return SigninPage();
-                              },
-                            ),
-                          )
+                  onPressed: () => {
+                    Navigator.of(context).push<SigninPage>(
+                      MaterialPageRoute<SigninPage>(
+                        builder: (BuildContext context) {
+                          return SigninPage();
                         },
-                    child: const Text(
-                      'こちら',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF3B82F6)),
-                    )),
+                      ),
+                    )
+                  },
+                  child: const Text(
+                    'こちら',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFF3B82F6)),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 24),
