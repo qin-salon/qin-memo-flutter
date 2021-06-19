@@ -2,8 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qin_memo/authentication.dart';
 import 'package:qin_memo/home_page.dart';
+import 'package:qin_memo/reusable_elebvated_button.dart';
 
 class SigninPage extends StatelessWidget {
+  Future _googleSignIn(BuildContext context) async {
+    await signInWithGoogle();
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute<HomePage>(
+      builder: (BuildContext context) {
+        return HomePage();
+      },
+    ), (Route<dynamic> route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,67 +37,27 @@ class SigninPage extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 56,
-                child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset('assets/google.svg'),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      const Text(
-                        'Googleでログイン',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    shape: const StadiumBorder(),
-                  ),
-                  onPressed: () async {
-                    await signInWithGoogle();
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute<HomePage>(
-                      builder: (BuildContext context) {
-                        return HomePage();
-                      },
-                    ), (Route<dynamic> route) => false);
-                  },
+                child: ReusableElevatedButton(
+                  svgPictureAsset: 'assets/google.svg',
+                  buttonTitle: 'Googleでログイン',
+                  buttonFontSize: 16,
+                  primaryColor: Colors.white,
+                  onPrimaryColor: Colors.black,
+                  onPressed: () => _googleSignIn(context),
                 ),
               ),
               const SizedBox(height: 28),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 56,
-                child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/apple.svg',
-                        color: Colors.white,
-                      ),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      const Text(
-                        'Appleでログイン',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Colors.black,
-                    onPrimary: Colors.white,
-                    shape: const StadiumBorder(),
-                  ),
-                  onPressed: () {},
+                child: const ReusableElevatedButton(
+                  svgPictureAsset: 'assets/apple.svg',
+                  svgPictureColor: Colors.white,
+                  buttonTitle: 'Appleでログイン',
+                  buttonFontSize: 16,
+                  primaryColor: Colors.black,
+                  onPrimaryColor: Colors.white,
+                  // onPressed: ,
                 ),
               ),
             ],

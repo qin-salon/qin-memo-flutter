@@ -3,8 +3,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qin_memo/authentication.dart';
 import 'package:qin_memo/home_page.dart';
 import 'package:qin_memo/webview.dart';
+import 'package:qin_memo/reusable_elebvated_button.dart';
 
 class SignupPage extends StatelessWidget {
+  Future _googleSignUp(BuildContext context) async {
+    await signInWithGoogle();
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute<HomePage>(
+      builder: (BuildContext context) {
+        return HomePage();
+      },
+    ), (Route<dynamic> route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,67 +38,27 @@ class SignupPage extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 56,
-                child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset('assets/google.svg'),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      const Text(
-                        'Googleでアカウントを作成',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    shape: const StadiumBorder(),
-                  ),
-                  onPressed: () async {
-                    await signInWithGoogle();
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute<HomePage>(
-                      builder: (BuildContext context) {
-                        return HomePage();
-                      },
-                    ), (Route<dynamic> route) => false);
-                  },
+                child: ReusableElevatedButton(
+                  svgPictureAsset: 'assets/google.svg',
+                  buttonTitle: 'Googleでログイン',
+                  buttonFontSize: 16,
+                  primaryColor: Colors.white,
+                  onPrimaryColor: Colors.black,
+                  onPressed: () => _googleSignUp(context),
                 ),
               ),
               const SizedBox(height: 28),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 56,
-                child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/apple.svg',
-                        color: Colors.white,
-                      ),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      const Text(
-                        'Appleでアカウントを作成',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Colors.black,
-                    onPrimary: Colors.white,
-                    shape: const StadiumBorder(),
-                  ),
-                  onPressed: () {},
+                child: const ReusableElevatedButton(
+                  svgPictureAsset: 'assets/apple.svg',
+                  svgPictureColor: Colors.white,
+                  buttonTitle: 'Appleでログイン',
+                  buttonFontSize: 16,
+                  primaryColor: Colors.black,
+                  onPrimaryColor: Colors.white,
+                  // onPressed:
                 ),
               ),
               const SizedBox(height: 28),
@@ -102,16 +72,16 @@ class SignupPage extends StatelessWidget {
                   ),
                   TextButton(
                       onPressed: () => {
-                            Navigator.of(context).push<WebViewPage>(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return const WebViewPage(
-                                      title: '利用規約',
-                                      url: 'https://memo.qin.sh/');
-                                },
-                              ),
-                            ),
-                          },
+                        Navigator.of(context).push<WebViewPage>(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return const WebViewPage(
+                                  title: '利用規約',
+                                  url: 'https://memo.qin.sh/');
+                            },
+                          ),
+                        ),
+                      },
                       child: const Text(
                         '利用規約',
                         style: TextStyle(
@@ -125,16 +95,16 @@ class SignupPage extends StatelessWidget {
                   ),
                   TextButton(
                       onPressed: () => {
-                            Navigator.of(context).push<WebViewPage>(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return const WebViewPage(
-                                      title: 'プライバシーポリシー',
-                                      url: 'https://memo.qin.sh/');
-                                },
-                              ),
-                            ),
-                          },
+                        Navigator.of(context).push<WebViewPage>(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return const WebViewPage(
+                                  title: 'プライバシーポリシー',
+                                  url: 'https://memo.qin.sh/');
+                            },
+                          ),
+                        ),
+                      },
                       child: const Text(
                         'プライバシーポリシー',
                         style: TextStyle(
@@ -153,3 +123,4 @@ class SignupPage extends StatelessWidget {
         ));
   }
 }
+
