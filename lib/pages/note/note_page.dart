@@ -5,7 +5,7 @@ import 'package:qin_memo/models/api.dart';
 import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/widgets/spinner.dart';
 import 'package:qin_memo/pages/note/note_page_app_bar.dart';
-import 'package:qin_memo/pages/note/note_page_body.dart';
+import 'package:qin_memo/pages/note/note_editor.dart';
 
 class NotePage extends HookWidget {
   const NotePage({required this.note});
@@ -28,7 +28,7 @@ class NotePage extends HookWidget {
                 ),
               ),
           data: (data) {
-            return NotePageBody(noteId: note.id, content: data.content ?? '');
+            return NoteEditor(noteId: note.id, content: data.content ?? '');
           }),
     );
   }

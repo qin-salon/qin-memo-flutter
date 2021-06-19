@@ -4,8 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 
-class NotePageBody extends HookWidget {
-  const NotePageBody({required this.noteId, required this.content});
+class NoteEditor extends HookWidget {
+  const NoteEditor({required this.noteId, required this.content});
 
   final String noteId;
   final String content;
