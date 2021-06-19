@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/widgets/list_options/list_option.dart';
 import 'package:qin_memo/widgets/list_options/version_list_option.dart';
 import 'package:qin_memo/widgets/list_options/web_view_list_option.dart';
@@ -13,7 +12,6 @@ class SettingPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = useProvider(themeProvider);
-    final userId = useProvider(userProvider.select((value) => value.user?.id));
 
     return Scaffold(
       appBar: AppBar(
