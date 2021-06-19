@@ -75,22 +75,20 @@ class ProfileDialog extends HookWidget {
                             children: <Widget>[
                               Text(
                                 user?.name ?? '',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF070417),
-                                  decoration: TextDecoration.none,
-                                ),
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.none,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.color),
                               ),
                               Text(
                                 user?.accountId != null
                                     ? '@${user?.accountId}'
                                     : '',
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xFFC2C6D2),
-                                  decoration: TextDecoration.none,
-                                ),
+                                style: Theme.of(context).textTheme.caption,
                               ),
                             ],
                           ),
@@ -111,10 +109,10 @@ class ProfileDialog extends HookWidget {
                     );
                   },
                   icon: const Icon(Icons.settings_outlined),
-                  text: const Text(
+                  text: Text(
                     '設定',
                     style: TextStyle(
-                      color: Color(0xFF070417),
+                      color: Theme.of(context).textTheme.bodyText1?.color,
                       fontSize: 14,
                       decoration: TextDecoration.none,
                     ),
@@ -161,7 +159,7 @@ class ProfileDialog extends HookWidget {
             ),
             margin: const EdgeInsets.only(top: 100, left: 16, right: 16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).dialogBackgroundColor,
               borderRadius: BorderRadius.circular(20),
             ),
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 24),

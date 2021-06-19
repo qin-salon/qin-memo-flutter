@@ -42,6 +42,14 @@ class NotesNotifier extends StateNotifier<NotesState> {
     state = state.copyWith(notes: notes);
   }
 
+  Future<void> updateState({required Note note}) async {
+    final notes = <Note>[
+      note,
+      ...state.notes.where((Note value) => value.id != note.id)
+    ];
+    state = state.copyWith(notes: notes);
+  }
+
   Future<void> patch({required String noteId}) async {
     final note = await _ref.read(patchNote(noteId).future);
     final notes = <Note>[

@@ -17,12 +17,10 @@ class SettingOption extends StatelessWidget {
           children: <Widget>[
             Text(
               text,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              // style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.subtitle1,
             ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: Color(0xFFC2C6D2),
-            ),
+            const Icon(Icons.arrow_forward_ios),
           ],
         ),
         padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 0),

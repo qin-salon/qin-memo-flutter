@@ -36,7 +36,7 @@ class NotePageBottomSheet extends HookWidget {
                       child: Container(
                         height: 4,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFC2C6D2),
+                          color: Theme.of(context).disabledColor,
                           borderRadius: BorderRadius.circular(23),
                         ),
                       ),
@@ -101,9 +101,9 @@ class NotePageBottomSheet extends HookWidget {
                                                   ? 'メモを非公開にしました'
                                                   : 'メモを公開しました',
                                               style: const TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
                                             ),
                                           ],
                                         ),
@@ -129,9 +129,11 @@ class NotePageBottomSheet extends HookWidget {
                                             color: Color(0xFF3B82F6),
                                           ),
                                         ),
-                                        const Icon(
-                                          Icons.remove_red_eye_outlined,
-                                          color: Color(0xFF3B82F6),
+                                        Icon(
+                                          isPublic
+                                              ? Icons.visibility_off_outlined
+                                              : Icons.visibility_outlined,
+                                          color: const Color(0xFF3B82F6),
                                         ),
                                       ],
                                     ),
@@ -142,7 +144,6 @@ class NotePageBottomSheet extends HookWidget {
                                 const Divider(
                                   height: 0,
                                   thickness: 1,
-                                  color: Color(0xFFEAEBEC),
                                 ),
                                 GestureDetector(
                                   behavior: HitTestBehavior.opaque,
@@ -199,7 +200,7 @@ class NotePageBottomSheet extends HookWidget {
                         ],
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF1F5F9),
+                        color: Theme.of(context).backgroundColor,
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
@@ -231,14 +232,21 @@ class NotePageBottomSheet extends HookWidget {
                                         Text(
                                           'Twitterでシェアする',
                                           style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: isPublic
-                                                ? Colors.black
-                                                : const Color(0xFFC2C6D2),
-                                          ),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: isPublic
+                                                  ? Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1
+                                                      ?.color
+                                                  : Theme.of(context)
+                                                      .disabledColor),
                                         ),
-                                        SvgPicture.asset('assets/twitter.svg'),
+                                        SvgPicture.asset('assets/twitter.svg',
+                                            color: isPublic
+                                                ? null
+                                                : Theme.of(context)
+                                                    .disabledColor),
                                       ],
                                     ),
                                     padding: const EdgeInsets.symmetric(
@@ -248,7 +256,6 @@ class NotePageBottomSheet extends HookWidget {
                                 const Divider(
                                   height: 0,
                                   thickness: 1,
-                                  color: Color(0xFFEAEBEC),
                                 ),
                                 GestureDetector(
                                   onTap: () async {
@@ -279,11 +286,19 @@ class NotePageBottomSheet extends HookWidget {
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                             color: isPublic
-                                                ? Colors.black
-                                                : const Color(0xFFC2C6D2),
+                                                ? Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    ?.color
+                                                : Theme.of(context)
+                                                    .disabledColor,
                                           ),
                                         ),
-                                        SvgPicture.asset('assets/twitter.svg'),
+                                        SvgPicture.asset('assets/twitter.svg',
+                                            color: isPublic
+                                                ? null
+                                                : Theme.of(context)
+                                                    .disabledColor),
                                       ],
                                     ),
                                     padding: const EdgeInsets.symmetric(
@@ -296,7 +311,7 @@ class NotePageBottomSheet extends HookWidget {
                         ],
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF1F5F9),
+                        color: Theme.of(context).backgroundColor,
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
@@ -318,15 +333,23 @@ class NotePageBottomSheet extends HookWidget {
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: isPublic
-                                    ? Colors.black
-                                    : const Color(0xFFC2C6D2),
+                                    ? Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.color
+                                    : Theme.of(context).disabledColor,
                               ),
                             ),
-                            SvgPicture.asset('assets/clipboard-copy.svg'),
+                            SvgPicture.asset(
+                              'assets/clipboard-copy.svg',
+                              color: isPublic
+                                  ? Theme.of(context).textTheme.bodyText1?.color
+                                  : Theme.of(context).disabledColor,
+                            ),
                           ],
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF1F5F9),
+                          color: Theme.of(context).backgroundColor,
                           borderRadius: BorderRadius.circular(16),
                         ),
                         padding: const EdgeInsets.symmetric(
@@ -343,6 +366,8 @@ class NotePageBottomSheet extends HookWidget {
           ),
         ],
       ),
+      decoration:
+          BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
     );
   }
 }

@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qin_memo/providers/theme_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
+import 'package:qin_memo/theme.dart';
 import 'package:qin_memo/walkthrough/walkthrough_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,17 +38,9 @@ class MyApp extends HookWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Qin Memo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: AppBarTheme(
-            elevation: 0,
-            backgroundColor: Colors.white,
-            iconTheme: const IconThemeData(color: Colors.black),
-            textTheme: appBarTextTheme.copyWith(
-                headline6: appBarTextTheme.headline6!
-                    .copyWith(fontSize: 18, fontWeight: FontWeight.bold))),
-      ),
+      theme: buildLightTheme(),
+      darkTheme: buildDarkTheme(),
+      themeMode: useProvider(themeProvider),
       home: loading
           ? const Scaffold(
               body: Center(

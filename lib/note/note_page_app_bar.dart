@@ -27,8 +27,8 @@ class NotePageAppBar extends HookWidget with PreferredSizeWidget {
             GestureDetector(
               onTap: () => Navigator.pop(context),
               child: isCreate
-                  ? const Icon(Icons.close, color: Colors.black)
-                  : const Icon(Icons.arrow_back_ios, color: Colors.black),
+                  ? const Icon(Icons.close)
+                  : const Icon(Icons.arrow_back_ios),
             ),
             Row(
               children: <Widget>[
@@ -63,7 +63,10 @@ class NotePageAppBar extends HookWidget with PreferredSizeWidget {
                       },
                     );
                   },
-                  child: SvgPicture.asset('assets/more.svg'),
+                  child: SvgPicture.asset(
+                    'assets/more.svg',
+                    color: Theme.of(context).textTheme.bodyText1?.color,
+                  ),
                 ),
               ],
             ),

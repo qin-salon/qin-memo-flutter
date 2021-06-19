@@ -5,6 +5,7 @@ import 'package:qin_memo/providers/search_histories_provider.dart';
 import 'package:qin_memo/providers/search_state_provider.dart';
 import 'package:qin_memo/providers/search_text_field_provider.dart';
 import 'package:qin_memo/snack_bar/error_snack_bar.dart';
+import 'package:qin_memo/custom_color_scheme.dart';
 
 class SearchAppBarTitle extends HookWidget {
   @override
@@ -28,7 +29,7 @@ class SearchAppBarTitle extends HookWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: const Icon(Icons.arrow_back_ios, color: Colors.black),
+            child: const Icon(Icons.arrow_back_ios),
           ),
           const SizedBox(width: 8),
           Flexible(
@@ -49,20 +50,20 @@ class SearchAppBarTitle extends HookWidget {
                   showErrorSnackBar(context);
                 }
               },
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(44, 13, 0, 13),
-                prefixIcon: Icon(
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.fromLTRB(44, 13, 0, 13),
+                prefixIcon: const Icon(
                   Icons.search,
                   color: Color(0xFFC2C6D2),
                 ),
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(999)),
                   borderSide: BorderSide.none,
                 ),
                 hintText: '検索',
-                hintStyle: TextStyle(color: Color(0xFFC2C6D2)),
+                hintStyle: const TextStyle(color: Color(0xFFC2C6D2)),
                 filled: true,
-                fillColor: Color(0xFFF1F5F9),
+                fillColor: Theme.of(context).backgroundColor,
               ),
             ),
           ),
@@ -72,7 +73,7 @@ class SearchAppBarTitle extends HookWidget {
               searchStateController.state = '';
               searchTextFieldController.state = '';
             },
-            child: const Icon(Icons.close, color: Colors.black),
+            child: const Icon(Icons.close),
           ),
         ],
       ),

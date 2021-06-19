@@ -31,16 +31,11 @@ class CustomAlertDialog extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Text(
                     subText,
-                    style: const TextStyle(
-                      fontSize: 14,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                   const SizedBox(height: 32),
                   Row(

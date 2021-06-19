@@ -32,9 +32,9 @@ class SettingPage extends HookWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
+            Text(
               'アカウント設定',
-              style: TextStyle(fontSize: 14, color: Color(0xFFC2C6D2)),
+              style: Theme.of(context).textTheme.subtitle2,
             ),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
@@ -49,10 +49,9 @@ class SettingPage extends HookWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       'テーマ',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Row(
                       children: <Widget>[
@@ -64,10 +63,7 @@ class SettingPage extends HookWidget {
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color(0xFFC2C6D2),
-                        ),
+                        const Icon(Icons.arrow_forward_ios),
                       ],
                     ),
                   ],
@@ -77,9 +73,9 @@ class SettingPage extends HookWidget {
               ),
             ),
             const SizedBox(height: 48),
-            const Text(
+            Text(
               'サポート',
-              style: TextStyle(fontSize: 14, color: Color(0xFFC2C6D2)),
+              style: Theme.of(context).textTheme.subtitle2,
             ),
             const PrivacyPolicyOption(),
             const TermsOption(),

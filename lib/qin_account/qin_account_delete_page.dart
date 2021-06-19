@@ -29,31 +29,27 @@ class QinAccountDeletePage extends HookWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text(
+              Text(
                 'データの削除',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headline5,
               ),
               const SizedBox(height: 32),
               Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       'Qinサービスの削除',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFFC2C6D2),
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        const Text(
+                        Text(
                           'Qin Memoを削除',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                         const SizedBox(width: 24),
                         ElevatedButton(
@@ -64,7 +60,7 @@ class QinAccountDeletePage extends HookWidget {
                           ),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            primary: const Color(0xFFF1F5F9),
+                            primary: Theme.of(context).backgroundColor,
                             onPrimary: const Color(0xFFEF4444),
                             shape: const StadiumBorder(),
                           ),
@@ -109,23 +105,18 @@ class QinAccountDeletePage extends HookWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       'Qinアカウントの削除',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFFC2C6D2),
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        const Text(
+                        Text(
                           'アカウントを削除',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                         const SizedBox(width: 24),
                         ElevatedButton(
@@ -136,7 +127,7 @@ class QinAccountDeletePage extends HookWidget {
                           ),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            primary: const Color(0xFFF1F5F9),
+                            primary: Theme.of(context).backgroundColor,
                             onPrimary: const Color(0xFFEF4444),
                             shape: const StadiumBorder(),
                           ),

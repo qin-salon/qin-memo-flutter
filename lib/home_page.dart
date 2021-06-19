@@ -70,6 +70,7 @@ class HomePage extends HookWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Theme.of(context).colorScheme.primary,
         onPressed: () async {
           try {
             final String noteId = await noteNotifier.add();
@@ -83,9 +84,13 @@ class HomePage extends HookWidget {
         },
         label: const Text(
           'メモを書く',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
         ),
-        icon: const Icon(Icons.add),
+        icon: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
@@ -120,22 +125,23 @@ class HomePage extends HookWidget {
               child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
+                  children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(right: 10.5),
-                        child: Icon(
-                          Icons.search,
-                          color: Color(0xFF3B82F6),
-                        )),
+                      padding: const EdgeInsets.only(right: 10.5),
+                      child: Icon(
+                        Icons.search,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                     Text(
                       'メモを検索する',
-                      style: TextStyle(color: Color(0xFFC2C6D2)),
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                   ],
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(999),
-                  color: const Color(0xFFF1F5F9),
+                  color: Theme.of(context).backgroundColor,
                 ),
                 padding:
                     const EdgeInsets.symmetric(vertical: 13, horizontal: 0),

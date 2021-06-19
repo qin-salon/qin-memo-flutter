@@ -110,7 +110,7 @@ final fetchNotes = FutureProviderFamily((ref, String userId) async {
 final fetchNote = FutureProvider.autoDispose.family((ref, String noteId) async {
   final notes =
       ref.read(notesProvider).notes.where((note) => note.id == noteId);
-  if (notes.isNotEmpty) {
+  if (notes.isNotEmpty && notes.first.content != null) {
     return notes.first;
   }
   final Response<Map<String, dynamic>> response =

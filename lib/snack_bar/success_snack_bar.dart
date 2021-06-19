@@ -10,7 +10,7 @@ void showSuccessSnackBar(
       duration: const Duration(milliseconds: 1000),
       width: width,
       behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(999),
       ),

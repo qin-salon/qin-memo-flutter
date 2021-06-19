@@ -8,6 +8,7 @@ import 'package:qin_memo/providers/user_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:qin_memo/snack_bar/error_snack_bar.dart';
 import 'package:qin_memo/snack_bar/success_snack_bar.dart';
+import 'package:qin_memo/custom_color_scheme.dart';
 
 class QinAccountProfilePage extends HookWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -45,20 +46,16 @@ class QinAccountProfilePage extends HookWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text('プロフィール',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('プロフィール', style: Theme.of(context).textTheme.headline5),
               const SizedBox(height: 32),
               Form(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       'アイコン',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFFC2C6D2),
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -92,8 +89,9 @@ class QinAccountProfilePage extends HookWidget {
                           ),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            primary: const Color(0xFFF1F5F9),
-                            onPrimary: Colors.black,
+                            primary: Theme.of(context).backgroundColor,
+                            onPrimary:
+                                Theme.of(context).textTheme.bodyText1?.color,
                             shape: const StadiumBorder(),
                           ),
                           onPressed: () async {
@@ -111,31 +109,35 @@ class QinAccountProfilePage extends HookWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          const Text(
+                          Text(
                             '名前',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFFC2C6D2),
-                                fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.subtitle2,
                           ),
                           const SizedBox(height: 8),
                           TextFormField(
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.color,
+                                fontSize: 14),
                             initialValue: user?.name,
-                            decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
                                 vertical: 13,
                                 horizontal: 16,
                               ),
-                              border: OutlineInputBorder(
+                              border: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(16),
                                 ),
                                 borderSide: BorderSide.none,
                               ),
                               hintText: '名前',
-                              hintStyle: TextStyle(color: Color(0xFFC2C6D2)),
+                              hintStyle:
+                                  const TextStyle(color: Color(0xFFC2C6D2)),
                               filled: true,
-                              fillColor: Color(0xFFF1F5F9),
+                              fillColor: Theme.of(context).backgroundColor,
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -157,31 +159,35 @@ class QinAccountProfilePage extends HookWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          const Text(
+                          Text(
                             'ユーザー名',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFFC2C6D2),
-                                fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.subtitle2,
                           ),
                           const SizedBox(height: 8),
                           TextFormField(
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.color,
+                                fontSize: 14),
                             initialValue: user?.accountId,
-                            decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
                                 vertical: 13,
                                 horizontal: 16,
                               ),
-                              border: OutlineInputBorder(
+                              border: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(16),
                                 ),
                                 borderSide: BorderSide.none,
                               ),
                               hintText: 'ユーザー名',
-                              hintStyle: TextStyle(color: Color(0xFFC2C6D2)),
+                              hintStyle:
+                                  const TextStyle(color: Color(0xFFC2C6D2)),
                               filled: true,
-                              fillColor: Color(0xFFF1F5F9),
+                              fillColor: Theme.of(context).backgroundColor,
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -198,10 +204,13 @@ class QinAccountProfilePage extends HookWidget {
                           const SizedBox(height: 8),
                           Text(
                             'https://memo.qin.page/${accountIdState.value == '' ? user?.accountId : accountIdState.value}',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFFC2C6D2),
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .subTextColor),
                           ),
                         ],
                       ),
@@ -213,13 +222,13 @@ class QinAccountProfilePage extends HookWidget {
                         child: const Text(
                           '保存する',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 18),
                           elevation: 0,
-                          primary: const Color(0xFF3B82F6),
-                          onPrimary: Colors.white,
                           shape: const StadiumBorder(),
                         ),
                         onPressed: () async {
@@ -265,9 +274,9 @@ class QinAccountProfilePage extends HookWidget {
                                   Text(
                                     '保存しました',
                                     style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                 ],
                               ),

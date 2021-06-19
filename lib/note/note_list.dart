@@ -86,7 +86,7 @@ class NoteItem extends StatelessWidget {
                         ? DateFormat('yyyy/MM/dd')
                             .format(DateTime.parse(note.updatedOn!))
                         : '不明',
-                    style: const TextStyle(color: Color(0xFFC2C6D2)),
+                    style: Theme.of(context).textTheme.subtitle2,
                   ),
                   if (note.public)
                     Container(
@@ -111,7 +111,7 @@ class NoteItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: const Color(0xFFF1F5F9),
+              color: Theme.of(context).cardColor,
               boxShadow: const <BoxShadow>[
                 BoxShadow(
                     color: Color.fromRGBO(0, 0, 0, 0.12),
