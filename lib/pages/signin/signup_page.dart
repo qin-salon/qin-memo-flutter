@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qin_memo/models/authentication.dart';
-import 'package:qin_memo/pages/home_page.dart';
+import 'package:qin_memo/pages/home/home_page.dart';
 import 'package:qin_memo/pages/web_view_page.dart';
 
 class SignupPage extends StatelessWidget {
