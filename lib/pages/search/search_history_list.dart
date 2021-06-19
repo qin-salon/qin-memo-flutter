@@ -8,7 +8,7 @@ import 'package:qin_memo/providers/search_state_provider.dart';
 import 'package:qin_memo/providers/search_text_field_provider.dart';
 import 'package:qin_memo/widgets/snack_bar/error_snack_bar.dart';
 
-class SearchHistoryListContainer extends HookWidget {
+class SearchHistoryList extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final loading =
@@ -18,11 +18,11 @@ class SearchHistoryListContainer extends HookWidget {
       return Spinner();
     }
 
-    return SearchHistoryList();
+    return _SearchHistoryList();
   }
 }
 
-class SearchHistoryList extends HookWidget {
+class _SearchHistoryList extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final List<SearchHistory> searchHistories =

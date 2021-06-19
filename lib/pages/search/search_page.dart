@@ -9,7 +9,8 @@ import 'package:qin_memo/pages/search/search_note_list.dart';
 class SearchPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final String searchText = useProvider(searchStateProvider).state;
+    final searchText = useProvider(searchStateProvider).state;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -17,8 +18,7 @@ class SearchPage extends HookWidget {
         title: SearchAppBarTitle(),
       ),
       body: Container(
-        child:
-            searchText != '' ? SearchNoteList() : SearchHistoryListContainer(),
+        child: searchText == '' ? SearchHistoryList() : SearchNoteList(),
         padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
       ),
     );
