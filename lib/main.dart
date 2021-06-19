@@ -5,10 +5,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/providers/theme_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/theme.dart';
-import 'package:qin_memo/walkthrough/walkthrough_page.dart';
+import 'package:qin_memo/pages/walkthrough/walkthrough_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'home_page.dart';
+import 'pages/home_page.dart';
 
 final sharedPreferencesProvider =
     Provider<SharedPreferences>((_) => throw UnimplementedError());
