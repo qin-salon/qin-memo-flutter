@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/user_provider.dart';
-import 'package:qin_memo/custom_color_scheme.dart';
+import 'package:qin_memo/util/custom_color_scheme.dart';
 import 'package:qin_memo/pages/account/account_connection_page.dart';
 import 'package:qin_memo/pages/account/account_delete_page.dart';
 import 'package:qin_memo/pages/account/account_profile_page.dart';

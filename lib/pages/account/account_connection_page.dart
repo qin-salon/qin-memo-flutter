@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:qin_memo/custom_color_scheme.dart';
+import 'package:qin_memo/util/custom_color_scheme.dart';
 import 'package:qin_memo/models/authentication.dart';
 
 class QinAccountConnectionPage extends StatelessWidget {

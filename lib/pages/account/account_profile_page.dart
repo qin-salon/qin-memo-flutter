@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:qin_memo/custom_color_scheme.dart';
+import 'package:qin_memo/util/custom_color_scheme.dart';
 import 'package:qin_memo/widgets/snack_bar/error_snack_bar.dart';
 import 'package:qin_memo/widgets/snack_bar/success_snack_bar.dart';
 
