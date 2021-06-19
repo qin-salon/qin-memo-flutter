@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:qin_memo/pages/account/account_app_bar.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:qin_memo/util/custom_color_scheme.dart';
@@ -30,17 +31,7 @@ class QinAccountProfilePage extends HookWidget {
     final ImagePicker picker = ImagePicker();
 
     return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 0,
-        leading: GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: const Padding(
-            padding: EdgeInsets.only(left: 24),
-            child: Icon(Icons.arrow_back_ios),
-          ),
-        ),
-        title: const Text('Qinアカウント'),
-      ),
+      appBar: AccountAppBar(icon: const Icon(Icons.arrow_back_ios)),
       body: SingleChildScrollView(
         child: Container(
           child: Column(

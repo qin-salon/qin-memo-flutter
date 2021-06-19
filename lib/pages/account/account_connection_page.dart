@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:qin_memo/pages/account/account_app_bar.dart';
 import 'package:qin_memo/util/custom_color_scheme.dart';
 import 'package:qin_memo/models/authentication.dart';
 
@@ -8,17 +9,7 @@ class QinAccountConnectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          titleSpacing: 0,
-          leading: GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: const Padding(
-              padding: EdgeInsets.only(left: 24),
-              child: Icon(Icons.arrow_back_ios),
-            ),
-          ),
-          title: const Text('Qinアカウント'),
-        ),
+        appBar: AccountAppBar(icon: const Icon(Icons.arrow_back_ios)),
         body: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

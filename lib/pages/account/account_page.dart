@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/user_model.dart';
+import 'package:qin_memo/pages/account/account_app_bar.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/util/custom_color_scheme.dart';
 import 'package:qin_memo/pages/account/account_connection_page.dart';
@@ -16,17 +17,7 @@ class QinAccountPage extends HookWidget {
     final User? user = useProvider(userProvider.select((value) => value.user));
 
     return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 0,
-        leading: GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: const Padding(
-            padding: EdgeInsets.only(left: 24),
-            child: Icon(Icons.close),
-          ),
-        ),
-        title: const Text('Qinアカウント'),
-      ),
+      appBar: AccountAppBar(icon: const Icon(Icons.close)),
       body: Column(
         children: <Widget>[
           Container(

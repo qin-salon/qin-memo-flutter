@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/authentication.dart';
+import 'package:qin_memo/pages/account/account_app_bar.dart';
 import 'package:qin_memo/widgets/dialog/custom_alert_dialog.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/widgets/snack_bar/error_snack_bar.dart';
@@ -14,17 +15,7 @@ class QinAccountDeletePage extends HookWidget {
     final notifier = useProvider(userProvider.notifier);
 
     return Scaffold(
-        appBar: AppBar(
-          titleSpacing: 0,
-          leading: GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: const Padding(
-              padding: EdgeInsets.only(left: 24),
-              child: Icon(Icons.arrow_back_ios),
-            ),
-          ),
-          title: const Text('Qinアカウント'),
-        ),
+        appBar: AccountAppBar(icon: const Icon(Icons.arrow_back_ios)),
         body: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
