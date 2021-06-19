@@ -8,7 +8,7 @@ import 'package:qin_memo/pages/account/account_connection_page.dart';
 import 'package:qin_memo/pages/account/account_delete_page.dart';
 import 'package:qin_memo/pages/account/account_profile_page.dart';
 import 'package:qin_memo/pages/account/account_support_page.dart';
-import 'package:qin_memo/pages/settings/setting_option.dart';
+import 'package:qin_memo/widgets/list_options/list_option.dart';
 
 class QinAccountPage extends HookWidget {
   @override
@@ -76,7 +76,7 @@ class QinAccountPage extends HookWidget {
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
                 const SizedBox(height: 8),
-                SettingOption(
+                ListOption(
                   text: 'プロフィール',
                   action: () {
                     Navigator.of(context).push<QinAccountProfilePage>(
@@ -87,7 +87,7 @@ class QinAccountPage extends HookWidget {
                     );
                   },
                 ),
-                SettingOption(
+                ListOption(
                   text: 'アカウントの連携',
                   action: () {
                     Navigator.of(context).push<QinAccountConnectionPage>(
@@ -98,7 +98,7 @@ class QinAccountPage extends HookWidget {
                     );
                   },
                 ),
-                SettingOption(
+                ListOption(
                   text: 'データの削除',
                   action: () {
                     Navigator.of(context).push<QinAccountDeletePage>(
@@ -109,7 +109,7 @@ class QinAccountPage extends HookWidget {
                     );
                   },
                 ),
-                SettingOption(
+                ListOption(
                   text: 'サポート',
                   action: () {
                     Navigator.of(context).push<QinAccountSupportPage>(

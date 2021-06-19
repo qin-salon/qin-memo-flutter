@@ -31,6 +31,7 @@ dependencies:
   flutter_cache_manager:
   firebase_auth:
   google_sign_in:
+  package_info:
   smooth_page_indicator:
     git:
       url: https://github.com/Milad-Akarie/smooth_page_indicator.git

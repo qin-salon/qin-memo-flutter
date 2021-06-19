@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class SettingOption extends StatelessWidget {
-  const SettingOption({required this.text, this.action});
+class ListOption extends StatelessWidget {
+  const ListOption({Key? key, required this.text, this.action})
+      : super(key: key);
 
   final String text;
   final void Function()? action;

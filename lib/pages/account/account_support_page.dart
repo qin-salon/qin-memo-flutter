@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qin_memo/pages/settings/contact_option.dart';
-import 'package:qin_memo/pages/settings/open_source_license_option.dart';
-import 'package:qin_memo/pages/settings/privacy_policy_option.dart';
-import 'package:qin_memo/pages/settings/terms_option.dart';
-import 'package:qin_memo/pages/settings/user_id_option.dart';
-import 'package:qin_memo/pages/settings/version_option.dart';
+import 'package:qin_memo/widgets/list_options/version_list_option.dart';
+import 'package:qin_memo/widgets/list_options/web_view_list_option.dart';
 
 class QinAccountSupportPage extends StatelessWidget {
   @override
@@ -31,12 +27,12 @@ class QinAccountSupportPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
-                PrivacyPolicyOption(),
-                TermsOption(),
-                OpenSourceLicenseOption(),
-                ContactOption(),
-                VersionOption(),
-                UserIdOption(),
+                WebViewListOption(
+                    text: 'プライバシーポリシー', url: 'https://memo.qin.sh/'),
+                WebViewListOption(text: '利用規約', url: 'https://memo.qin.sh/'),
+                WebViewListOption(
+                    text: 'お問い合わせ', url: 'https://forms.gle/pNNUdFnf3YmYpqhJ6'),
+                VersionListOption(),
               ],
             )
           ],
