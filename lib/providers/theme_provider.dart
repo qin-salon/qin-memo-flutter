@@ -51,6 +51,7 @@ ThemeData buildLightTheme() {
     colorScheme: const ColorScheme.light(
       primary: _primaryColor,
       secondary: Color(0xFFFB923C),
+      error: Color(0xFFEF4444),
     ),
   ).copyWith(
     backgroundColor: const Color(0xFFF3F4F6),
@@ -92,6 +93,7 @@ ThemeData buildDarkTheme() {
     colorScheme: const ColorScheme.dark(
       primary: _primaryColor,
       secondary: Color(0xFFFB923C),
+      error: Color(0xFFEF4444),
     ),
   ).copyWith(
     textTheme: textTheme.copyWith(

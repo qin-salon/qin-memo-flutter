@@ -80,6 +80,10 @@ class NotePageBottomSheet extends HookWidget {
                                       showSuccessSnackBar(
                                         context: context,
                                         content: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: <Widget>[
                                             if (isPublic)
                                               const Icon(
@@ -103,7 +107,9 @@ class NotePageBottomSheet extends HookWidget {
                                               style: const TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
+                                                  color: Colors.white,
+                                                  decoration:
+                                                      TextDecoration.none),
                                             ),
                                           ],
                                         ),

@@ -255,6 +255,8 @@ class QinAccountProfilePage extends HookWidget {
                             showSuccessSnackBar(
                               context: context,
                               content: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: const <Widget>[
                                   Icon(
                                     Icons.check_circle_outline,
@@ -265,9 +267,11 @@ class QinAccountProfilePage extends HookWidget {
                                   Text(
                                     '保存しました',
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    ),
                                   ),
                                 ],
                               ),

@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:qin_memo/widgets/snack_bar/top_snack_bar.dart';
 
 void showErrorSnackBar(BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: const Text(
-        'エラーが発生しました',
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
+  final overlayState = Overlay.of(context);
+  final overlayEntry = OverlayEntry(builder: (context) {
+    return TopSnackBar(
+      content: const Center(
+        child: Text(
+          'エラーが発生しました',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            decoration: TextDecoration.none,
+          ),
         ),
       ),
-      duration: const Duration(milliseconds: 1000),
       width: 162,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: const Color(0xFFEF4444),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(999),
-      ),
-    ),
-  );
+      color: Theme.of(context).colorScheme.error,
+    );
+  });
+  overlayState?.insert(overlayEntry);
 }
