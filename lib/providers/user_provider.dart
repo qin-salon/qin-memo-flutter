@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart' as fa;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/api.dart';
 import 'package:qin_memo/models/user_model.dart';
+import 'package:qin_memo/providers/notes_provider.dart';
+import 'package:qin_memo/providers/search_histories_provider.dart';
 
 final userProvider = StateNotifierProvider<UserNotifier, UserState>(
     (ref) => UserNotifier(ref.read));

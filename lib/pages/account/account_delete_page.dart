@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/authentication.dart';
 import 'package:qin_memo/pages/account/account_app_bar.dart';
+import 'package:qin_memo/providers/notes_provider.dart';
+import 'package:qin_memo/providers/search_histories_provider.dart';
 import 'package:qin_memo/widgets/dialog/custom_alert_dialog.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/widgets/snack_bar/error_snack_bar.dart';
@@ -13,6 +15,8 @@ class QinAccountDeletePage extends HookWidget {
   Widget build(BuildContext context) {
     final user = useProvider(userProvider.select((value) => value.user));
     final notifier = useProvider(userProvider.notifier);
+    final notesNotifier = useProvider(notesProvider.notifier);
+    final searchHistoryNotifier = useProvider(searchHistoriesProvider.notifier);
 
     return Scaffold(
         appBar: AccountAppBar(icon: const Icon(Icons.arrow_back_ios)),
@@ -70,6 +74,9 @@ class QinAccountDeletePage extends HookWidget {
                                         throw Exception('userId is null');
                                       }
                                       await notifier.deleteMemo(userId: userId);
+                                      notesNotifier.deleteNotesState();
+                                      searchHistoryNotifier
+                                          .deleteSearchHistoryState();
                                       await signOut();
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute<WalkthroughPage>(

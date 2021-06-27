@@ -64,4 +64,8 @@ class NotesNotifier extends StateNotifier<NotesState> {
     final notes = state.notes.where((Note note) => note.id != noteId).toList();
     state = state.copyWith(notes: notes);
   }
+
+  void deleteNotesState() {
+    state = state.copyWith(notes: []);
+  }
 }

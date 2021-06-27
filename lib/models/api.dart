@@ -81,10 +81,11 @@ final deleteUser = FutureProvider.family((ref, String userId) async {
 });
 
 final deleteUserMemo = FutureProvider.family((ref, String userId) async {
-  final response = await dio.delete<void>('$API_ORIGIN/v1/users/$userId/memo',
+  final response = await dio.delete<void>(
+      '$API_ORIGIN/v1/users/$userId/service',
       data: <dynamic, dynamic>{});
   if (response.statusCode != 200) {
-    throw Exception('Failed to delete memo.');
+    throw Exception('Failed to delete service.');
   }
 });
 
