@@ -43,8 +43,7 @@ class ProfileDialog extends HookWidget {
                           height: 48,
                           child: CircleAvatar(
                             backgroundColor: Colors.white,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(9999),
+                            child: ClipOval(
                               child: Image.network(
                                 user?.avatarUrl ??
                                     'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
@@ -54,6 +53,8 @@ class ProfileDialog extends HookWidget {
                                       fit: BoxFit.cover);
                                 },
                                 fit: BoxFit.cover,
+                                width: 48,
+                                height: 48,
                               ),
                             ),
                           ),
