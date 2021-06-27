@@ -45,4 +45,8 @@ class SearchHistoriesNotifier extends StateNotifier<SearchHistoriesState> {
             .where((history) => history.id != searchHistoryId)
             .toList());
   }
+
+  void deleteSearchHistoryState() {
+    state = state.copyWith(histories: []);
+  }
 }

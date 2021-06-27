@@ -15,8 +15,8 @@ class NotesNotifier extends StateNotifier<NotesState> {
         state = state.copyWith(notes: [], loading: false);
         return;
       }
-      state = state.copyWith(
-          notes: await _ref.read(fetchNotes(userId).future), loading: false);
+      final notes = await _ref.read(fetchNotes(userId).future);
+      state = state.copyWith(notes: notes, loading: false);
     }();
   }
 
@@ -63,5 +63,9 @@ class NotesNotifier extends StateNotifier<NotesState> {
     await _ref.read(deleteNote(noteId).future);
     final notes = state.notes.where((Note note) => note.id != noteId).toList();
     state = state.copyWith(notes: notes);
+  }
+
+  void deleteNotesState() {
+    state = state.copyWith(notes: []);
   }
 }

@@ -1,1 +1,1 @@
-const String API_ORIGIN = 'http://127.0.0.1:8080';
+const String API_ORIGIN = 'https://qin-memo-api-uphdp3hzga-uc.a.run.app/';

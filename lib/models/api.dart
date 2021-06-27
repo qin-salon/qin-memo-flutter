@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qin_memo/authentication.dart';
+import 'package:qin_memo/models/authentication.dart';
 import 'package:qin_memo/models/note_model.dart';
 import 'package:qin_memo/models/search_history_model.dart';
 import 'package:qin_memo/models/user_model.dart';
@@ -81,10 +81,11 @@ final deleteUser = FutureProvider.family((ref, String userId) async {
 });
 
 final deleteUserMemo = FutureProvider.family((ref, String userId) async {
-  final response = await dio.delete<void>('$API_ORIGIN/v1/users/$userId/memo',
+  final response = await dio.delete<void>(
+      '$API_ORIGIN/v1/users/$userId/service',
       data: <dynamic, dynamic>{});
   if (response.statusCode != 200) {
-    throw Exception('Failed to delete memo.');
+    throw Exception('Failed to delete service.');
   }
 });
 
