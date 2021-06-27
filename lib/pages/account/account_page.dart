@@ -11,7 +11,7 @@ import 'package:qin_memo/pages/account/account_profile_page.dart';
 import 'package:qin_memo/pages/account/account_support_page.dart';
 import 'package:qin_memo/widgets/list_options/list_option.dart';
 
-class QinAccountPage extends HookWidget {
+class AccountPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final User? user = useProvider(userProvider.select((value) => value.user));
@@ -70,10 +70,10 @@ class QinAccountPage extends HookWidget {
                 ListOption(
                   text: 'プロフィール',
                   action: () {
-                    Navigator.of(context).push<QinAccountProfilePage>(
-                      MaterialPageRoute<QinAccountProfilePage>(
+                    Navigator.of(context).push<AccountProfilePage>(
+                      MaterialPageRoute<AccountProfilePage>(
                           builder: (BuildContext context) {
-                        return QinAccountProfilePage();
+                        return AccountProfilePage();
                       }),
                     );
                   },
@@ -81,10 +81,10 @@ class QinAccountPage extends HookWidget {
                 ListOption(
                   text: 'アカウントの連携',
                   action: () {
-                    Navigator.of(context).push<QinAccountConnectionPage>(
-                      MaterialPageRoute<QinAccountConnectionPage>(
+                    Navigator.of(context).push<AccountConnectionPage>(
+                      MaterialPageRoute<AccountConnectionPage>(
                           builder: (BuildContext context) {
-                        return QinAccountConnectionPage();
+                        return AccountConnectionPage();
                       }),
                     );
                   },
@@ -92,10 +92,10 @@ class QinAccountPage extends HookWidget {
                 ListOption(
                   text: 'データの削除',
                   action: () {
-                    Navigator.of(context).push<QinAccountDeletePage>(
-                      MaterialPageRoute<QinAccountDeletePage>(
+                    Navigator.of(context).push<AccountDeletePage>(
+                      MaterialPageRoute<AccountDeletePage>(
                           builder: (BuildContext context) {
-                        return QinAccountDeletePage();
+                        return AccountDeletePage();
                       }),
                     );
                   },
@@ -103,10 +103,10 @@ class QinAccountPage extends HookWidget {
                 ListOption(
                   text: 'サポート',
                   action: () {
-                    Navigator.of(context).push<QinAccountSupportPage>(
-                      MaterialPageRoute<QinAccountSupportPage>(
+                    Navigator.of(context).push<AccountSupportPage>(
+                      MaterialPageRoute<AccountSupportPage>(
                           builder: (BuildContext context) {
-                        return QinAccountSupportPage();
+                        return AccountSupportPage();
                       }),
                     );
                   },

@@ -28,9 +28,9 @@ class ProfileDialog extends HookWidget {
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute<QinAccountPage>(
+                      MaterialPageRoute<AccountPage>(
                           builder: (BuildContext context) {
-                        return QinAccountPage();
+                        return AccountPage();
                       }),
                     );
                   },
@@ -63,9 +63,9 @@ class ProfileDialog extends HookWidget {
                           behavior: HitTestBehavior.opaque,
                           onTap: () {
                             Navigator.of(context).pushReplacement(
-                              MaterialPageRoute<QinAccountPage>(
+                              MaterialPageRoute<AccountPage>(
                                   builder: (BuildContext context) {
-                                return QinAccountPage();
+                                return AccountPage();
                               }),
                             );
                           },

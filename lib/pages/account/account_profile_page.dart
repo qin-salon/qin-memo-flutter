@@ -11,7 +11,7 @@ import 'package:qin_memo/util/custom_color_scheme.dart';
 import 'package:qin_memo/widgets/snack_bar/error_snack_bar.dart';
 import 'package:qin_memo/widgets/snack_bar/success_snack_bar.dart';
 
-class QinAccountProfilePage extends HookWidget {
+class AccountProfilePage extends HookWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String createAvatarUrl(String userId) {

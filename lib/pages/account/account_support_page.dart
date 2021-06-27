@@ -3,7 +3,7 @@ import 'package:qin_memo/pages/account/account_app_bar.dart';
 import 'package:qin_memo/widgets/list_options/version_list_option.dart';
 import 'package:qin_memo/widgets/list_options/web_view_list_option.dart';
 
-class QinAccountSupportPage extends StatelessWidget {
+class AccountSupportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -5,7 +5,7 @@ import 'package:qin_memo/pages/account/account_app_bar.dart';
 import 'package:qin_memo/util/custom_color_scheme.dart';
 import 'package:qin_memo/models/authentication.dart';
 
-class QinAccountConnectionPage extends StatelessWidget {
+class AccountConnectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

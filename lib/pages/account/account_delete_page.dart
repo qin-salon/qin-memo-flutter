@@ -10,7 +10,7 @@ import 'package:qin_memo/providers/user_provider.dart';
 import 'package:qin_memo/widgets/snack_bar/error_snack_bar.dart';
 import 'package:qin_memo/pages/walkthrough/walkthrough_page.dart';
 
-class QinAccountDeletePage extends HookWidget {
+class AccountDeletePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final user = useProvider(userProvider.select((value) => value.user));
