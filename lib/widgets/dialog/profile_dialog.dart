@@ -29,9 +29,11 @@ class ProfileDialog extends HookWidget {
                   onTap: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute<AccountPage>(
-                          builder: (BuildContext context) {
-                        return AccountPage();
-                      }),
+                        builder: (BuildContext context) {
+                          return AccountPage();
+                        },
+                        fullscreenDialog: true,
+                      ),
                     );
                   },
                   child: Container(
@@ -65,9 +67,11 @@ class ProfileDialog extends HookWidget {
                           onTap: () {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute<AccountPage>(
-                                  builder: (BuildContext context) {
-                                return AccountPage();
-                              }),
+                                builder: (BuildContext context) {
+                                  return AccountPage();
+                                },
+                                fullscreenDialog: true,
+                              ),
                             );
                           },
                           child: Column(
@@ -104,9 +108,11 @@ class ProfileDialog extends HookWidget {
                   onTap: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute<SettingPage>(
-                          builder: (BuildContext context) {
-                        return SettingPage();
-                      }),
+                        builder: (BuildContext context) {
+                          return SettingPage();
+                        },
+                        fullscreenDialog: true,
+                      ),
                     );
                   },
                   icon: const Icon(Icons.settings_outlined),

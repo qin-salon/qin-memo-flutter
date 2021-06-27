@@ -15,10 +15,13 @@ class CustomFloatingActionButton extends HookWidget {
       onPressed: () async {
         try {
           final String noteId = await noteNotifier.add();
-          Navigator.of(context).push<NewNotePage>(
-              MaterialPageRoute<NewNotePage>(builder: (BuildContext context) {
-            return NewNotePage(noteId: noteId);
-          }));
+          Navigator.of(context)
+              .push<NewNotePage>(MaterialPageRoute<NewNotePage>(
+            builder: (BuildContext context) {
+              return NewNotePage(noteId: noteId);
+            },
+            fullscreenDialog: true,
+          ));
         } catch (error) {
           showErrorSnackBar(context);
         }
