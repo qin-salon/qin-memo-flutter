@@ -36,8 +36,6 @@ class NotePageBottomSheet extends HookWidget {
           (file) async => {await file.delete()},
         );
       } catch (error) {
-        print(error);
-        Navigator.of(context).pop();
         showErrorSnackBar(context);
       }
     }, []);
