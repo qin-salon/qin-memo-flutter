@@ -32,6 +32,7 @@ dependencies:
   firebase_auth:
   google_sign_in:
   package_info:
+  path_provider:
   smooth_page_indicator:
     git:
       url: https://github.com/Milad-Akarie/smooth_page_indicator.git

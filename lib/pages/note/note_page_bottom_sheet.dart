@@ -23,6 +23,25 @@ class NotePageBottomSheet extends HookWidget {
         (value) => value.notes.firstWhere((note) => note.id == noteId)));
     final bool isPublic = note.public == true;
 
+    final handleShareImage = useCallback(() async {
+      try {
+        Navigator.of(context).pop();
+        final cacheManager = DefaultCacheManager();
+        final files =
+            await getShareFiles(noteId: noteId, cacheManager: cacheManager);
+        final filePaths = files.map((file) => file.path).toList();
+        await Share.shareFiles(filePaths);
+        await cacheManager.emptyCache();
+        files.map(
+          (file) async => {await file.delete()},
+        );
+      } catch (error) {
+        print(error);
+        Navigator.of(context).pop();
+        showErrorSnackBar(context);
+      }
+    }, []);
+
     return Container(
       child: Wrap(
         children: <Widget>[
@@ -264,21 +283,7 @@ class NotePageBottomSheet extends HookWidget {
                                   thickness: 1,
                                 ),
                                 GestureDetector(
-                                  onTap: () async {
-                                    try {
-                                      final cacheManager =
-                                          DefaultCacheManager();
-
-                                      final filePaths = await getShareFiles(
-                                          noteId: noteId,
-                                          cacheManager: cacheManager);
-                                      Share.shareFiles(filePaths);
-                                      await cacheManager.emptyCache();
-                                    } catch (error) {
-                                      Navigator.of(context).pop();
-                                      showErrorSnackBar(context);
-                                    }
-                                  },
+                                  onTap: handleShareImage,
                                   child: Container(
                                     child: Row(
                                       mainAxisAlignment:
