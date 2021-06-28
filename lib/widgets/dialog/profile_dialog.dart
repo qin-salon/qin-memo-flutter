@@ -29,9 +29,11 @@ class ProfileDialog extends HookWidget {
                   onTap: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute<AccountPage>(
-                          builder: (BuildContext context) {
-                        return AccountPage();
-                      }),
+                        builder: (BuildContext context) {
+                          return AccountPage();
+                        },
+                        fullscreenDialog: true,
+                      ),
                     );
                   },
                   child: Container(
@@ -43,8 +45,7 @@ class ProfileDialog extends HookWidget {
                           height: 48,
                           child: CircleAvatar(
                             backgroundColor: Colors.white,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(9999),
+                            child: ClipOval(
                               child: Image.network(
                                 user?.avatarUrl ??
                                     'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
@@ -54,6 +55,8 @@ class ProfileDialog extends HookWidget {
                                       fit: BoxFit.cover);
                                 },
                                 fit: BoxFit.cover,
+                                width: 48,
+                                height: 48,
                               ),
                             ),
                           ),
@@ -64,9 +67,11 @@ class ProfileDialog extends HookWidget {
                           onTap: () {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute<AccountPage>(
-                                  builder: (BuildContext context) {
-                                return AccountPage();
-                              }),
+                                builder: (BuildContext context) {
+                                  return AccountPage();
+                                },
+                                fullscreenDialog: true,
+                              ),
                             );
                           },
                           child: Column(
@@ -103,9 +108,11 @@ class ProfileDialog extends HookWidget {
                   onTap: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute<SettingPage>(
-                          builder: (BuildContext context) {
-                        return SettingPage();
-                      }),
+                        builder: (BuildContext context) {
+                          return SettingPage();
+                        },
+                        fullscreenDialog: true,
+                      ),
                     );
                   },
                   icon: const Icon(Icons.settings_outlined),

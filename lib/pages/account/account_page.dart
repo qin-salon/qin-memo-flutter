@@ -31,8 +31,7 @@ class AccountPage extends HookWidget {
                     height: 72,
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(9999),
+                      child: ClipOval(
                         child: Image.network(
                           user?.avatarUrl ??
                               'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
@@ -42,6 +41,8 @@ class AccountPage extends HookWidget {
                                 fit: BoxFit.cover);
                           },
                           fit: BoxFit.cover,
+                          width: 72,
+                          height: 72,
                         ),
                       ),
                     ),

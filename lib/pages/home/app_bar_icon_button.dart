@@ -39,8 +39,7 @@ class AppBarIconButton extends HookWidget {
           height: 36,
           child: CircleAvatar(
             backgroundColor: Colors.white,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(9999),
+            child: ClipOval(
               child: Image.network(
                 avatarUrl ??
                     'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
@@ -50,6 +49,8 @@ class AppBarIconButton extends HookWidget {
                       fit: BoxFit.fitHeight);
                 },
                 fit: BoxFit.cover,
+                width: 36,
+                height: 36,
               ),
             ),
           ),
