@@ -19,9 +19,18 @@ class NotePageBottomSheet extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final NotesNotifier notifier = useProvider(notesProvider.notifier);
-    final note = useProvider(notesProvider.select(
-        (value) => value.notes.firstWhere((note) => note.id == noteId)));
-    final bool isPublic = note.public == true;
+    final note = useProvider(
+      notesProvider.select(
+        (value) {
+          final notes = value.notes.where((note) => note.id == noteId);
+          if (notes.isEmpty) {
+            return null;
+          }
+          return notes.first;
+        },
+      ),
+    );
+    final bool isPublic = note?.public == true;
 
     final handleShareImage = useCallback(() async {
       try {
@@ -375,8 +384,9 @@ class NotePageBottomSheet extends HookWidget {
           ),
         ],
       ),
-      decoration:
-          BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
+      decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16))),
     );
   }
 }

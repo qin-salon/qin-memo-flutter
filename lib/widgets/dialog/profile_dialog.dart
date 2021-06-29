@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/authentication.dart';
+import 'package:qin_memo/widgets/custom_circle_avatar.dart';
 import 'package:qin_memo/widgets/dialog/custom_alert_dialog.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/user_provider.dart';
@@ -40,27 +41,8 @@ class ProfileDialog extends HookWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          width: 48,
-                          height: 48,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            child: ClipOval(
-                              child: Image.network(
-                                user?.avatarUrl ??
-                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                                errorBuilder: (_, __, ___) {
-                                  return Image.network(
-                                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                                      fit: BoxFit.cover);
-                                },
-                                fit: BoxFit.cover,
-                                width: 48,
-                                height: 48,
-                              ),
-                            ),
-                          ),
-                        ),
+                        CustomCircleAvatar(
+                            size: 48, avatarUrl: user?.avatarUrl),
                         const SizedBox(width: 12),
                         GestureDetector(
                           behavior: HitTestBehavior.opaque,

@@ -22,7 +22,7 @@ final dio = Dio()
   }));
 
 // ignore: top_level_function_literal_block
-final fetchUser = FutureProvider((ref) async {
+final fetchUser = FutureProvider.autoDispose((ref) async {
   try {
     final response =
         await dio.get<Map<String, dynamic>>('$API_ORIGIN/v1/users');
