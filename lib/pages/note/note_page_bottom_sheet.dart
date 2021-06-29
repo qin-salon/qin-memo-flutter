@@ -196,7 +196,6 @@ class NotePageBottomSheet extends HookWidget {
                                                   (Route<dynamic> route) =>
                                                       route.isFirst);
                                             } catch (error) {
-                                              print(error);
                                               Navigator.of(context).pop();
                                               showErrorSnackBar(context);
                                             }

@@ -152,7 +152,6 @@ class AccountDeletePage extends HookWidget {
                                         },
                                       ), (Route<dynamic> route) => false);
                                     } catch (e) {
-                                      print('errrrr');
                                       showErrorSnackBar(context);
                                     }
                                   },
