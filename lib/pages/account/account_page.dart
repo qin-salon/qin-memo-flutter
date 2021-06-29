@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/pages/account/account_app_bar.dart';
@@ -9,6 +10,7 @@ import 'package:qin_memo/pages/account/account_connection_page.dart';
 import 'package:qin_memo/pages/account/account_delete_page.dart';
 import 'package:qin_memo/pages/account/account_profile_page.dart';
 import 'package:qin_memo/pages/account/account_support_page.dart';
+import 'package:qin_memo/widgets/custom_circle_avatar.dart';
 import 'package:qin_memo/widgets/list_options/list_option.dart';
 
 class AccountPage extends HookWidget {
@@ -26,27 +28,7 @@ class AccountPage extends HookWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    width: 72,
-                    height: 72,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: ClipOval(
-                        child: Image.network(
-                          user?.avatarUrl ??
-                              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                          errorBuilder: (_, __, ___) {
-                            return Image.network(
-                                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                                fit: BoxFit.cover);
-                          },
-                          fit: BoxFit.cover,
-                          width: 72,
-                          height: 72,
-                        ),
-                      ),
-                    ),
-                  ),
+                  CustomCircleAvatar(size: 72, avatarUrl: user?.avatarUrl),
                   const SizedBox(height: 12),
                   Text('ようこそ、${user?.name ?? ''}さん',
                       style: Theme.of(context).textTheme.subtitle1),

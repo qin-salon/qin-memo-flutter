@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/providers/user_provider.dart';
+import 'package:qin_memo/widgets/custom_circle_avatar.dart';
 import 'package:qin_memo/widgets/dialog/profile_dialog.dart';
 
 class AppBarIconButton extends HookWidget {
@@ -34,27 +35,7 @@ class AppBarIconButton extends HookWidget {
       },
       child: Padding(
         padding: const EdgeInsets.only(right: 24),
-        child: Container(
-          width: 36,
-          height: 36,
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: ClipOval(
-              child: Image.network(
-                avatarUrl ??
-                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                errorBuilder: (_, __, ___) {
-                  return Image.network(
-                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                      fit: BoxFit.fitHeight);
-                },
-                fit: BoxFit.cover,
-                width: 36,
-                height: 36,
-              ),
-            ),
-          ),
-        ),
+        child: CustomCircleAvatar(size: 36, avatarUrl: avatarUrl),
       ),
     );
   }
