@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qin_memo/pages/account/account_app_bar.dart';
@@ -61,14 +62,14 @@ class AccountProfilePage extends HookWidget {
                                   fit: BoxFit.cover,
                                 )
                               : Image.network(
-                                  user?.avatarUrl ??
-                                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                                  user?.avatarUrl ?? '',
                                   errorBuilder: (_, __, ___) {
-                                    return Image.network(
-                                        'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                                        fit: BoxFit.cover);
+                                    return SvgPicture.asset(
+                                        'assets/default-icon.svg');
                                   },
                                   fit: BoxFit.cover,
+                                  width: 100,
+                                  height: 100,
                                 ),
                         ),
                         const SizedBox(width: 24),
