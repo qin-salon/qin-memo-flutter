@@ -12,11 +12,13 @@ class UserNotifier extends StateNotifier<UserState> {
       _auth.userChanges().listen((user) async {
         try {
           if (user == null) {
+            print('user null');
             state = state.copyWith(user: null, loading: false);
             return;
           }
           final userData = await _read(fetchUser.future);
           if (userData == null) {
+            print('userData null');
             state = state.copyWith(
                 user: await _read(addUser.future), loading: false);
             return;
@@ -36,9 +38,12 @@ class UserNotifier extends StateNotifier<UserState> {
             return;
           }
 
+          print('user exists');
           state = state.copyWith(
               user: await _read(fetchUser.future), loading: false);
         } catch (e) {
+          print(e);
+          print('user error');
           state = state.copyWith(user: null, loading: false);
         }
       });
