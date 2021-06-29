@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,6 +10,7 @@ import 'package:qin_memo/models/user_model.dart';
 import 'package:qin_memo/providers/constants.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 import 'package:qin_memo/providers/search_state_provider.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:qin_memo/providers/user_provider.dart';
 
 final dio = Dio()
@@ -233,7 +236,7 @@ final searchNotes = FutureProvider.autoDispose<List<Note>>(
   return list;
 });
 
-Future<List<String>> getShareFiles(
+Future<List<File>> getShareFiles(
     {required String noteId, required DefaultCacheManager cacheManager}) async {
   final response =
       await dio.get<dynamic>('$API_ORIGIN/v1/notes/$noteId/share?page=1');
@@ -246,12 +249,25 @@ Future<List<String>> getShareFiles(
     throw Exception('Response header page is invalid');
   }
 
-  List<String> filePaths = [];
+  List<File> files = [];
+  final idToken = await getIdToken();
+  if (idToken == null) {
+    throw Exception('Failed to Authorization');
+  }
+  final directory = await getApplicationDocumentsDirectory();
   for (int i = 1; i <= int.parse(page); i++) {
-    final file = await cacheManager
-        .getSingleFile('$API_ORIGIN/v1/notes/$noteId/share?page=$i');
-    filePaths = [...filePaths, file.path];
+    final cacheFile = await cacheManager.getSingleFile(
+      '$API_ORIGIN/v1/notes/$noteId/share?page=$i',
+      headers: <String, String>{'Authorization': 'Bearer $idToken'},
+    );
+    final exportFile = File('${directory.path}/${cacheFile.hashCode}.png');
+    if (!exportFile.existsSync()) {
+      await exportFile.create(recursive: true);
+    }
+    final fileBytes = await cacheFile.readAsBytes();
+    final file = await exportFile.writeAsBytes(fileBytes);
+    files = [...files, file];
   }
 
-  return filePaths;
+  return files;
 }

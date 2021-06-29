@@ -250,7 +250,7 @@ class AccountProfilePage extends HookWidget {
                                       : createAvatarUrl(user.id),
                                 ),
                               );
-                              await NetworkImage(user.avatarUrl).evict();
+                              imageCache?.clear();
                             }
                             showSuccessSnackBar(
                               context: context,
