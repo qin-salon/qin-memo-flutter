@@ -5,7 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qin_memo/providers/notes_provider.dart';
 
 class NoteEditor extends HookWidget {
-  const NoteEditor({required this.noteId, required this.content});
+  const NoteEditor({Key? key, required this.noteId, required this.content})
+      : super(key: key);
 
   final String noteId;
   final String content;
@@ -14,22 +15,33 @@ class NoteEditor extends HookWidget {
   Widget build(BuildContext context) {
     final noteState = useState(content);
     final notifier = useProvider(notesProvider.notifier);
-    final note = useProvider(notesProvider.select(
-        (value) => value.notes.firstWhere((note) => note.id == noteId)));
+    final note = useProvider(
+      notesProvider.select(
+        (value) {
+          final notes = value.notes.where((note) => note.id == noteId);
+          if (notes.isEmpty) {
+            return null;
+          }
+          return notes.first;
+        },
+      ),
+    );
 
     useEffect(() {
-      Future.microtask(
-          () => notifier.updateState(note: note.copyWith(content: content)));
+      if (note != null) {
+        Future.microtask(
+            () => notifier.updateState(note: note.copyWith(content: content)));
+      }
     }, []);
 
     return Container(
       child: TextFormField(
-        autofocus: true,
+        autofocus: content == '',
         style: TextStyle(
             color: Theme.of(context).textTheme.bodyText1?.color, fontSize: 16),
         initialValue: content,
         onChanged: (String? value) {
-          if (value != null) {
+          if (note != null && value != null) {
             noteState.value = value;
             EasyDebounce.debounce(
                 'notedebouncer', const Duration(milliseconds: 1000), () async {

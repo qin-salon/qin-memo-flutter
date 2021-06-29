@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AccountAppBar extends StatelessWidget implements PreferredSizeWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -23,7 +24,8 @@ class AccountAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: icon,
         ),
       ),
-      title: const Text('Qinアカウント'),
+      title: SvgPicture.asset('assets/qin-account.svg',
+          color: Theme.of(context).textTheme.bodyText1?.color),
     );
   }
 }
