@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qin_memo/signup/signin_page.dart';
 import 'package:qin_memo/signup/signup_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:qin_memo/reusable_elebvated_button.dart';
+import 'package:qin_memo/reusable_elevated_button.dart';
 
 class WalkthroughImageAndText extends StatelessWidget {
   const WalkthroughImageAndText(
@@ -64,26 +64,26 @@ class WalkthroughPage extends HookWidget {
 
   static const _duration = Duration(milliseconds: 300);
   static const _curve = Curves.ease;
-  final _currentIndex = useState(0);
-
-  void _tappedButton(BuildContext context) {
-    if (_currentIndex.value == 2) {
-      Navigator.of(context).push<SignupPage>(
-        MaterialPageRoute<SignupPage>(
-          builder: (BuildContext context) {
-            return SignupPage();
-          },
-        ),
-      );
-    } else {
-      controller.animateToPage(_currentIndex.value += 1,
-          duration: _duration, curve: _curve);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    // final _currentIndex = useState(0);
+    final _currentIndex = useState(0);
+
+    final _tappedButton = useCallback(() => {
+      if (_currentIndex.value == 2) {
+        Navigator.of(context).push<SignupPage>(
+          MaterialPageRoute<SignupPage>(
+            builder: (BuildContext context) {
+              return SignupPage();
+            },
+          ),
+        )
+      } else {
+        controller.animateToPage(_currentIndex.value += 1,
+            duration: _duration, curve: _curve)
+      }
+    },[]);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFF1F5F9),
@@ -126,7 +126,7 @@ class WalkthroughPage extends HookWidget {
                 buttonFontSize: 16.0,
                 primaryColor: const Color(0xFF3B82F6),
                 onPrimaryColor: Colors.white,
-                onPressed: () => _tappedButton(context),
+                onPressed: _tappedButton,
               ),
             ),
             const SizedBox(height: 24),

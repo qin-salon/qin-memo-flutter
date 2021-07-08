@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qin_memo/authentication.dart';
 import 'package:qin_memo/home_page.dart';
-import 'package:qin_memo/reusable_elebvated_button.dart';
+import 'package:qin_memo/reusable_elevated_button.dart';
 
-class SigninPage extends StatelessWidget {
-  Future _googleSignIn(BuildContext context) async {
-    await signInWithGoogle();
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute<HomePage>(
-      builder: (BuildContext context) {
-        return HomePage();
-      },
-    ), (Route<dynamic> route) => false);
-  }
-
+class SigninPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final _googleSignIn = useCallback(
+        () async => {
+              await signInWithGoogle(),
+              Navigator.of(context).pushAndRemoveUntil<HomePage>(
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return HomePage();
+              }), (Route<dynamic> route) => false)
+            },
+        []);
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFFF1F5F9),
@@ -43,7 +45,7 @@ class SigninPage extends StatelessWidget {
                   buttonFontSize: 16,
                   primaryColor: Colors.white,
                   onPrimaryColor: Colors.black,
-                  onPressed: () => _googleSignIn(context),
+                  onPressed: _googleSignIn,
                 ),
               ),
               const SizedBox(height: 28),

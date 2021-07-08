@@ -311,7 +311,7 @@ packages:
       name: flutter_hooks
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.0"
+    version: "0.17.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -325,7 +325,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0"
+    version: "0.14.0+3"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -403,7 +403,7 @@ packages:
       name: hooks_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0"
+    version: "0.14.0+4"
   http:
     dependency: "direct main"
     description:
@@ -653,7 +653,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0"
+    version: "0.14.0+3"
   rxdart:
     dependency: transitive
     description:
